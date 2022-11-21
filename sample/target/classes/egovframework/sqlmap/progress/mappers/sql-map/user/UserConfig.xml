@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sample.user.config.service.impl.UserConfigMapper">
+	<select id="getParking" resultType="String">
+		SELECT CONFIG FROM TBL_CONFIG
+		WHERE TYPE = 'PARKING'
+	</select>
+</mapper>

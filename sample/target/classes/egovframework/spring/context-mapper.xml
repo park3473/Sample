@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+
+
+<!-- 	MyBatis 설정 파일 -->
+	
+<!-- 	마이바티스를 사용하기위한 기본적인 자바 인터페이스는 sqlSession이며 이것으로 명령어 실행, 매퍼얻기, 트렌젝션을 관리할 수있음  -->
+	<!-- SqlSession setup for MyBatis Database Layer -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:/egovframework/sqlmap/progress/mappers/sql-map/**/*.xml" />
+		<property name="configLocation" value="classpath:/egovframework/sqlmap/progress/mappers/sql-map/Alias.xml" />
+	</bean>
+
+
+
+	<!-- basePackage 속성에 등록된 패키지 하위의 interface를 자동으로 Mapper로 인식 -->
+	<!-- MapperConfigurer setup for MyBatis Database Layer with @Mapper("deptMapper") in DeptMapper Interface -->
+ 	<bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSession"/>
+		<property name="basePackage" value="egovframework.**" />
+		
+	</bean>
+	
+	
+</beans>

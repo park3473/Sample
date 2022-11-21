@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+
+<!-- 트렌젝션 처리에 대한 팦일
+	전자정부프레임워크는 AOP를 사용하여 서비스임플에서 발생하는 이벤트에 대한 트렌젝션 처리  -->
+	
+	
+<!-- 	트렌젝션 처리를 해줄 클래스파일을 bean에 등록하는 부분  -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+<!-- 	tx:advice태그로 어드바이스를 정의함  -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+
+
+	
+
+<!-- aop:config를 사용하여 pointcut과 매핑 
+	pointcut으로 설정된 아래 expression 경로의 모든 impl에서 익셉션 발생시 위에 선언한 txManager로 rollback 하겠다는 선언  -->
+	<aop:config>
+		<aop:pointcut id="requiredTx" expression="execution(* egovframework.oms.admin..service.*Impl.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" />
+	</aop:config>
+
+</beans>
