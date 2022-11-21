@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sample.user.member.service.impl.UserMemberMapper">
+
+	<select id="getUserLoginIdConfirm" resultType="int" parameterType="egovframework.sample.user.member.model.UserMemberVo">
+		SELECT COUNT(*) FROM TBL_MEMBER WHERE MEMBER_ID = #{member_id}
+	</select>
+	
+	<select id="getUserLoginAllConfirm" resultType="int" parameterType="egovframework.sample.user.member.model.UserMemberVo">
+		SELECT COUNT(*) FROM TBL_MEMBER WHERE MEMBER_ID = #{member_id} AND PASSWORD = #{password}
+	</select>
+	
+	<select id="getUserOneAllInfo" resultType="egovframework.sample.user.member.model.UserMemberVo" parameterType="egovframework.sample.user.member.model.UserMemberVo">
+		SELECT * FROM TBL_MEMBER WHERE MEMBER_ID = #{member_id} AND PASSWORD = #{password}
+	</select>
+</mapper>

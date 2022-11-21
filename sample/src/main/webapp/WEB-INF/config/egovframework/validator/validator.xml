@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+
+<!-- 검증할 폼의 필드들과 검증 규칙을 연결하는 정보를 가지는 파일
+ <form name="">의 서버측 검증은  컨트롤러에서 submit된 값이 맵핑되는 클래스  이름 
+ 클라이언트 측 검증은 jsp파일의  <valdator:javascript> 태그의 formName 속성값이 됨 
+
+<field>태그의 property속성은 폼 데이터가 맵핑되는 클래스 이름과 html폼의 엘리먼트 이름과 같음
+	depends 속성은 validator-rules.xml에 정의되어 있는 적용될 규칙을 지정
+	여러개 규칙을 지정하기 위해서 콤마로 분리하면 사용가능 
+	
+<arg0>태그는 필드에 대한 라벨에 해당하는 내용 지정 , 메세지 프로퍼티 키를 지정할 수 있고 직접 입력할 수 도 있음 
+예) <arg0 key="이름"/>로 지정되어 있는 필수 입력필드에 입력하지 않으면 "이름은 필수 입력입니다" 라는 에러 메세지를 띄움 
+  -->
+ 
+<form-validation>
+
+    <formset>
+        <form name="sampleVO">
+        	<field property="name" depends="required">
+        		<arg0 key="title.sample.name" />
+			</field>
+			<field property="description" depends="required">
+                <arg0 key="title.sample.description" />
+            </field>
+        	<field property="regUser" depends="required">
+        		<arg0 key="title.sample.regUser" />
+			</field>
+        </form>
+    </formset>
+
+</form-validation>

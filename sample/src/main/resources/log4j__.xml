@@ -1,0 +1,60 @@
+<Configuration>
+  <Appenders>
+
+    <!-- Console Appender -->
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
+    </Console>
+
+    <!-- Rolling File Appender -->
+    <RollingFile name="RollingFile">
+      <FileName>./logs/oms_securePrint.log</FileName>
+      <FilePattern>./logs/securePrint/%d{yyyy-MM-dd-hh-mm}.log</FilePattern>
+      <PatternLayout>
+        <Pattern>%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n</Pattern>
+      </PatternLayout>
+	  <Policies>
+		<SizeBasedTriggeringPolicy size="100MB" /> <!-- 이 용량이 초과되면 아래 DefaultRolloverStrategy 정책만큼 넘버링 할거다. -->
+	  </Policies>
+      <DefaultRolloverStrategy max="5" />
+    </RollingFile>
+
+  </Appenders>
+  <Loggers>
+     <Logger name="jdbc.resultset" level="DEBUG">
+		<AppenderRef ref="console" />
+		<AppenderRef ref="RollingFile" />
+	 </Logger>
+
+	<Logger name="java.sql" level="debug" additivity="false">
+		<AppenderRef ref="console" />
+		<AppenderRef ref="RollingFile" />
+	</Logger>
+	<Logger name="egovframework" level="DEBUG" additivity="false">
+		<AppenderRef ref="console" />
+		<AppenderRef ref="RollingFile" />
+	</Logger>
+	<Logger name="jdbc.sqltiming" level="DEBUG" additivity="false">
+		<AppenderRef ref="RollingFile" />
+		<AppenderRef ref="Console" />
+	</Logger>
+	<Logger name="org.springframework" level="DEBUG" additivity="false">
+		<AppenderRef ref="RollingFile" />
+		<AppenderRef ref="Console" />
+	</Logger>
+	<Logger name="com.ibatis" level="DEBUG" additivity="false">
+		<AppenderRef ref="RollingFile" />
+		<AppenderRef ref="Console" />
+	</Logger>
+	<Logger name="com.mybatis" level="DEBUG" additivity="false">
+		<AppenderRef ref="RollingFile" />
+		<AppenderRef ref="Console" />
+	</Logger>  
+	
+	
+    <Root level="debug">
+		<AppenderRef ref="RollingFile" />
+		<AppenderRef ref="Console" />
+    </Root>
+  </Loggers>
+</Configuration>

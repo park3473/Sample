@@ -1,0 +1,16 @@
+<c:if test="${fn:length(item.PARAMETER) > 100}"></c:if>
+
+<c:if test="${item.TYPE == '주간'}">selected</c:if>
+
+<c:if test="${item.IDX == model.pageDomain.MOLD_IDX}">selected</c:if>
+
+<td>${fn:substring(item.CREATE_TM,0,19)}</td>
+
+${fn:substring(model.pageDomain.PLANNED_DATE,0,19)}
+
+<c:if test="${model.pageDomain.BELL == null}">0</c:if>
+
+
+location.href
+
+managerRecipientHistoryService.setInsert(new ManagerRecipientHistoryVo("MEMBER_ID", "TYPE", "CONTENT", "DESCRIPTION", "CONTENT_ID"));

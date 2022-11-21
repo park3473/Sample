@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                http://www.springframework.org/schema/task  
+				http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+		>
+
+	<context:component-scan
+		base-package="egovframework" use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+
+	<mvc:resources mapping="/resources/**"
+		location="/resources/" />
+
+	<!-- 모든 path 부분 interceptor 으로 넘어감 -->
+	<mvc:interceptors>
+	<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/resources/**" />
+			<beans:bean id="LogInterceptor"
+				class="egovframework.sample.user.Interceptor.LogInterceptor"></beans:bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<!-- 사용자 (로그인 필요한) path 부분 interceptor 으로 넘어감 -->
+	<mvc:interceptors>
+	<mvc:interceptor>
+			<mvc:mapping path="/view/user/**" />
+			<mvc:exclude-mapping path="/resources/**" />
+			<beans:bean id="UserLoginInterceptor"
+				class="egovframework.sample.user.Interceptor.UserLoginInterceptor"></beans:bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 관리자 path 부분 interceptor 으로 넘어감  -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<mvc:exclude-mapping path="/resources/**" />
+			<beans:bean id="LoginAdminInterceptor"
+				class="egovframework.sample.admin.Interceptor.LoginInterceptor"></beans:bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	<context:component-scan base-package="egovframework.sample.admin.crontab"/>
+    <task:scheduler id="myScheduler" pool-size="10"/>
+    <task:annotation-driven scheduler="myScheduler"/>
+
+
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="webBindingInitializer">
+			<bean
+				class="egovframework.sample.cmmn.web.EgovBindingInitializer" />
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="localeChangeInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+
+	<bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<property name="paramName" value="language" />
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView" value="cmmn/egovError" />
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.dao.DataAccessException">cmmn/dataAccessFailure</prop>
+				<prop
+					key="org.springframework.transaction.TransactionException">cmmn/transactionFailure</prop>
+				<prop
+					key="egovframework.rte.fdl.cmmn.exception.EgovBizException">cmmn/egovError</prop>
+				<prop key="org.springframework.security.AccessDeniedException">cmmn/egovError</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+		p:order="1"
+		p:viewClass="org.springframework.web.servlet.view.JstlView"
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
+
+
+	<mvc:view-controller path="/cmmn/validator.do"
+		view-name="cmmn/validator" />
+</beans>

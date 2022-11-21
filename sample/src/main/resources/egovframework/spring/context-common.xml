@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+<!-- 	공통 설정 파일  -->
+	
+<!-- 	context:component-scan 태그는 어노테이션이 설정된 클래스들을 메모리 상에 올리는 작업
+		context:exclude-filter는 Controller 타입의 어노테이션은 제외하고 나머지 어노테이션을 메모리 상에 올리림  -->
+    <context:component-scan base-package="egovframework">
+       <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+	
+<!-- messageSource 클래스를  실행하는데 basenames의 하위의 매개변수들을 넘긴다는 것 
+	그리고  ReloadableResourceBundleMessageSource는 다둑어 처리시 사용되는 클래스임	-->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:/egovframework/message/message-common</value>
+				<!-- 아래 2개는 실재로 존재하지 않으므로 삭제해도 무방함  -->
+				<value>classpath:/egovframework/rte/fdl/idgnr/messages/idgnr</value>
+				<value>classpath:/egovframework/rte/fdl/property/messages/properties</value>
+			</list>
+		</property>
+		<!-- 매개변수를 60으로 전달  -->
+		<property name="cacheSeconds">
+			<value>60</value>
+		</property>
+	</bean>
+	
+<!-- 	익셉션 발생시 개별 trace를 출력하는 부분이며 이는 익셉션을 발생하지 않고 후처리로직만  실행하려고 만들어짐 
+	trace란 에러 발생시 콘솔에 작성되는 리포트임  -->
+	<bean id="leaveaTrace" class="egovframework.rte.fdl.cmmn.trace.LeaveaTrace">
+		<property name="traceHandlerServices">
+			<list>
+				<ref bean="traceHandlerService" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="traceHandlerService" class="egovframework.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager">
+		<property name="reqExpMatcher">
+			<ref bean="antPathMater" />
+		</property>
+		<property name="patterns">
+			<list>
+				<!-- 모든 패턴의 내용을 출력한다는 의미  -->
+				<value>*</value>
+			</list>
+		</property>
+		<property name="handlers">
+			<list>
+				<ref bean="defaultTraceHandler" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="antPathMater" class="org.springframework.util.AntPathMatcher" />
+	<bean id="defaultTraceHandler" class="egovframework.rte.fdl.cmmn.trace.handler.DefaultTraceHandler" />
+	 
+</beans>
