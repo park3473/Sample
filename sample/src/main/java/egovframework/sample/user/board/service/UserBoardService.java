@@ -8,5 +8,13 @@ public interface UserBoardService {
 
 	public ModelMap getAllList(UserBoardVo userBoardVo);
 
+	public void setBoard(UserBoardVo userBoardVo, String SetType);
+
+	public ModelMap getBoard(UserBoardVo userBoardVo);
+
+	public void delBoard(UserBoardVo userBoardVo);
+
+	public ModelMap getBoard(String board_idx);
+
 	
 }

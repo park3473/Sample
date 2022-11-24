@@ -10,6 +10,18 @@ public interface UserBoardMapper {
 
 	List<?> getAllList(UserBoardVo userBoardVo);
 
+	int getAllListCnt(UserBoardVo userBoardVo);
+
+	UserBoardVo getBoard(UserBoardVo userBoardVo);
+
+	void setBoardInsert(UserBoardVo userBoardVo);
+
+	void setBoardUpdate(UserBoardVo userBoardVo);
+
+	void delBoard(UserBoardVo userBoardVo);
+
+	UserBoardVo getBoardView(String board_idx);
+
 	
 	
 }

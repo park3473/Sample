@@ -1,16 +1,16 @@
 package egovframework.sample.user.board.model;
 
-public class UserBoardVo {
+import com.system.util.SearchVo;
 
-	String idx = "";
-	String level = "";
-	String type = "";
-	String title = "";
-	String content = "";
-	String member_id = "";
-	String name = "";
-	String create_tm = "";
-	String update_tm = "";
+public class UserBoardVo extends SearchVo {
+
+	String idx = "";			//게시판 번호
+	String level = "";			//게시판 레벨
+	String reply = "";			//댓글 여부
+	String type = "";			//타입
+	String name = "";			//게시판 이름
+	String create_tm = "";		//게시판 생성 시간
+	String update_tm = "";		//게시판 수정 시간
 	public String getIdx() {
 		return idx;
 	}
@@ -23,29 +23,17 @@ public class UserBoardVo {
 	public void setLevel(String level) {
 		this.level = level;
 	}
+	public String getReply() {
+		return reply;
+	}
+	public void setReply(String reply) {
+		this.reply = reply;
+	}
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
 		this.type = type;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public String getMember_id() {
-		return member_id;
-	}
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
 	}
 	public String getName() {
 		return name;

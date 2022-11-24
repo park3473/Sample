@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
@@ -27,6 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
@@ -508,6 +510,27 @@ public class SUtil {
 	public static String getBase64(String pwd) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public static void AlertAndPageMove(HttpServletResponse response , String alertText , String MovePage) throws IOException{
+		
+		response.setContentType("text/html; charset=euc-kr");
+		response.setCharacterEncoding("euc-kr");
+		
+		PrintWriter out = response.getWriter();
+		
+		String Script = "";
+		Script += "<script>alert('";
+		Script += alertText;
+		Script += "');";
+		Script += "location.href='";
+		Script += MovePage;
+		Script += "';";
+		
+		out.println(Script);
+		out.flush();
+		
+		
 	}
 
 }
