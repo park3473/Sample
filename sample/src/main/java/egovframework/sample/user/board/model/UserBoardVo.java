@@ -11,6 +11,7 @@ public class UserBoardVo extends SearchVo {
 	String name = "";			//게시판 이름
 	String create_tm = "";		//게시판 생성 시간
 	String update_tm = "";		//게시판 수정 시간
+	
 	public String getIdx() {
 		return idx;
 	}

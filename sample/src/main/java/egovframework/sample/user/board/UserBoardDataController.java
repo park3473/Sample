@@ -1,6 +1,11 @@
 package egovframework.sample.user.board;
 
 import java.io.IOException;
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +20,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.system.util.SUtil;
 
 import egovframework.sample.user.board.model.UserBoardDataVo;
+import egovframework.sample.user.board.model.UserBoardReplyVo;
 import egovframework.sample.user.board.service.UserBoardDataService;
 import egovframework.sample.user.board.service.UserBoardService;
 
@@ -148,5 +155,23 @@ public class UserBoardDataController {
 	}
 	
 	/*board_data_reply 부분*/
+	
+	@RequestMapping(value="/user/board_reply/api/list.do")
+	public @ResponseBody Map<String, Object> apireplyList(@ModelAttribute("UserBoardReplyVo")UserBoardReplyVo UserBoardReplyVo , HttpServletRequest request , HttpServletResponse response) throws Exception{
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		String borad_data_idx = request.getParameter("board_data_idx");
+		
+		UserBoardReplyVo.setBoard_data_idx(borad_data_idx);
+		
+		List<Map<String, Object>> list = (List<Map<String, Object>>) userBoardDataService.getReplyAllList(UserBoardReplyVo);
+		
+		System.out.println(list);
+		
+		returnMap.put("list", list);
+		
+		return returnMap;
+	}
 	
 }

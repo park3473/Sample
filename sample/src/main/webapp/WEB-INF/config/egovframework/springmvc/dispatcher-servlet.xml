@@ -67,6 +67,18 @@
 			<bean
 				class="egovframework.sample.cmmn.web.EgovBindingInitializer" />
 		</property>
+		<property name="messageConverters">
+		<list>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+			<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" >
+				<property name = "supportedMediaTypes">
+					<list>
+						<value>*/*;charset=UTF-8</value>					        
+					</list>
+				</property>	
+			</bean>
+		</list>
+	</property>
 	</bean>
 
 	<bean

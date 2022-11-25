@@ -1,6 +1,7 @@
 package egovframework.sample.user.board.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -13,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import com.system.util.PageVO;
 
 import egovframework.sample.user.board.model.UserBoardDataVo;
+import egovframework.sample.user.board.model.UserBoardReplyVo;
 import egovframework.sample.user.board.service.UserBoardDataService;
 
 
@@ -97,6 +99,15 @@ public class UserBoardDataServiceImpl implements UserBoardDataService {
 		
 		userBoardDataMapper.DelBoardData(userBoardDataVo);
 		
+	}
+
+	@Override
+	public List<Map<String, Object>> getReplyAllList(UserBoardReplyVo userBoardReplyVo) {
+		
+
+		List<Map<String, Object>> list = (List<Map<String, Object>>) userBoardDataMapper.getReplyAllList(userBoardReplyVo);
+				
+		return list;
 	}
 	
 	

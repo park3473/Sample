@@ -58,5 +58,10 @@
 	<delete id="DelBoardData" parameterType="UserBoardDataVo">
 		DELETE FROM TBL_BOARD_DATA WHERE idx = #{idx} AND member_id = #{member_id} AND BOARD_IDX = #{board_idx}
 	</delete>
+	
+	<select id="getReplyAllList" parameterType="UserBoardReplyVo" resultType="java.util.Map">
+		SELECT * FROM TBL_BOARD_REPLY
+		WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx}
+	</select>
 
 </mapper>

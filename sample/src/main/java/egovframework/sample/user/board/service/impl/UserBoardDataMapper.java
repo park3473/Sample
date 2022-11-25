@@ -4,6 +4,7 @@ import java.util.List;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import egovframework.sample.user.board.model.UserBoardDataVo;
+import egovframework.sample.user.board.model.UserBoardReplyVo;
 
 @Mapper("userBoardDataMapper")
 public interface UserBoardDataMapper {
@@ -19,5 +20,7 @@ public interface UserBoardDataMapper {
 	public UserBoardDataVo getBoardData(UserBoardDataVo userBoardDataVo);
 
 	public void DelBoardData(UserBoardDataVo userBoardDataVo);
+
+	public List<?> getReplyAllList(UserBoardReplyVo userBoardReplyVo);
 
 }

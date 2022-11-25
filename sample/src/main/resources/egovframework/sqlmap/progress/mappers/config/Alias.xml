@@ -13,8 +13,11 @@
 		<!-- User Alias Start -->	
 		<typeAlias type="egovframework.sample.user.board.model.UserBoardVo" alias="UserBoardVo"/>
 		<typeAlias type="egovframework.sample.user.board.model.UserBoardDataVo" alias="UserBoardDataVo"/>
+		<typeAlias type="egovframework.sample.user.board.model.UserBoardReplyVo" alias="UserBoardReplyVo"/>
 		<typeAlias type="egovframework.sample.user.member.model.UserMemberVo" alias="UserMemberVo"/>
 		
 		<!-- Admin Alias Start -->
+		<typeAlias type="egovframework.sample.menu.model.MenuVo" alias="MenuVo"/>
+		
 	</typeAliases>
 </configuration>
