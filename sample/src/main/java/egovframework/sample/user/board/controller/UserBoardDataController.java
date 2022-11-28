@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.system.util.SUtil;
 
+import egovframework.sample.file.model.FileVo;
+import egovframework.sample.file.service.FileService;
 import egovframework.sample.user.board.model.UserBoardDataVo;
 import egovframework.sample.user.board.model.UserBoardReplyVo;
 import egovframework.sample.user.board.model.UserBoardVo;
@@ -46,6 +49,9 @@ public class UserBoardDataController {
 	
 	@Autowired
 	UserBoardDataService userBoardDataService;
+	
+	@Autowired
+	FileService fileService;
 	
 	
 	/*board_data 부분*/
@@ -106,12 +112,37 @@ public class UserBoardDataController {
 	}
 	
 	@RequestMapping(value="/user/board_data/insert.do" , method = RequestMethod.POST)
-	public void BoardDataInsertData(@ModelAttribute("UserBoardDataVo")UserBoardDataVo UserBoardDataVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
+	public void BoardDataInsertData(@ModelAttribute("UserBoardDataVo")UserBoardDataVo UserBoardDataVo , MultipartHttpServletRequest request , HttpServletResponse response) throws IOException {
 		
 		System.out.println("Board_data_idx : " + UserBoardDataVo.getIdx());
 		System.out.println("Board_idx : " + UserBoardDataVo.getBoard_idx());
 		
 		String Board_idx = UserBoardDataVo.getBoard_idx();
+		String Board_data_idx = UserBoardDataVo.getIdx();
+		
+		FileVo filevo = new FileVo();
+		
+		//파일 등록
+		String drv = request.getRealPath("");
+		drv = drv.substring(0 , drv.length()) + "./resources/" + ((HttpServletRequest) request).getContextPath() + "/upload/file/";
+		
+		String filename = SUtil.setFileUpload(request, drv);
+		
+		String files[] = filename.split(",");
+		
+		for(int i = 0; i < files.length; i ++) {
+			
+			String saveFile = files[i];
+			
+			filevo.setType("insert");
+			filevo.setFilename(saveFile);
+			filevo.setUrl(request.getRequestURI());
+			filevo.setBoard_idx(Board_idx);
+			filevo.setBoard_data_idx(Board_data_idx);
+			
+			fileService.setFileData(filevo);
+			
+		}
 		
 		userBoardDataService.setBoardData(UserBoardDataVo , "insert");
 		
@@ -124,13 +155,25 @@ public class UserBoardDataController {
 		
 		ModelMap model = new ModelMap();
 		
+		
+		//board_data 가져오기
 		model = userBoardDataService.getBoardData(UserBoardDataVo);
 		
+		
+		//board_config 가져오기
 		UserBoardVo BoardConfig = new UserBoardVo();
 		
 		BoardConfig = userBoardService.getBoardConfig(UserBoardDataVo.getBoard_idx());
 		
 		model.put("BoardConfig", BoardConfig);
+		
+		//board_data_file 가져오기
+		FileVo filevo = new FileVo();
+		filevo.setBoard_data_idx(UserBoardDataVo.getIdx());
+		filevo.setBoard_idx(UserBoardDataVo.getBoard_idx());
+		List<?> filelist = fileService.getFileList(filevo);
+		
+		model.put("filelist", filelist);
 		
 		return new ModelAndView("user/board_data/view" , "model" , model);
 	}
@@ -140,13 +183,23 @@ public class UserBoardDataController {
 	
 		ModelMap model = new ModelMap();
 		
+		//borad_data 가져오기
 		model = userBoardDataService.getBoardData(UserBoardDataVo);
 		
+		//board_config 가져오기
 		UserBoardVo BoardConfig = new UserBoardVo();
 		
 		BoardConfig = userBoardService.getBoardConfig(UserBoardDataVo.getBoard_idx());
 		
 		model.put("BoardConfig", BoardConfig);
+		
+		//board_data_file 가져오기
+		FileVo filevo = new FileVo();
+		filevo.setBoard_data_idx(UserBoardDataVo.getIdx());
+		filevo.setBoard_idx(UserBoardDataVo.getBoard_idx());
+		List<?> filelist = fileService.getFileList(filevo);
+				
+		model.put("filelist", filelist);
 		
 		return new ModelAndView("user/board_data/update" , "model" , model);
 		

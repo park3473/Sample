@@ -18,6 +18,7 @@
 		
 		<!-- Admin Alias Start -->
 		<typeAlias type="egovframework.sample.menu.model.MenuVo" alias="MenuVo"/>
+		<typeAlias type="egovframework.sample.file.model.FileVo" alias="FileVo"/>
 		
 	</typeAliases>
 </configuration>

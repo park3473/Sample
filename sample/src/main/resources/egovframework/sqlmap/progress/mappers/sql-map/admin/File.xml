@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sample.file.service.impl.MenuMapper">
+	
+	<select id="getFileList" parameterType="FileVo" resultType="hashMap">
+		SELECT * FROM TBL_FILE_LOG
+		WHERE BOARD_IDX = #{board_idx}
+		AND BOARD_DATA_IDX = #{board_data_idx}
+	</select>
+	
+	<insert id="setFileData" parameterType="FileVo">
+		INSERT INTO TBL_FILE_LOG(TYPE , FILENAME , URL , CREATE_TM , UPDATE_TM , BOARD_IDX , BOARD_DATA_IDX)
+		VALUSE(#{type} , #{filename} , #{url} , now() , now() ,  #{board_idx} , #{board_data_idx})
+	</insert>
+	
+	<update id="setFileUpdate" parameterType="FileVo">
+		UPDATE TBL_FILE_LOG SET TYPE = #{type} 
+		WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx}
+	</update>
+	
+	
+</mapper>

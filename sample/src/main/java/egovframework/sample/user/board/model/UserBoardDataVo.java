@@ -13,6 +13,7 @@ public class UserBoardDataVo extends SearchVo {
 	String member_id = "";		//작성자 아이디
 	String name = "";			//작성자 이름
 	String image = "";			//게시글 이미지 (썸네일용);
+	String file = "";			//게시글 파일 여부
 	String create_tm = "";		//게시글 생성 시간
 	String update_tm = "";		//게시글 수정 시간
 
@@ -76,6 +77,18 @@ public class UserBoardDataVo extends SearchVo {
 	}
 	public void setUpdate_tm(String update_tm) {
 		this.update_tm = update_tm;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
 	}
 	
 	
