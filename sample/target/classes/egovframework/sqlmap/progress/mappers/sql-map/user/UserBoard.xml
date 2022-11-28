@@ -64,4 +64,9 @@
 		DELETE SET TBL_BOARD WHERE idx = #{idx}
 	</delete>
 	
+	<select id="getBoardConfig" parameterType="String" resultType="UserBoardVo">
+		SELECT * FROM TBL_BOARD
+		WHERE IDX = #{value}
+	</select>
+	
 </mapper>

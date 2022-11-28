@@ -78,7 +78,7 @@
 				</property>	
 			</bean>
 		</list>
-	</property>
+		</property>
 	</bean>
 
 	<bean

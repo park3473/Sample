@@ -1,7 +1,6 @@
-package egovframework.sample.user.board;
+package egovframework.sample.user.board.controller;
 
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +26,7 @@ import com.system.util.SUtil;
 
 import egovframework.sample.user.board.model.UserBoardDataVo;
 import egovframework.sample.user.board.model.UserBoardReplyVo;
+import egovframework.sample.user.board.model.UserBoardVo;
 import egovframework.sample.user.board.service.UserBoardDataService;
 import egovframework.sample.user.board.service.UserBoardService;
 
@@ -75,6 +75,12 @@ public class UserBoardDataController {
 		ModelMap model = new ModelMap();
 		model = userBoardDataService.getAllList(UserBoardDataVo);
 		
+		UserBoardVo BoardConfig = new UserBoardVo();
+		
+		BoardConfig = userBoardService.getBoardConfig(UserBoardDataVo.getBoard_idx());
+		
+		model.put("BoardConfig", BoardConfig);
+		
 		return new ModelAndView("/user/board_data/list" , "model" , model);
 		
 	}
@@ -89,6 +95,12 @@ public class UserBoardDataController {
 		String Board_idx = UserBoardDataVo.getBoard_idx();
 		
 		model = userBoardService.getBoard(Board_idx);
+		
+		UserBoardVo BoardConfig = new UserBoardVo();
+		
+		BoardConfig = userBoardService.getBoardConfig(UserBoardDataVo.getBoard_idx());
+		
+		model.put("BoardConfig", BoardConfig);
 		
 		return new ModelAndView("user/board_data/insert" , "model" , model);
 	}
@@ -114,7 +126,30 @@ public class UserBoardDataController {
 		
 		model = userBoardDataService.getBoardData(UserBoardDataVo);
 		
+		UserBoardVo BoardConfig = new UserBoardVo();
+		
+		BoardConfig = userBoardService.getBoardConfig(UserBoardDataVo.getBoard_idx());
+		
+		model.put("BoardConfig", BoardConfig);
+		
 		return new ModelAndView("user/board_data/view" , "model" , model);
+	}
+	
+	@RequestMapping(value="/user/board_data/update.do" , method = RequestMethod.GET)
+	public ModelAndView BoardDataUpdateView(@ModelAttribute("UserBoardDataVo")UserBoardDataVo UserBoardDataVo , HttpServletRequest request , HttpServletResponse response) {
+	
+		ModelMap model = new ModelMap();
+		
+		model = userBoardDataService.getBoardData(UserBoardDataVo);
+		
+		UserBoardVo BoardConfig = new UserBoardVo();
+		
+		BoardConfig = userBoardService.getBoardConfig(UserBoardDataVo.getBoard_idx());
+		
+		model.put("BoardConfig", BoardConfig);
+		
+		return new ModelAndView("user/board_data/update" , "model" , model);
+		
 	}
 	
 	@RequestMapping(value="/user/board_data/update.do" , method = RequestMethod.POST)
@@ -157,21 +192,14 @@ public class UserBoardDataController {
 	/*board_data_reply 부분*/
 	
 	@RequestMapping(value="/user/board_reply/api/list.do")
-	public @ResponseBody Map<String, Object> apireplyList(@ModelAttribute("UserBoardReplyVo")UserBoardReplyVo UserBoardReplyVo , HttpServletRequest request , HttpServletResponse response) throws Exception{
+	public @ResponseBody ModelMap apireplyList(@ModelAttribute("UserBoardReplyVo")UserBoardReplyVo UserBoardReplyVo , HttpServletRequest request , HttpServletResponse response) throws Exception{
 		
-		Map<String, Object> returnMap = new HashMap<String, Object>();
+		ModelMap returnMap = new ModelMap();
 		
-		String borad_data_idx = request.getParameter("board_data_idx");
-		
-		UserBoardReplyVo.setBoard_data_idx(borad_data_idx);
-		
-		List<Map<String, Object>> list = (List<Map<String, Object>>) userBoardDataService.getReplyAllList(UserBoardReplyVo);
-		
-		System.out.println(list);
-		
-		returnMap.put("list", list);
+		returnMap = userBoardDataService.getReplyAllListT(UserBoardReplyVo);
 		
 		return returnMap;
+		
 	}
 	
 }

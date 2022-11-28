@@ -22,6 +22,8 @@ public interface UserBoardMapper {
 
 	UserBoardVo getBoardView(String board_idx);
 
+	UserBoardVo getBoardConfig(String board_idx);
+
 	
 	
 }

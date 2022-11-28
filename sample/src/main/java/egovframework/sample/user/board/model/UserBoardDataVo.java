@@ -12,8 +12,11 @@ public class UserBoardDataVo extends SearchVo {
 	String content = "";		//게시판 내용
 	String member_id = "";		//작성자 아이디
 	String name = "";			//작성자 이름
+	String image = "";			//게시글 이미지 (썸네일용);
 	String create_tm = "";		//게시글 생성 시간
 	String update_tm = "";		//게시글 수정 시간
+
+	
 	public String getIdx() {
 		return idx;
 	}

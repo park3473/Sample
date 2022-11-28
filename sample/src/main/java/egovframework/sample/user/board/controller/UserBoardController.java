@@ -1,4 +1,4 @@
-package egovframework.sample.user.board;
+package egovframework.sample.user.board.controller;
 
 import java.io.IOException;
 

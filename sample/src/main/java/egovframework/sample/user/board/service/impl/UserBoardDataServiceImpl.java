@@ -87,9 +87,23 @@ public class UserBoardDataServiceImpl implements UserBoardDataService {
 		
 		ModelMap model = new ModelMap();
 		
+		//board_data 가져오기
+		
 		UserBoardDataVo view = userBoardDataMapper.getBoardData(userBoardDataVo);
 		
+		UserBoardReplyVo userBoardReplyVo = new UserBoardReplyVo();
+		
+		//reply List 가져오기
+		
+		userBoardReplyVo.setBoard_data_idx(userBoardDataVo.getIdx());
+		
+		userBoardReplyVo.setBoard_idx(userBoardDataVo.getBoard_idx());
+		
+		List<?> replylist = userBoardDataMapper.getReplyAllList(userBoardReplyVo);
+		
 		model.put("view", view);
+		
+		model.put("replylist", replylist);
 		
 		return model;
 	}
@@ -102,12 +116,15 @@ public class UserBoardDataServiceImpl implements UserBoardDataService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getReplyAllList(UserBoardReplyVo userBoardReplyVo) {
+	public ModelMap getReplyAllListT(UserBoardReplyVo userBoardReplyVo) {
 		
-
-		List<Map<String, Object>> list = (List<Map<String, Object>>) userBoardDataMapper.getReplyAllList(userBoardReplyVo);
-				
-		return list;
+		ModelMap model = new ModelMap();
+		
+		List<?> list = userBoardDataMapper.getReplyAllList(userBoardReplyVo);
+		
+		model.put("list", list);
+		
+		return model;
 	}
 	
 	

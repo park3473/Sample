@@ -16,5 +16,7 @@ public interface UserBoardService {
 
 	public ModelMap getBoard(String board_idx);
 
+	public UserBoardVo getBoardConfig(String board_idx);
+
 	
 }

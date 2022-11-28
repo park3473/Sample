@@ -18,7 +18,7 @@ public interface UserBoardDataService {
 
 	public void DelBoardData(UserBoardDataVo userBoardDataVo);
 
-	public List<Map<String, Object>> getReplyAllList(UserBoardReplyVo userBoardReplyVo);
+	public ModelMap getReplyAllListT(UserBoardReplyVo userBoardReplyVo);
 
 
 

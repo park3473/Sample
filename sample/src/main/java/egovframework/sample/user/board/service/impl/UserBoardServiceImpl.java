@@ -106,5 +106,14 @@ public class UserBoardServiceImpl implements UserBoardService {
 		
 		return model;
 	}
+
+	@Override
+	public UserBoardVo getBoardConfig(String board_idx) {
+		UserBoardVo UserBoardVo = new UserBoardVo();
+		
+		UserBoardVo = userBoardMapper.getBoardConfig(board_idx);
+		
+		return UserBoardVo;
+	}
 	
 }

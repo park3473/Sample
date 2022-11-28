@@ -23,4 +23,5 @@ public interface UserBoardDataMapper {
 
 	public List<?> getReplyAllList(UserBoardReplyVo userBoardReplyVo);
 
+
 }
