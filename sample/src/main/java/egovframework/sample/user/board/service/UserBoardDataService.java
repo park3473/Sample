@@ -18,8 +18,13 @@ public interface UserBoardDataService {
 
 	public void DelBoardData(UserBoardDataVo userBoardDataVo);
 
-	public ModelMap getReplyAllListT(UserBoardReplyVo userBoardReplyVo);
+	public ModelMap getReplyAllList(UserBoardReplyVo userBoardReplyVo);
 
+	public void DelBoardReplyData(UserBoardReplyVo replyVo , String type);
+
+	public void setBoardReplyDataUpdate(UserBoardReplyVo userBoardReplyVo);
+
+	public void setBoardReplyDataInsert(UserBoardReplyVo userBoardReplyVo);
 
 
 }

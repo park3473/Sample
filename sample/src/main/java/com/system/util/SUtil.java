@@ -244,7 +244,7 @@ public class SUtil {
 	public static String getUserId(HttpServletRequest request)
 	{
 		HttpSession session = request.getSession();
-		String user_id = session.getAttribute("ssion_user_id")+"";
+		String user_id = session.getAttribute("UserId")+"";
 		if(user_id.equals("null"))
 		{
 			user_id = "";
@@ -254,13 +254,13 @@ public class SUtil {
 	public static String getUserLevel(HttpServletRequest request)
 	{
 		HttpSession session = request.getSession();
-		String level = (String)session.getAttribute("ssion_level");
+		String level = (String)session.getAttribute("UserLevel");
 		return level;
 	}
 	public  String getLoginCheck(HttpServletRequest request)
 	{
 		HttpSession session = request.getSession();
-		String login = (String)session.getAttribute("ssion_login");
+		String login = (String)session.getAttribute("Login");
 		return login;
 	}
 	public static String StringReplace(String str){       

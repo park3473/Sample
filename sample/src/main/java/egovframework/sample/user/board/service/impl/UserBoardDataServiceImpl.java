@@ -116,7 +116,7 @@ public class UserBoardDataServiceImpl implements UserBoardDataService {
 	}
 
 	@Override
-	public ModelMap getReplyAllListT(UserBoardReplyVo userBoardReplyVo) {
+	public ModelMap getReplyAllList(UserBoardReplyVo userBoardReplyVo) {
 		
 		ModelMap model = new ModelMap();
 		
@@ -126,6 +126,33 @@ public class UserBoardDataServiceImpl implements UserBoardDataService {
 		
 		return model;
 	}
+	
+	@Override
+	public void setBoardReplyDataInsert(UserBoardReplyVo userBoardReplyVo) {
+		
+		userBoardDataMapper.setBoardReplyInsert(userBoardReplyVo);
+		
+		
+	}
+
+	@Override
+	public void setBoardReplyDataUpdate(UserBoardReplyVo userBoardReplyVo) {
+		
+		userBoardDataMapper.setBoardReplyUpdate(userBoardReplyVo);
+		
+	}
+	
+	@Override
+	public void DelBoardReplyData(UserBoardReplyVo replyVo , String type) {
+		
+		if(type.equals("list")) {
+			userBoardDataMapper.DelBoardReplyDataList(replyVo);
+		}else if(type.equals("one")) {
+			userBoardDataMapper.DelBoardReplyDataOne(replyVo);
+		}
+		
+	}
+
 	
 	
 	

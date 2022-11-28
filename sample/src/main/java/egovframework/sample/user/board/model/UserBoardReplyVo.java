@@ -5,8 +5,6 @@ public class UserBoardReplyVo {
 	String idx = "";			//댓글 번호
 	String board_idx=  "";		//게시판 번호
 	String board_data_idx = "";	//게시글 번호
-	String reply_idx = "";		//댓글 번호 (대댓글)
-	String depth = "";			//단계
 	String content = "";		//내용
 	String member_id = "";		//작성자 아이디
 	String name = "";			//작성자 이름
@@ -31,18 +29,6 @@ public class UserBoardReplyVo {
 	}
 	public void setBoard_data_idx(String board_data_idx) {
 		this.board_data_idx = board_data_idx;
-	}
-	public String getReply_idx() {
-		return reply_idx;
-	}
-	public void setReply_idx(String reply_idx) {
-		this.reply_idx = reply_idx;
-	}
-	public String getDepth() {
-		return depth;
-	}
-	public void setDepth(String depth) {
-		this.depth = depth;
 	}
 	public String getContent() {
 		return content;

@@ -23,5 +23,13 @@ public interface UserBoardDataMapper {
 
 	public List<?> getReplyAllList(UserBoardReplyVo userBoardReplyVo);
 
+	public void DelBoardReplyDataList(UserBoardReplyVo replyVo);
+
+	public void DelBoardReplyDataOne(UserBoardReplyVo replyVo);
+
+	public void setBoardReplyUpdate(UserBoardReplyVo userBoardReplyVo);
+
+	public void setBoardReplyInsert(UserBoardReplyVo userBoardReplyVo);
+
 
 }

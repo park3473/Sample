@@ -81,6 +81,8 @@ public class UserBoardDataController {
 		ModelMap model = new ModelMap();
 		model = userBoardDataService.getAllList(UserBoardDataVo);
 		
+		
+		//게시판 설정 내용
 		UserBoardVo BoardConfig = new UserBoardVo();
 		
 		BoardConfig = userBoardService.getBoardConfig(UserBoardDataVo.getBoard_idx());
@@ -102,6 +104,8 @@ public class UserBoardDataController {
 		
 		model = userBoardService.getBoard(Board_idx);
 		
+		
+		//게시판 설정 내용
 		UserBoardVo BoardConfig = new UserBoardVo();
 		
 		BoardConfig = userBoardService.getBoardConfig(UserBoardDataVo.getBoard_idx());
@@ -208,9 +212,7 @@ public class UserBoardDataController {
 	@RequestMapping(value="/user/board_data/update.do" , method = RequestMethod.POST)
 	public void BoardDataUpdate(@ModelAttribute("UserBoardDataVo")UserBoardDataVo UserBoardDataVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
 		
-		HttpSession session = request.getSession();;
-		
-		String member_id = (String) session.getAttribute("UserId");
+		String member_id = SUtil.getUserId(request);
 		
 		System.out.println("Id : " + member_id);
 		
@@ -229,9 +231,25 @@ public class UserBoardDataController {
 	
 	
 	@RequestMapping(value="/user/board_data/delete.do" , method = RequestMethod.POST)
-	public void BoardDataDelet(@ModelAttribute("UserBoardDataVo")UserBoardDataVo UserBoardDataVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
+	public void BoardDataDelete(@ModelAttribute("UserBoardDataVo")UserBoardDataVo UserBoardDataVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
 		
+		String member_id = SUtil.getUserId(request);
+		
+		UserBoardDataVo.setMember_id(member_id);
+		
+		//게시글 삭제
 		userBoardDataService.DelBoardData(UserBoardDataVo);
+		
+		UserBoardReplyVo replyVo = new UserBoardReplyVo();
+		
+		replyVo.setMember_id(member_id);
+		
+		replyVo.setBoard_data_idx(UserBoardDataVo.getIdx());
+		replyVo.setBoard_idx(UserBoardDataVo.getBoard_idx());
+		
+		//게시글 연관된 댓글 삭제
+		userBoardDataService.DelBoardReplyData(replyVo , "list");
+		
 		
 		System.out.println("Board_data_idx : " + UserBoardDataVo.getIdx());
 		System.out.println("Board_idx : " + UserBoardDataVo.getBoard_idx());
@@ -244,15 +262,50 @@ public class UserBoardDataController {
 	
 	/*board_data_reply 부분*/
 	
-	@RequestMapping(value="/user/board_reply/api/list.do")
+	@RequestMapping(value="/user/api/board_reply/list.do")
 	public @ResponseBody ModelMap apireplyList(@ModelAttribute("UserBoardReplyVo")UserBoardReplyVo UserBoardReplyVo , HttpServletRequest request , HttpServletResponse response) throws Exception{
 		
 		ModelMap returnMap = new ModelMap();
 		
-		returnMap = userBoardDataService.getReplyAllListT(UserBoardReplyVo);
+		returnMap = userBoardDataService.getReplyAllList(UserBoardReplyVo);
 		
 		return returnMap;
 		
 	}
+	
+	@RequestMapping(value="/user/board_reply/insert.do" , method = RequestMethod.POST)
+	public void BoardReplyInsert(@ModelAttribute("UserBoardReplyVo")UserBoardReplyVo UserBoardReplyVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		String member_id = SUtil.getUserId(request);
+		UserBoardReplyVo.setMember_id(member_id);
+		
+		//댓글 수정
+		userBoardDataService.setBoardReplyDataInsert(UserBoardReplyVo);
+		
+	}
+	
+	@RequestMapping(value ="/user/board_reply/update.do" , method = RequestMethod.POST)
+	public void BoardReplyUpdate(@ModelAttribute("UserBoardReplyVo")UserBoardReplyVo UserBoardReplyVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		String member_id = SUtil.getUserId(request);
+		UserBoardReplyVo.setMember_id(member_id);
+		
+		//댓글 수정
+		userBoardDataService.setBoardReplyDataUpdate(UserBoardReplyVo);
+		
+	}
+	
+	@RequestMapping(value ="/user/board_reply/delete.do" , method = RequestMethod.POST)
+	public void BoardReplyDelete(@ModelAttribute("UserBoardReplyVo")UserBoardReplyVo UserBoardReplyVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		String member_id = SUtil.getUserId(request);
+		
+		UserBoardReplyVo.setMember_id(member_id);
+		
+		//댓글 삭제 (1개)
+		userBoardDataService.DelBoardReplyData(UserBoardReplyVo, "one");
+		
+	}
+	
 	
 }

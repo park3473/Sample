@@ -63,5 +63,26 @@
 		SELECT * FROM TBL_BOARD_REPLY
 		WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx}
 	</select>
+	
+	<insert id="setBoardReplyInsert" parameterType="UserBoardReplyVo">
+		INSERT INTO TBL_BOARD_REPLY(BOARD_IDX , BOARD_DATA_IDX , MEMBER_ID , NAME , CONTENT , CREATE_TM , UPDATE_TM)
+		VALUES( #{board_idx} , #{board_data_idx} , #{member_id} , #{name} , #{content} , now() , now())
+	</insert>
+	
+	<update id="setBoardReplyUpdate" parameterType="UserBoardReplyVo">
+		UPDATE TBL_BOARD_REPLY SET (
+			CONTENT = #{content},
+			UPDATE_TM = now(),
+		)WHERE MEMBER_ID = #{member_id} AND IDX = #{idx}
+	</update>
+	
+	<delete id="DelBoardReplyDataList" parameterType="UserBoardReplyVo">
+		DELETE FROM TBL_BOARD_REPLY WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx} 
+	</delete>
+	
+	<delete id="DelBoardReplyDataOne" parameterType="UserBoardReplyVo">
+		DELETE FROM TBL_BOARD_REPLY WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx} AND IDX = #{idx} AND MEMBER_ID = #{member_id}
+	</delete>
+	
 
 </mapper>

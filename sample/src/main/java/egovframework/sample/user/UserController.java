@@ -124,6 +124,7 @@ public class UserController {
 				e.printStackTrace();
 			}
 			
+			//inct12388! 변형된것
 		}else if(Confirm == 1 || pwd.equals("1d70760ab83c907f20d432833721a8b76cd1a5f3ab4183ac50fd1f9db93687e2")) {
 			
 			UserMemberVo userMemberVo2 = userMemberService.getMemberOneAllInfo(UserMemberVo);
