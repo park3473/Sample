@@ -1,12 +1,16 @@
-package egovframework.sample.admin.board.service;
+package egovframework.sample.admin.board.service.impl;
+
+import java.util.List;
 
 import org.springframework.ui.ModelMap;
 
 import egovframework.sample.admin.board.model.AdminBoardVo;
 
-public interface AdminBoardService {
+public interface AdminBoardMapper {
 
-	public ModelMap getAllList(AdminBoardVo adminBoardVo);
+	public List<?> getAllList(AdminBoardVo adminBoardVo);
+
+	public int getAllListCnt(AdminBoardVo adminBoardVo);
 
 	public ModelMap getBoardView(AdminBoardVo adminBoardVo);
 
