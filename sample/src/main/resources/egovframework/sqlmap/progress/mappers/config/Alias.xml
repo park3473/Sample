@@ -19,6 +19,10 @@
 		<!-- Admin Alias Start -->
 		<typeAlias type="egovframework.sample.menu.model.MenuVo" alias="MenuVo"/>
 		<typeAlias type="egovframework.sample.file.model.FileVo" alias="FileVo"/>
+		<typeAlias type="egovframework.sample.admin.board.model.AdminBoardVo" alias="AdminBoardVo"/>
+		<typeAlias type="egovframework.sample.admin.board.model.AdminBoardDataVo" alias="AdminBoardDataVo"/>
+		<typeAlias type="egovframework.sample.admin.board.model.AdminBoardReplyVo" alias="AdminBoardReplyVo"/>
+		<typeAlias type="egovframework.sample.admin.member.model.AdminMemberVo" alias="AdminMemberVo"/>
 		
 	</typeAliases>
 </configuration>

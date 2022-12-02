@@ -16,4 +16,6 @@ public interface AdminBoardService {
 
 	public void setBoardDelete(AdminBoardVo adminBoardVo);
 
+	public AdminBoardVo getBoardConfig(AdminBoardVo adminBoardVo);
+
 }

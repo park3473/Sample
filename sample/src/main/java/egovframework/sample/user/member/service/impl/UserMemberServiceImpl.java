@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 
 import egovframework.sample.user.member.model.UserMemberVo;
 import egovframework.sample.user.member.service.UserMemberService;
@@ -60,6 +61,59 @@ public class UserMemberServiceImpl implements UserMemberService {
 		UserMemberVo userMemberVo2 = userMemberMapper.getUserOneAllInfo(userMemberVo);
 		
 		return userMemberVo2;
+	}
+
+
+	@Override
+	public ModelMap getMemberData(UserMemberVo userMemberVo) {
+		
+		ModelMap model = new ModelMap();
+		
+		UserMemberVo userVo = new UserMemberVo();
+		
+		userVo = userMemberMapper.getUserMemberData(userMemberVo);
+		
+		model.put("view", userVo);
+		
+		return model;
+	}
+
+
+	@Override
+	public void setMemberData(UserMemberVo userMemberVo, String type) {
+		
+		switch (type) {
+		case "insert":
+			userMemberMapper.setMemberDataInsert(userMemberVo);
+			break;
+		case "update":
+			userMemberMapper.setMemberDataUpdate(userMemberVo);
+			break;
+		case "delete":
+			userMemberMapper.setMemberDataDelete(userMemberVo);
+			break;
+		default:
+			System.out.println("type 오류");
+			break;
+		}
+		
+	}
+
+
+	@Override
+	public String getIdCheck(UserMemberVo userMemberVo) {
+		
+		String Result = "";
+		
+		int IdCheck = userMemberMapper.getIdCheck(userMemberVo);
+		
+		if(IdCheck == 0) {
+			Result = "true";
+		}else {
+			Result = "false";
+		}
+		
+		return Result;
 	}
 
 

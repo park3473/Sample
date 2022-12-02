@@ -81,14 +81,6 @@ public class UserBoardDataController {
 		ModelMap model = new ModelMap();
 		model = userBoardDataService.getAllList(UserBoardDataVo);
 		
-		
-		//게시판 설정 내용
-		UserBoardVo BoardConfig = new UserBoardVo();
-		
-		BoardConfig = userBoardService.getBoardConfig(UserBoardDataVo.getBoard_idx());
-		
-		model.put("BoardConfig", BoardConfig);
-		
 		return new ModelAndView("/user/board_data/list" , "model" , model);
 		
 	}
@@ -97,12 +89,6 @@ public class UserBoardDataController {
 	public ModelAndView BoardDataInsertView(@ModelAttribute("UserBoardDataVo")UserBoardDataVo UserBoardDataVo , HttpServletRequest request , HttpServletResponse response) {
 		
 		ModelMap model = new ModelMap();
-		
-		System.out.println("BOARD_IDX : " + UserBoardDataVo.getBoard_idx());
-		
-		String Board_idx = UserBoardDataVo.getBoard_idx();
-		
-		model = userBoardService.getBoard(Board_idx);
 		
 		
 		//게시판 설정 내용
@@ -150,7 +136,7 @@ public class UserBoardDataController {
 		
 		userBoardDataService.setBoardData(UserBoardDataVo , "insert");
 		
-		SUtil.AlertAndPageMove(response, "게시글 등록이 완료되었습니다.", "/user/board_data/list.do?=" + Board_idx);
+		SUtil.AlertAndPageMove(response, "게시글 등록이 완료되었습니다.", "/user/board_data/list.do?Board_idx=" + Board_idx);
 		
 	}
 	
@@ -210,7 +196,7 @@ public class UserBoardDataController {
 	}
 	
 	@RequestMapping(value="/user/board_data/update.do" , method = RequestMethod.POST)
-	public void BoardDataUpdate(@ModelAttribute("UserBoardDataVo")UserBoardDataVo UserBoardDataVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
+	public void BoardDataUpdate(@ModelAttribute("UserBoardDataVo")UserBoardDataVo UserBoardDataVo , MultipartHttpServletRequest request , HttpServletResponse response) throws IOException {
 		
 		String member_id = SUtil.getUserId(request);
 		
@@ -224,8 +210,33 @@ public class UserBoardDataController {
 		System.out.println("Board_idx : " + UserBoardDataVo.getBoard_idx());
 		
 		String Board_idx = UserBoardDataVo.getBoard_idx();
+		String Board_data_idx = UserBoardDataVo.getIdx();
 		
-		SUtil.AlertAndPageMove(response, "게시글 수정이 완료되었습니다.", "/user/board_data/list.do?=" + Board_idx);
+		FileVo filevo = new FileVo();
+		
+		//파일 등록
+		String drv = request.getRealPath("");
+		drv = drv.substring(0 , drv.length()) + "./resources/" + ((HttpServletRequest) request).getContextPath() + "/upload/file/";
+		
+		String filename = SUtil.setFileUpload(request, drv);
+		
+		String files[] = filename.split(",");
+		
+		for(int i = 0; i < files.length; i ++) {
+			
+			String saveFile = files[i];
+			
+			filevo.setType("insert");
+			filevo.setFilename(saveFile);
+			filevo.setUrl(request.getRequestURI());
+			filevo.setBoard_idx(Board_idx);
+			filevo.setBoard_data_idx(Board_data_idx);
+			
+			fileService.setFileData(filevo);
+			
+		}
+		
+		SUtil.AlertAndPageMove(response, "게시글 수정이 완료되었습니다.", "/user/board_data/list.do?Board_idx=" + Board_idx);
 		
 	}
 	
@@ -256,7 +267,7 @@ public class UserBoardDataController {
 		
 		String Board_idx = UserBoardDataVo.getBoard_idx();
 		
-		SUtil.AlertAndPageMove(response, "게시글 삭제가 완료되었습니다.", "/user/board_data/list.do?=" + Board_idx);
+		SUtil.AlertAndPageMove(response, "게시글 삭제가 완료되었습니다.", "/user/board_data/list.do?Board_idx=" + Board_idx);
 		
 	}
 	
@@ -279,7 +290,7 @@ public class UserBoardDataController {
 		String member_id = SUtil.getUserId(request);
 		UserBoardReplyVo.setMember_id(member_id);
 		
-		//댓글 수정
+		//댓글 등록
 		userBoardDataService.setBoardReplyDataInsert(UserBoardReplyVo);
 		
 	}

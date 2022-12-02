@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 
 import com.system.util.PageVO;
@@ -12,10 +13,11 @@ import com.system.util.PageVO;
 import egovframework.sample.admin.board.model.AdminBoardVo;
 import egovframework.sample.admin.board.service.AdminBoardService;
 
-@Service("AdminBoardService")
+@Service("adminBoardService")
+@Transactional
 public class AdminBoardServiceImpl implements AdminBoardService {
 
-	@Resource(name="AdminBoardMapper")
+	@Resource(name="adminBoardMapper")
 	AdminBoardMapper adminBoardMapper;
 	
 	@Override
@@ -58,7 +60,10 @@ public class AdminBoardServiceImpl implements AdminBoardService {
 		
 		ModelMap model = new ModelMap();
 		
-		model = adminBoardMapper.getBoardView(adminBoardVo);
+		AdminBoardVo adminVo = new AdminBoardVo();
+		adminVo = adminBoardMapper.getBoardView(adminBoardVo);
+		
+		model.put("view", adminVo);
 		
 		return model;
 	}
@@ -82,6 +87,16 @@ public class AdminBoardServiceImpl implements AdminBoardService {
 		
 		adminBoardMapper.setBoardDelete(adminBoardVo);
 		
+	}
+
+	@Override
+	public AdminBoardVo getBoardConfig(AdminBoardVo adminBoardVo) {
+		
+		AdminBoardVo adminBoardConfig = new AdminBoardVo();
+		
+		adminBoardConfig = adminBoardMapper.getBoardConfig(adminBoardVo);
+		
+		return adminBoardConfig;
 	}
 
 }

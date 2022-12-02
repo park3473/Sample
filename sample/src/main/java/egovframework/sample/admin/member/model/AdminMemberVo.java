@@ -1,8 +1,8 @@
-package egovframework.sample.user.member.model;
+package egovframework.sample.admin.member.model;
 
 import com.system.util.SearchVo;
 
-public class UserMemberVo extends SearchVo {
+public class AdminMemberVo extends SearchVo{
 
 	String idx = "";
 	String level = "";
@@ -15,8 +15,6 @@ public class UserMemberVo extends SearchVo {
 	String address_detail = "";
 	String create_tm = "";
 	String update_tm = "";
-	
-	
 	public String getIdx() {
 		return idx;
 	}

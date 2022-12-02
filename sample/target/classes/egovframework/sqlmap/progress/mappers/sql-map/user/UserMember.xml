@@ -4,15 +4,50 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.sample.user.member.service.impl.UserMemberMapper">
 
-	<select id="getUserLoginIdConfirm" resultType="int" parameterType="egovframework.sample.user.member.model.UserMemberVo">
+	<select id="getUserLoginIdConfirm" resultType="int" parameterType="UserMemberVo">
 		SELECT COUNT(*) FROM TBL_MEMBER WHERE MEMBER_ID = #{member_id}
 	</select>
 	
-	<select id="getUserLoginAllConfirm" resultType="int" parameterType="egovframework.sample.user.member.model.UserMemberVo">
+	<select id="getUserLoginAllConfirm" resultType="int" parameterType="UserMemberVo">
 		SELECT COUNT(*) FROM TBL_MEMBER WHERE MEMBER_ID = #{member_id} AND PASSWORD = #{password}
 	</select>
 	
-	<select id="getUserOneAllInfo" resultType="egovframework.sample.user.member.model.UserMemberVo" parameterType="egovframework.sample.user.member.model.UserMemberVo">
+	<select id="getUserOneAllInfo" resultType="UserMemberVo" parameterType="UserMemberVo">
 		SELECT * FROM TBL_MEMBER WHERE MEMBER_ID = #{member_id} AND PASSWORD = #{password}
 	</select>
+	
+	<select id="getUserMemberData" parameterType="UserMemberVo">
+		SELECT * FROM TBL_MEMBER
+		WHERE IDX = #{idx} AND MEMBER_ID = #{member_id}
+	</select>
+	
+	<insert id="setMemberDataInsert" parameterType="UserMemberVo">
+		INSERT INTO TBL_MEMBER (LEVEL , TYPE , MEMBER_ID , PASSWORD , NAME , PHONE , EMAIL , EMAIL_ADDRESS , ADDRESS , ADDRESS_DETAIL , CREATE_TM , UPDATE_TM)
+		VALUES (#{level} , #{type} , #{member_id} , #{password} , #{name} , #{phone} , #{email} , #{email_address} , #{address} , #{address_detail} , now() , now())
+	</insert>
+	
+	<update id="setMemberDataUpdate" parameterType="UserMemberVo">
+		UPDATE TBL_MEMBER SET (
+			LEVEL = #{level},
+			TYPE = #{type},
+			MEMBER_ID = #{member_id},
+			PASSWORD = #{password},
+			NAME = #{name},
+			PHONE = #{phone},
+			EMAIL = #{email},
+			EMAIL_ADDRESS = #{email_address},
+			ADDRESS = #{address},
+			ADDRESS_DETAIL = #{address_detail},
+			UPDATE_TM = now()
+		)	WHERE IDX = #{idx} AND MEMBER_ID = #{member_id}
+	</update>
+	
+	<delete id="setMemberDataDelete" parameterType="UserMemberVo">
+		UPDATE TBL_MEMBER SET TYPE = 'delete' WHERE IDX = #{idx} AND MEMBER_ID = #{member_id}
+	</delete>
+	
+	<select id="getIdCheck" parameterType="UserMemberVo" resultType="int">
+		SELECT COUNT(*) FROM TBL_MEMBER WHERE MEMBER_ID = #{member_id}
+	</select>
+	
 </mapper>

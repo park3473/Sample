@@ -61,7 +61,7 @@
 	</update>
 	
 	<delete id="delBoard" parameterType="UserBoardVo">
-		DELETE SET TBL_BOARD WHERE idx = #{idx}
+		DELETE FROM TBL_BOARD WHERE idx = #{idx}
 	</delete>
 	
 	<select id="getBoardConfig" parameterType="String" resultType="UserBoardVo">

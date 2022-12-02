@@ -2,9 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="egovframework.sample.user.board.service.impl.UserBoardDataMapper">
-
-	<select id="getAllList" parameterType="UserBoardDataVo" resultType="hashMap">
+<mapper namespace="egovframework.sample.admin.board.service.impl.AdminBoardDataMapper">
+	<select id="getAllList" parameterType="AdminBoardDataVo" resultType="hashMap">
 		SELECT * FROM TBL_BOARD_DATA
 		WHERE BOARD_IDX = #{board_idx}
 		<if test="SEARCH_TEXT != ''">
@@ -24,7 +23,7 @@
 	    LIMIT ${LIMIT} OFFSET ${OFFSET}
 	</select>
 	
-	<select id="getAllListCnt" resultType="int" parameterType="UserBoardDataVo">
+	<select id="getAllListCnt" resultType="int" parameterType="AdminBoardDataVo">
 		SELECT COUNT(*) FROM TBL_BOARD_DATA
 		WHERE BOARD_IDX = #{board_idx}
 		<if test="SEARCH_TEXT != ''">
@@ -34,17 +33,17 @@
 	    </if>
 	</select>
 	
-	<insert id="setBoardDataInsert" parameterType="UserBoardDataVo">
+	<insert id="setBoardDataInsert" parameterType="AdminBoardDataVo">
 		INSERT INTO TBL_BOARD_DATA (board_idx , level , type , title , content , member_id , name , create_tm , update_tm)
 		VALUES(#{board_idx} , #{level} , #{type} , #{title} , #{content} , #{member_id} , #{name} , now() , now())
 	</insert>
-	
-	<select id="getBoardData" parameterType="UserBoardDataVo" resultType="UserBoardDataVo">
+
+	<select id="getBoardData" parameterType="AdminBoardDataVo" resultType="AdminBoardDataVo">
 		SELECT * FROM TBL_BOARD_DATA
 		WHERE IDX = #{idx} AND BOARD_IDX = #{board_idx}
 	</select>
 	
-	<update id="setBoardDataUpdate" parameterType="UserBoardDataVo">
+	<update id="setBoardDataUpdate" parameterType="AdminBoardDataVo">
 		UPDATE TBL_BOARD_DATA SET (
 		level = #{level},
 		type = #{type},
@@ -52,38 +51,38 @@
 		content = #{content},
 		name = #{name},
 		update_tm = now()
-		) WHERE idx = #{idx} AND member_id = #{member_id} AND board_idx = #{board_idx} 
+		) WHERE IDX = #{idx} AND member_id = #{member_id} AND board_idx = #{board_idx} 
 	</update>
 	
-	<delete id="DelBoardData" parameterType="UserBoardDataVo">
-		DELETE FROM TBL_BOARD_DATA WHERE idx = #{idx} AND member_id = #{member_id} AND BOARD_IDX = #{board_idx}
+	<delete id="setBoardDataDelete" parameterType="AdminBoardDataVo">
+		DELETE FROM TBL_BOARD_DATA WHERE IDX = #{idx} AND member_id = #{member_id} AND BOARD_IDX = #{board_idx}
 	</delete>
 	
-	<!-- reply 부분 -->
+	<!-- reply -->
 	
-	<select id="getReplyAllList" parameterType="UserBoardReplyVo" resultType="hashMap">
+	<select id="getReplyAllList" parameterType="AdminBoardReplyVo" resultType="hashMap">
 		SELECT * FROM TBL_BOARD_REPLY
 		WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx}
 	</select>
 	
-	<insert id="setBoardReplyInsert" parameterType="UserBoardReplyVo">
+	<insert id="setBoardReplyInsert" parameterType="AdminBoardReplyVo">
 		INSERT INTO TBL_BOARD_REPLY(BOARD_IDX , BOARD_DATA_IDX , MEMBER_ID , NAME , CONTENT , CREATE_TM , UPDATE_TM)
 		VALUES( #{board_idx} , #{board_data_idx} , #{member_id} , #{name} , #{content} , now() , now())
 	</insert>
 	
-	<update id="setBoardReplyUpdate" parameterType="UserBoardReplyVo">
+	<update id="setBoardReplyUpdate" parameterType="AdminBoardReplyVo">
 		UPDATE TBL_BOARD_REPLY SET (
 			CONTENT = #{content},
 			UPDATE_TM = now(),
-		)WHERE MEMBER_ID = #{member_id} AND IDX = #{idx}
+		)WHERE IDX = #{idx}
 	</update>
 	
-	<delete id="DelBoardReplyDataList" parameterType="UserBoardReplyVo">
+	<delete id="setBoardReplyListDelete" parameterType="AdminBoardReplyVo">
 		DELETE FROM TBL_BOARD_REPLY WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx} 
 	</delete>
 	
-	<delete id="DelBoardReplyDataOne" parameterType="UserBoardReplyVo">
-		DELETE FROM TBL_BOARD_REPLY WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx} AND IDX = #{idx} AND MEMBER_ID = #{member_id}
+	<delete id="setBoardReplyDelete" parameterType="AdminBoardReplyVo">
+		DELETE FROM TBL_BOARD_REPLY WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx} AND IDX = #{idx}
 	</delete>
 	
 

@@ -59,6 +59,8 @@
 		DELETE FROM TBL_BOARD_DATA WHERE idx = #{idx} AND member_id = #{member_id} AND BOARD_IDX = #{board_idx}
 	</delete>
 	
+	<!-- reply 부분 -->
+	
 	<select id="getReplyAllList" parameterType="UserBoardReplyVo" resultType="hashMap">
 		SELECT * FROM TBL_BOARD_REPLY
 		WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx}

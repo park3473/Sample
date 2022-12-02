@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="egovframework.sample.user.board.service.impl.UserBoardMapper">
-	<select id="getAllList" parameterType="UserBoardVo" resultType="hashMap" >
+<mapper namespace="egovframework.sample.admin.board.service.impl.AdminBoardMapper">
+	<select id="getAllList" parameterType="AdminBoardVo" resultType="hashMap">
 		SELECT * FROM TBL_BOARD
 		WHERE 1=1
 		<if test="SEARCH_TEXT != ''">
@@ -23,7 +23,7 @@
 	    LIMIT ${LIMIT} OFFSET ${OFFSET}
 	</select>
 	
-	<select id="getAllListCnt" parameterType="UserBoardVo" resultType="int" >
+	<select id="getAllListCnt" parameterType="AdminBoardVo" resultType="int">
 		SELECT COUNT(*) FROM TBL_BOARD
 		WHERE 1=1
 		<if test="SEARCH_TEXT != ''">
@@ -33,22 +33,17 @@
 	    </if>
 	</select>
 	
-	<insert id="setBoardInsert" parameterType="UserBoardVo">
-		INSERT INTO TBL_BOARD (level , reply , type , name , create_tm , update_tm)
-		VALUES (#{level} , #{reply} , #{type} , #{name} , now() , now())
-	</insert>
-	
-	<select id="getBoard" parameterType="UserBoardVo" resultType="UserBoardVo">
+	<select id="getBoardView" parameterType="AdminBoardVo" resultType="AdminBoardVo" >
 		SELECT * FROM TBL_BOARD
 		WHERE IDX = #{idx}
 	</select>
 	
-	<select id="getBoardView" parameterType="string" resultType="UserBoardVo">
-		SELECT * FROM TBL_BOARD
-		WHERE IDX = #{value}
-	</select>
+	<insert id="setBoardInsert" parameterType="AdminBoardVo">
+		INSERT INTO TBL_BOARD (level , reply , type , name , create_tm , update_tm)
+		VALUES (#{level} , #{reply} , #{type} , #{name} , now() , now())
+	</insert>
 	
-	<update id="setBoardUpdate" parameterType="UserBoardVo">
+	<update id="setBoardUpdate" parameterType="AdminBoardVo">
 		UPDATE TBL_BOARD SET (
 		
 		level = #{level},
@@ -60,13 +55,13 @@
 		) WHERE IDX = #{idx}
 	</update>
 	
-	<delete id="delBoard" parameterType="UserBoardVo">
+	<delete id="setBoardDelete" parameterType="AdminBoardVo">
 		DELETE FROM TBL_BOARD WHERE idx = #{idx}
 	</delete>
 	
-	<select id="getBoardConfig" parameterType="String" resultType="UserBoardVo">
+	<select id="getBoardConfig" parameterType="AdminBoardVo" resultType="AdminBoardVo">
 		SELECT * FROM TBL_BOARD
-		WHERE IDX = #{value}
+		WHERE IDX = #{idx}
 	</select>
-	
+
 </mapper>
