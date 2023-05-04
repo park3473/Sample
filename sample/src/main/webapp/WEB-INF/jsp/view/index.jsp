@@ -11,16 +11,21 @@
 
 <!--삭제금지-->
 
-<c:if test="${ssion_langage == 'kr'}">자가진단</c:if>
-<c:if test="${ssion_langage != 'kr'}">자가진단(영어)</c:if>
+<c:if test="${ssion_langage == 'kr'}">KOR</c:if>
+<c:if test="${ssion_langage != 'kr'}">ENG</c:if>
 
 <!--공통 헤더 시작-->
-<%@ include file="./include/header.jsp" %>
-<%@ include file="./include/menu.jsp" %>
+<%@ include file="../include/user//header.jsp" %>
+<%@ include file="../include/user/menu.jsp" %>
 <!--공통 헤더 끝-->
 <c:if test="${sessionScope.Login != 'OkOk' }">
-<a href="${pageContext.request.contextPath}/view/login.do">로그인 페이지 이동</a>
+	<a href="${pageContext.request.contextPath}/view/login.do">로그인 페이지 이동</a>
 </c:if>
+<c:if test="${sessionScope.Login == 'OkOk' }">
+	<a href="${pageContext.request.contextPath}/view/login.do">로그아웃</a>
+	<a href="${pageContext.request.contextPath}/admin/index.do">관리자</a>
+</c:if>
+
 <!--공통하단-->
-<%@ include file="./include/footer.jsp" %>
+<%@ include file="../include/user/footer.jsp" %>
 <script type="text/javascript">

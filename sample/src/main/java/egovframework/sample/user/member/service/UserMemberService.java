@@ -16,5 +16,11 @@ public interface UserMemberService {
 
 	public String getIdCheck(UserMemberVo userMemberVo);
 
+	public String getSearchId(UserMemberVo userMemberVo);
+
+	public String getMemberCheck(UserMemberVo userMemberVo);
+
+	public void setMemberPwChange(UserMemberVo userMemberVo);
+
 
 }

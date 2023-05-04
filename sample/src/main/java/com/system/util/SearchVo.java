@@ -12,6 +12,9 @@ public class SearchVo {
 	int ITEM_PAGE_END;
 	int ITEM_TOTAL_PAGE;
 	
+	String SEARCH_TYPE = "";
+	String SEARCH_TEXT = "";
+	
 	String UP = "";
 	String DOWN = "";
 	
@@ -131,6 +134,18 @@ public class SearchVo {
 
 	public void setItempagenext(boolean itempagenext) {
 		this.itempagenext = itempagenext;
+	}
+	public String getSEARCH_TYPE() {
+		return SEARCH_TYPE;
+	}
+	public void setSEARCH_TYPE(String sEARCH_TYPE) {
+		SEARCH_TYPE = sEARCH_TYPE;
+	}
+	public String getSEARCH_TEXT() {
+		return SEARCH_TEXT;
+	}
+	public void setSEARCH_TEXT(String sEARCH_TEXT) {
+		SEARCH_TEXT = sEARCH_TEXT;
 	}
 	
 	

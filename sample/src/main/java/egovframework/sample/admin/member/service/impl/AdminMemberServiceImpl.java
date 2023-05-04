@@ -18,7 +18,7 @@ import egovframework.sample.admin.member.service.AdminMemberService;
 @Transactional
 public class AdminMemberServiceImpl implements AdminMemberService {
 
-	@Resource(name="AdminMemberMapper")
+	@Resource(name="adminMemberMapper")
 	private AdminMemberMapper adminMemberMapper;
 
 	@Override
@@ -45,11 +45,13 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		System.out.println(pageVo.getItempage());
 		
 		model.put("page" , pageVo.getItempage());
-		model.put("itemcount" , pageVo.getItempage());
+		model.put("itemcount" , pageVo.getItemCount());
 		model.put("itempagestart", pageVo.getItempagestart());
 		model.put("itempageend", pageVo.getItempageend());
 		model.put("itemtotalcount", pageVo.getItemtotalcount());
 		model.put("itemtotalpage", pageVo.getItemtotalpage());
+		
+		model.put("list", list);
 		
 		return model;
 	}
@@ -83,6 +85,8 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		AdminMemberVo memberVo = new AdminMemberVo();
 		
 		memberVo = adminMemberMapper.getMemberData(adminMemberVo);
+		
+		model.put("view", memberVo);
 		
 		return model;
 	}

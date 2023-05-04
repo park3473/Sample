@@ -38,7 +38,7 @@ public class UserBoardDataServiceImpl implements UserBoardDataService {
 		
 		int itemtotalcount = userBoardDataMapper.getAllListCnt(userBoardDataVo);
 		int itemcount = userBoardDataVo.getITEM_COUNT();
-		int itempage = userBoardDataVo.getITEM_PAGE();
+		int itempage = userBoardDataVo.getPAGE();
 		
 		PageVO pageVo = new PageVO(itemcount, itemtotalcount, itempage);
 		
@@ -151,6 +151,35 @@ public class UserBoardDataServiceImpl implements UserBoardDataService {
 			userBoardDataMapper.DelBoardReplyDataOne(replyVo);
 		}
 		
+	}
+
+	@Override
+	public void setBoardDataRdCntUp(UserBoardDataVo userBoardDataVo) {
+		
+		userBoardDataMapper.setBoardDataRdCnt(userBoardDataVo);
+		
+	}
+
+	@Override
+	public ModelMap getIndexBoardData() {
+		
+		ModelMap model = new ModelMap();
+		
+		//공지 가져올갯수
+		int NoticeCnt = 4;
+		
+		//정보안내 가져올갯수
+		int InfoCnt = 4;
+		
+		List<?> NoticeList = userBoardDataMapper.getNoticeList(NoticeCnt);
+		
+		List<?> InfoList = userBoardDataMapper.getInfoList(InfoCnt);
+		
+		model.put("NoticeList", NoticeList);
+		
+		model.put("InfoList", InfoList);
+		
+		return model;
 	}
 
 	

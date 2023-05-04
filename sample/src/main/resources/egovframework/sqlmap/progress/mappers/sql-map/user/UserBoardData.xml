@@ -45,19 +45,24 @@
 	</select>
 	
 	<update id="setBoardDataUpdate" parameterType="UserBoardDataVo">
-		UPDATE TBL_BOARD_DATA SET (
+		UPDATE TBL_BOARD_DATA SET 
 		level = #{level},
 		type = #{type},
 		title = #{title},
 		content = #{content},
 		name = #{name},
 		update_tm = now()
-		) WHERE idx = #{idx} AND member_id = #{member_id} AND board_idx = #{board_idx} 
+		WHERE idx = #{idx} AND member_id = #{member_id} AND board_idx = #{board_idx} 
 	</update>
 	
 	<delete id="DelBoardData" parameterType="UserBoardDataVo">
 		DELETE FROM TBL_BOARD_DATA WHERE idx = #{idx} AND member_id = #{member_id} AND BOARD_IDX = #{board_idx}
 	</delete>
+	
+	<update id="setBoardDataRdCnt" parameterType="UserBoardDataVo">
+		UPDATE TBL_BOARD_DATA SET rdcnt = rdcnt + 1
+		WHERE IDX = #{idx}
+	</update>
 	
 	<!-- reply 부분 -->
 	
@@ -85,6 +90,18 @@
 	<delete id="DelBoardReplyDataOne" parameterType="UserBoardReplyVo">
 		DELETE FROM TBL_BOARD_REPLY WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx} AND IDX = #{idx} AND MEMBER_ID = #{member_id}
 	</delete>
+	
+	<select id="getNoticeList" parameterType="int" resultType="hashMap">
+		SELECT * FROM TBL_BOARD_DATA
+		WHERE BOARD_IDX = '7'
+		LIMIT ${value}
+	</select>
+	
+	<select id="getInfoList" parameterType="int" resultType="hashMap">
+		SELECT * FROM TBL_BOARD_DATA
+		WHERE BOARD_IDX = '8'
+		LIMIT ${value}
+	</select>
 	
 
 </mapper>

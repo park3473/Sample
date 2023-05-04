@@ -31,5 +31,11 @@ public interface UserBoardDataMapper {
 
 	public void setBoardReplyInsert(UserBoardReplyVo userBoardReplyVo);
 
+	public void setBoardDataRdCnt(UserBoardDataVo userBoardDataVo);
+
+	public List<?> getNoticeList(int noticeCnt);
+
+	public List<?> getInfoList(int infoCnt);
+
 
 }

@@ -30,7 +30,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		
 		HttpSession session = request.getSession();
-		String level = session.getAttribute("ssion_user_level") + "";
+		String level = session.getAttribute("UserLevel") + "";
 		if(level.equals("1"))
 		{
 			return true;

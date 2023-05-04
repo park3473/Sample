@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sample.admin.banner.service.impl.AdminBannerMapper">
+
+	<select id="getAllList" parameterType="AdminBannerVo" resultType="hashMap">
+		SELECT * FROM TBL_BANNER
+		WHERE 1=1
+		<if test="SEARCH_TEXT != ''">
+		    <if test="SEARCH_TYPE != 'ALL'">
+	    		 AND ${SEARCH_TYPE} LIKE '%${SEARCH_TEXT}%'
+	    	</if>
+	    </if>
+	    <if test="UP != ''">
+	    	order by ${UP} asc
+	    </if>
+	    <if test="DOWN != ''">
+	    	order by ${DOWN} desc
+	    </if>
+	    <if test="DOWN == '' and UP == ''">
+	    	order by CREATE_TM desc
+	    </if>
+	    LIMIT ${LIMIT} OFFSET ${OFFSET}
+	</select>
+	
+	<select id="getAllListCnt" parameterType="AdminBannerVo" resultType="int">
+		SELECT COUNT(*) FROM TBL_BANNER
+		WHERE 1=1
+		<if test="SEARCH_TEXT != ''">
+		    <if test="SEARCH_TYPE != 'ALL'">
+	    		 AND ${SEARCH_TYPE} LIKE '%${SEARCH_TEXT}%'
+	    	</if>
+	    </if>
+	</select>
+	
+	<insert id="setBannerDataInsert" parameterType="AdminBannerVo">
+		INSERT TBL_BANNER (NAME , TYPE , SEQ , LINK , IMAGE , CREATE_TM , UPDATE_TM)
+		VALUES (#{name} , #{type} , #{seq} , #{link} , #{image} , now() , now())
+	</insert>
+	
+	<update id="setBannerDataUpdate" parameterType="AdminBannerVo">
+		UPDATE TBL_BANNER SET 
+		NAME = #{name},
+		TYPE = #{type},
+		SEQ = #{seq},
+		LINK = #{link},
+		IMAGE = #{image},
+		UPDATE_TM = now()
+		WHERE IDX = #{idx}
+	</update>
+	
+	<update id="setBannerReOrder">
+		SELECT @seq:=0;
+		UPDATE TBL_BANNER SET SEQ = @seq:=@seq+1 ORDER BY SEQ;
+	</update>
+	
+	<delete id="setBannerDataDelete" parameterType="AdminBannerVo">
+		DELETE FROM TBL_BANNER WHERE IDX = #{idx}
+	</delete>
+	
+</mapper>

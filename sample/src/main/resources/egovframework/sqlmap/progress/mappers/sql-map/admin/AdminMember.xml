@@ -35,13 +35,13 @@
 	
 	<insert id="setMemberDataInsert" parameterType="AdminMemberVo">
 		INSERT INTO TBL_MEMBER (LEVEL , TYPE , MEMBER_ID , PASSWORD , NAME , PHONE , EMAIL , EMAIL_ADDRESS , ADDRESS , ADDRESS_DETAIL , CREATE_TM , UPDATE_TM)
-		VALUES (#{level} , #{type} , #{member_id} , #{password} , #{name} , #{phone} , #{email} , #{email_address} , #{address} , #{address_detail} , now() , now())
+		VALUES (#{level} , '1' , #{member_id} , #{password} , #{name} , #{phone} , #{email} , #{email_address} , #{address} , #{address_detail} , now() , now())
 	</insert>
 
 	<update id="setMemberDataUpdate" parameterType="AdminMemberVo">
-		UPDATE TBL_MEMBER SET (
-			LEVEL = #{level},
-			TYPE = #{type},
+		UPDATE TBL_MEMBER SET
+			LEVEL = ${level},
+			TYPE = ${type},
 			MEMBER_ID = #{member_id},
 			PASSWORD = #{password},
 			NAME = #{name},
@@ -51,12 +51,12 @@
 			ADDRESS = #{address},
 			ADDRESS_DETAIL = #{address_detail},
 			UPDATE_TM = now()
-		)	WHERE IDX = #{idx}
+		WHERE IDX = #{idx}
 	</update>
 	
-	<delete id="setMemberDataDelete" parameterType="AdminMemberVo">
-		DELETE FROM TBL_MEMBER WHERE IDX = #{idx}
-	</delete>
+	<update id="setMemberDataDelete" parameterType="AdminMemberVo">
+		UPDATE TBL_MEMBER SET type = '2' WHERE IDX = #{idx}
+	</update>
 	
 	<select id="getMemberData" parameterType="AdminMemberVo" resultType="AdminMemberVo">
 		SELECT * FROM TBL_MEMBER WHERE IDX = #{idx}

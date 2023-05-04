@@ -23,8 +23,6 @@ public class AdminBoardDataServiceImpl implements AdminBoardDataService {
 	@Resource(name="adminBoardDataMapper")
 	AdminBoardDataMapper adminBoardDataMapper;
 	
-	@Resource(name="admin")
-	
 	@Override
 	public ModelMap getAllList(AdminBoardDataVo adminBoardDataVo) {
 		
