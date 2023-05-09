@@ -157,12 +157,27 @@ public class UserController {
 			
 			System.out.println("결과 : " +userMemberVo2.getMember_id());
 			
-			try {
-				Logger.debug("로그인 성공.");
-				response.getWriter().println("true:1");
-			}catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
+			
+			if(userMemberVo2.getType().equals("2")) {
+
+				try {
+					Logger.debug("로그인 실패.");
+					response.getWriter().println("false:4");
+				}catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				
+			}else {
+
+				try {
+					Logger.debug("로그인 성공.");
+					response.getWriter().println("true:1");
+				}catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				
 			}
 			
 		}else if(Confirm == 2) {

@@ -62,6 +62,10 @@ public class AdminBoardDataContorller {
 		
 		model = adminBoardDataService.getAllList(AdminBoardDataVo);
 		
+		model.put("board_idx", AdminBoardDataVo.getBoard_idx());
+		
+		model.put("beforeDomain", AdminBoardDataVo);
+		
 		return new ModelAndView("admin/board_data/list" , "model" , model);
 		
 	}
@@ -86,10 +90,13 @@ public class AdminBoardDataContorller {
 	@RequestMapping(value="/admin/board_data/insert.do" , method = RequestMethod.POST)
 	public void AdminBoardDataInsert(@ModelAttribute("AdminBoardDataVo")AdminBoardDataVo AdminBoardDataVo , MultipartHttpServletRequest request , HttpServletResponse response) throws IOException {
 		
-		System.out.println("Board_data_idx : " + AdminBoardDataVo.getIdx());
+		//먼저 게시글 입력하여 번호 가져와야됨
+		String insert_idx = adminBoardDataService.setBoardData(AdminBoardDataVo , "insert");
+		
+		System.out.println("Board_data_idx : " + insert_idx);
 		System.out.println("Board_idx : " + AdminBoardDataVo.getBoard_idx());
 		
-		String Board_data_idx = AdminBoardDataVo.getIdx();
+		String Board_data_idx = insert_idx;
 		String Board_idx = AdminBoardDataVo.getBoard_idx();
 		
 		FileVo filevo = new FileVo();
@@ -102,21 +109,48 @@ public class AdminBoardDataContorller {
 		
 		String files[] = filename.split(",");
 		
+		
 		for(int i = 0; i < files.length; i ++) {
 			
 			String saveFile = files[i];
 			
-			filevo.setType("insert");
-			filevo.setFilename(saveFile);
-			filevo.setUrl(request.getRequestURI());
-			filevo.setBoard_idx(Board_idx);
-			filevo.setBoard_data_idx(Board_data_idx);
+			if(saveFile.equals("")) {
+				
+				System.out.println("InsertNo" + saveFile);
+				
+			}else {
 			
-			fileService.setFileData(filevo);
+				System.out.println("InsertYes" + saveFile);
+				
+				filevo.setType("insert");
+				filevo.setFilename(saveFile);
+				filevo.setUrl(request.getRequestURI());
+				filevo.setBoard_idx(Board_idx);
+				filevo.setBoard_data_idx(Board_data_idx);
+				
+				fileService.setFileData(filevo);
+				
+			}
 			
 		}
 		
-		adminBoardDataService.setBoardData(AdminBoardDataVo , "insert");
+		//board_data_file 가져오기
+		FileVo filevo2 = new FileVo();
+		filevo2.setBoard_data_idx(AdminBoardDataVo.getIdx());
+		filevo2.setBoard_idx(AdminBoardDataVo.getBoard_idx());
+		List<?> filelist = fileService.getFileList(filevo2);
+				
+				
+		if(filelist.size() > 0) {
+					
+			AdminBoardDataVo.setFile("TRUE");	
+					
+		}else {
+				
+			AdminBoardDataVo.setFile("FALSE");
+					
+		}
+		
 		
 		SUtil.AlertAndPageMove(response, "게시글이 등록되었습니다." , "/admin/board_data/list.do?Board_idx=" + Board_idx);
 		
@@ -200,13 +234,40 @@ public class AdminBoardDataContorller {
 			
 			String saveFile = files[i];
 			
-			filevo.setType("insert");
-			filevo.setFilename(saveFile);
-			filevo.setUrl(request.getRequestURI());
-			filevo.setBoard_idx(Board_idx);
-			filevo.setBoard_data_idx(Board_data_idx);
+			if(saveFile.equals("")) {
+				
+				System.out.println("InsertNo" + saveFile);
+				
+			}else {
 			
-			fileService.setFileData(filevo);
+				System.out.println("InsertYes" + saveFile);
+				
+				filevo.setType("insert");
+				filevo.setFilename(saveFile);
+				filevo.setUrl(request.getRequestURI());
+				filevo.setBoard_idx(Board_idx);
+				filevo.setBoard_data_idx(Board_data_idx);
+				
+				fileService.setFileData(filevo);
+				
+			}
+			
+		}
+		
+		//board_data_file 가져오기
+		FileVo filevo2 = new FileVo();
+		filevo2.setBoard_data_idx(AdminBoardDataVo.getIdx());
+		filevo2.setBoard_idx(AdminBoardDataVo.getBoard_idx());
+		List<?> filelist = fileService.getFileList(filevo2);
+		
+		
+		if(filelist.size() > 0) {
+			
+			AdminBoardDataVo.setFile("TRUE");	
+			
+		}else {
+		
+			AdminBoardDataVo.setFile("FALSE");
 			
 		}
 		

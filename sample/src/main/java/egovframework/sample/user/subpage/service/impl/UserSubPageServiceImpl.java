@@ -10,7 +10,6 @@ import org.springframework.ui.ModelMap;
 
 import egovframework.sample.user.subpage.model.UserSubPageVo;
 import egovframework.sample.user.subpage.service.UserSubpageService;
-import egovframework.sample.user.subpage.service.impl.UserSubPageMapper;
 
 @Service("userSubPageService")
 @Transactional

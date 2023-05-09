@@ -11,6 +11,8 @@ public class AdminMemberVo extends SearchVo{
 	String password = "";
 	String name = "";
 	String phone = "";
+	String email = "";
+	String email_address = "";
 	String address = "";
 	String address_detail = "";
 	String create_tm = "";
@@ -57,6 +59,18 @@ public class AdminMemberVo extends SearchVo{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getEmail_address() {
+		return email_address;
+	}
+	public void setEmail_address(String email_address) {
+		this.email_address = email_address;
+	}
 	public String getAddress() {
 		return address;
 	}
@@ -81,6 +95,8 @@ public class AdminMemberVo extends SearchVo{
 	public void setUpdate_tm(String update_tm) {
 		this.update_tm = update_tm;
 	}
+	
+	
 	
 	
 	

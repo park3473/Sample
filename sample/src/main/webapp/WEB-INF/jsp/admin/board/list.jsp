@@ -45,6 +45,7 @@
                                         <th class="name">게시판 제목</th>
                                         <th class="type">타입</th>
                                         <th class="file">파일 여부</th>
+                                        <th class="link">게시판 링크</th>
                                         <th class="create">게시판 생성 일자</th>
                                         <th class="update">게시판 수정 일자</th>
                                         <th class="setting">관리</th>
@@ -61,6 +62,7 @@
                                          	<td>썸네일</td>
                                          </c:if>
                                         <td>${item.file}</td>
+                                        <td>/user/board_data/list.do?idx=${item.idx }</td>
                                         <td>
                                             ${fn:substring(item.create_tm,0,11)}
                                         </td>

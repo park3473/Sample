@@ -38,7 +38,8 @@ public class UserLoginInterceptor extends HandlerInterceptorAdapter {
 		
 		HttpSession session = request.getSession();
 		String level = session.getAttribute("UserLevel") + "";
-		if(level.equals("1"))
+		int levelInt = Integer.parseInt(level);
+		if(level.equals("1") || levelInt >= 1)
 		{
 			return true;
 		}else 

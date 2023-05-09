@@ -10,58 +10,23 @@
 </head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="http://cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
 
-<script language="JavaScript">
-//ckeditor setting
-var ckeditor_config = {
-	allowedContent : true,
-	
-
-	resize_enabled : false, // 에디터 크기를 조절하지 않음
-	enterMode : CKEDITOR.ENTER_BR, // 엔터키를 <br> 로 적용함.
-	shiftEnterMode : CKEDITOR.ENTER_P, // 쉬프트 +  엔터를 <p> 로 적용함.
-	toolbarCanCollapse : true,
-	removePlugins : "elementspath", // DOM 출력하지 않음                        
-	filebrowserUploadUrl : '${pageContext.request.contextPath}/ckeditor/file_upload.do', // 파일 업로드를 처리 할 경로 설정.
-	height : '500px',
-	// 에디터에 사용할 기능들 정의
-	toolbar : [
-			[  'Source','NewPage', 'Preview' ],
-			[ 'Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo' ],
-			[ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript',
-					'Superscript' ],
-			['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-			[ 'JustifyLeft', 'JustifyCenter', 'JustifyRight',
-					'JustifyBlock' ], '/',
-			['Image','Link','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
-			['Styles','Format','Font','FontSize'],['TextColor','BGColor'],['Maximize', 'ShowBlocks','-'],
-			
-			[ 'About' ] ]
-
-};
-
-var editor = null;
-
-jQuery(function() {
-	// ckeditor 적용
-	editor = CKEDITOR.replace( "content" , ckeditor_config);
-});
-
-  CKEDITOR.on('dialogDefinition', function( ev ){
-      var dialogName = ev.data.name;
-      var dialogDefinition = ev.data.definition;
-    
-      switch (dialogName) {
-          case 'image': //Image Properties dialog
-              //dialogDefinition.removeContents('info');
-              dialogDefinition.removeContents('Link');
-              dialogDefinition.removeContents('advanced');
-              break;
-      }
-  });
-
-</script>
+<!-- ckeditor필요한 부분 -->
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.css">
+<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+<style>
+	/*admin css 와 ckeditor css 충돌나서 바꿔버림*/
+	.member_input_wrap .member_input button {
+    margin-left: 0px !important;
+	}
+	.member_input_wrap .member_input textarea {
+    	width: 100%;
+    	height: 100%;
+    	padding: 0px;
+    }
+</style>
+<!-- ckeditor필요한 부분 -->
 
 <body>
 <!--헤더-->
@@ -94,7 +59,7 @@ jQuery(function() {
                                         </li>
                                         <li>
                                         	<span class="list_t">페이지 내용</span>
-                                        	<textarea name="content" id="content"></textarea>
+                                        	<textarea name="content" id="editor"></textarea>
                                         </li>
                                     </ul>
                                 </div>
@@ -130,9 +95,6 @@ jQuery(function() {
 <!--  JQuery  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/admin/member.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/admin/admin.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/admin/jquery.datetimepicker.full.min.js"></script>
 
 </body>
 
@@ -140,10 +102,25 @@ jQuery(function() {
 
 <script type="text/javascript">
 
+				
+
+				
+</script>
+<script type="module" >
+	import editor from '/resources/ckeditor/editor.js'
+    $(document).ready(function () {
+        editor("#editor").then(editor => {
+        	// some code..
+            // then 이후에 받은 editor를 다른 변수로 받아주시는 편이 좋습니다!
+        })
+    })
+</script>
+<script type="text/javascript">
+
 $(document).ready(function () {
 	
-	$(".adm_menu_con > li").eq(4).find(".sub_menu_con").show();
-	$(".adm_menu_con > li").eq(4).css({
+	$(".adm_menu_con > li").eq(2).find(".sub_menu_con").show();
+	$(".adm_menu_con > li").eq(2).css({
 	    backgroundColor: "#fff"
 	});
 });
@@ -156,5 +133,3 @@ function insertClick(){
 }
 
 </script>
-
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

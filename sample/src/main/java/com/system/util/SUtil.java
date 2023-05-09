@@ -514,8 +514,7 @@ public class SUtil {
 	
 	public static void AlertAndPageMove(HttpServletResponse response , String alertText , String MovePage) throws IOException{
 		
-		response.setContentType("text/html; charset=euc-kr");
-		response.setCharacterEncoding("euc-kr");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		PrintWriter out = response.getWriter();
 		
@@ -525,7 +524,9 @@ public class SUtil {
 		Script += "');";
 		Script += "location.href='";
 		Script += MovePage;
-		Script += "';";
+		Script += "';</script>";
+		
+		System.out.println(Script);
 		
 		out.println(Script);
 		out.flush();

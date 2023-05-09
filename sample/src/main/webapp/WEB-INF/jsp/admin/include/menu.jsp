@@ -102,6 +102,19 @@
                                         </li>
                                         <li <c:if test="${fn:indexOf(fullURL, '/subpage/list') > -1}">class="nav_active"</c:if>>
                                             <a href="${pageContext.request.contextPath}/admin/subpage/list.do">서브 페이지 관리</a>
+                                            <c:if test="${fn:indexOf(fullURL , '/subpage/') > -1}">
+	                                        <ul class="sub_menu_ob">
+		                                        <li <c:if test="${fn:indexOf(fullURL, 'subpage/list') > -1}">class="nav_active"</c:if>>
+		                                            <a href="#">서브페이지 리스트</a>
+		                                        </li>
+		                                        <li <c:if test="${fn:indexOf(fullURL, 'subpage/insert') > -1}">class="nav_active"</c:if>>
+		                                            <a href="#">서브페이지 생성</a>
+		                                        </li>
+		                                        <li <c:if test="${fn:indexOf(fullURL, 'subpage/view') > -1}">class="nav_active"</c:if>>
+		                                            <a href="#">서브페이지 관리</a>
+		                                        </li>
+	                                        </ul>
+                                        	</c:if>
                                         </li>
                                         <li <c:if test="${fn:indexOf(fullURL, '/banner/list') > -1}">class="nav_active"</c:if>>
                                             <a href="${pageContext.request.contextPath}/admin/banner/list.do">배너 관리</a>

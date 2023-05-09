@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<!-- 메뉴형식 -->
 <!--메뉴-->
 <div class="gnb-area">
 	<!--카테고리-->
@@ -13,7 +14,6 @@
 		
 	</ul>
 		<!--카테고리끝-->
-		
 		<!--고객센터-->
 	<ul>
 		<li class="t_pad_30 text-right r_pad_20 gray_03 c_show">
@@ -25,3 +25,7 @@
 
 </div>
 <!--메뉴끝-->
+
+<!-- 메뉴 형식 -->
+
+<!-- 메뉴는 기초 만들어두시면 그에 맞게 개발될 예정 -->

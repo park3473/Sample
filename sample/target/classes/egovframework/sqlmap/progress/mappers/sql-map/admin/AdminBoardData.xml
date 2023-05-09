@@ -33,8 +33,8 @@
 	    </if>
 	</select>
 	
-	<insert id="setBoardDataInsert" parameterType="AdminBoardDataVo">
-		INSERT INTO TBL_BOARD_DATA (board_idx , level , type , title , content , member_id , name , create_tm , update_tm)
+	<insert id="setBoardDataInsert" parameterType="AdminBoardDataVo" useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO TBL_BOARD_DATA (BOARD_IDX , LEVEL , TYPE , TITLE , CONTENT , MEMBER_ID , NAME , CREATE_TM , UPDATE_TM)
 		VALUES(#{board_idx} , #{level} , #{type} , #{title} , #{content} , #{member_id} , #{name} , now() , now())
 	</insert>
 

@@ -35,13 +35,14 @@
                         <div class="sc_con">
                             <div class="title">
                                 <span></span>
-                                <span>게시글 관리</span>
+                                <span>서브페이지 관리</span>
                             </div>
                             <div class="table_wrap">
                                 <table id="bootstrap-data-table">
                                     <tr>
                                         <th class="number">번호</th>
                                         <th class="title">페이지 제목</th>
+                                        <th class="link">페이지 링크</th>
                                         <th class="create">페이지 생성 일자</th>
                                         <th class="update">페이지 수정 일자</th>
                                         <th class="setting">관리</th>
@@ -50,6 +51,7 @@
                                     <tr data-role="button" data-id="${item.idx}"  >
                                         <td>${model.list.size() - (status.index) }</td>
                                         <td>${item.name }</td>
+                                        <td>/view/subpage/view.do?idx=${item.idx }</td>
                                         <td>
                                             ${fn:substring(item.create_tm,0,11)}
                                         </td>
@@ -58,6 +60,7 @@
                                         </td>
                                         <td>
                                         	<button type="button" onclick="location.href='/admin/subpage/view.do?idx=${item.idx}'">관리</button>
+                                        	<button type="button" onclick="window.open('/view/subpage/view.do?idx=${item.idx}')">미리보기</button>
                                         </td>
                                     </tr>
                                     </c:forEach>
@@ -94,8 +97,8 @@
 
 $(document).ready(function () {
 	
-	$(".adm_menu_con > li").eq(4).find(".sub_menu_con").show();
-	$(".adm_menu_con > li").eq(4).css({
+	$(".adm_menu_con > li").eq(2).find(".sub_menu_con").show();
+	$(".adm_menu_con > li").eq(2).css({
 	    backgroundColor: "#fff"
 	});
 });

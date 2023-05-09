@@ -43,7 +43,9 @@
 			LEVEL = ${level},
 			TYPE = ${type},
 			MEMBER_ID = #{member_id},
+			<if test="password != ''">
 			PASSWORD = #{password},
+			</if>
 			NAME = #{name},
 			PHONE = #{phone},
 			EMAIL = #{email},

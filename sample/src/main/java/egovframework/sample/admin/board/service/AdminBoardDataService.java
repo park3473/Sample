@@ -12,7 +12,7 @@ public interface AdminBoardDataService {
 
 	public ModelMap getAllList(AdminBoardDataVo adminBoardDataVo);
 
-	public void setBoardData(AdminBoardDataVo adminBoardDataVo, String string);
+	public String setBoardData(AdminBoardDataVo adminBoardDataVo, String string);
 
 	public ModelMap getBoardData(AdminBoardDataVo adminBoardDataVo);
 

@@ -47,12 +47,13 @@
                                         <th class="member_id">작성자 아이디</th>
                                         <th class="create">게시글 생성 일자</th>
                                         <th class="update">게시글 수정 일자</th>
+                                        <th class="setting">관리</th>
                                     </tr>
                                     <c:forEach var="item" items="${model.list}" varStatus="status">
                                     <tr data-role="button" data-id="${item.idx}"  >
                                         <td><input type="checkbox" value="${item.idx}" name="chk_calc" data-id="${item.idx}"></td>
                                         <td>${model.itemtotalcount - (status.index + model.page *  model.itemcount)}</td>
-                                        <td onclick="location.href='/admin/board_data/view.do?idx=${item.idx}&board_idx=${item.board_idx }'" >${item.title}</td>
+                                        <td>${item.title}</td>
                                         <td>${item.name }</td>
                                         <td>${item.member_id }</td>
                                         <td>
@@ -60,6 +61,10 @@
                                         </td>
                                         <td>
                                             ${fn:substring(item.update_tm,0,11)}
+                                        </td>
+                                        <td>
+                                        	<button type="button" onclick="location.href='/admin/board_data/view.do?idx=${item.idx}&board_idx=${item.board_idx }'">관리</button>
+                                        	<button type="button" onclick="location.href='/user/board_data/view.do?idx=${item.idx}&board_idx=${item.board_idx }'">미리보기</button>
                                         </td>
                                     </tr>
                                     </c:forEach>

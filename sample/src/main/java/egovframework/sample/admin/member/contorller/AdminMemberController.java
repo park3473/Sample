@@ -42,12 +42,14 @@ public class AdminMemberController {
 		
 		int pagelimit = AdminMemberVo.getPAGE() * AdminMemberVo.getITEM_COUNT();
 		
-		AdminMemberVo.setLIMIT(Integer.parseInt(PAGE));
+		AdminMemberVo.setLIMIT(Integer.parseInt(ITEM_COUNT));
 		AdminMemberVo.setOFFSET(pagelimit);
 		
 		ModelMap model = new ModelMap();
 		
 		model = adminMemberService.getAllList(AdminMemberVo);
+		
+		model.put("beforeDomain", AdminMemberVo);
 		
 		return new ModelAndView("admin/member/list" , "model" , model);
 		
@@ -62,7 +64,7 @@ public class AdminMemberController {
 	@RequestMapping(value="/admin/member/insert.do" , method = RequestMethod.POST)
 	public void AdminMemberDataInsert(@ModelAttribute("AdminMemberVo")AdminMemberVo AdminMemberVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
 		
-		System.out.println("기초 비밀번호 : " + AdminMemberVo.getPassword());
+		System.out.println("기초 비밀번호 = " + AdminMemberVo.getPassword());
 		
 		String pwd = SUtil.getSHA256(AdminMemberVo.getPassword());
 		
@@ -99,9 +101,13 @@ public class AdminMemberController {
 		
 		System.out.println("기초 비밀번호 : " + AdminMemberVo.getPassword());
 		
-		String pwd = SUtil.getSHA256(AdminMemberVo.getPassword());
-		
-		AdminMemberVo.setPassword(pwd);
+		if(!AdminMemberVo.getPassword().equals("")) {
+			
+			String pwd = SUtil.getSHA256(AdminMemberVo.getPassword());
+			
+			AdminMemberVo.setPassword(pwd);
+			
+		}
 		
 		adminMemberService.setMemberData(AdminMemberVo , "update");
 		
@@ -128,6 +134,17 @@ public class AdminMemberController {
 		model.put("IdCheck", Boolean);
 		
 		return model;
+		
+	}
+	
+	@RequestMapping(value="/admin/api/member/view.do")
+	public @ResponseBody ModelMap apiMemberView(@ModelAttribute("AdminMemberVo")AdminMemberVo AdminMemberVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelMap returnMap = new ModelMap();
+	
+		returnMap = adminMemberService.getMemberData(AdminMemberVo);
+		
+		return returnMap;
 		
 	}
 	

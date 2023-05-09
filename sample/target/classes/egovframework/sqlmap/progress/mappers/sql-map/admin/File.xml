@@ -2,50 +2,23 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="egovframework.sample.file.service.impl.MenuMapper">
+<mapper namespace="egovframework.sample.file.service.impl.FileMapper">
 	
-	<select id="getMenuList" resultType="hashMap">
-		SELECT * , (SELECT COUNT(*) FROM TBL_MENU m2 WHERE m2.UPPER_MENU_IDX = m1.IDX  ) AS UNDER_CNT FROM TBL_MENU m1
-		ORDER BY TITLE , SEQ
+	<select id="getFileList" parameterType="FileVo" resultType="hashMap">
+		SELECT * FROM TBL_FILE
+		WHERE BOARD_IDX = #{board_idx}
+		AND BOARD_DATA_IDX = #{board_data_idx}
+		AND TYPE != 'delete'
 	</select>
 	
-	<insert id="setMenuInsertData" parameterType="MenuVo">
-		INSERT INTO TBL_MENU(TYPE , DEPTH , TITLE , UPPER_MENU_IDX , SEQ , NAME , LINK , CREATE_TM , UPDATE_TM)
-		VALUES (#{type} , #{depth} , #{title} , #{upper_menu_idx} , #{seq} , #{name} , #{link} , now() , now())
+	<insert id="setFileData" parameterType="FileVo">
+		INSERT INTO TBL_FILE(TYPE , FILENAME , URL , CREATE_TM , UPDATE_TM , BOARD_IDX , BOARD_DATA_IDX)
+		VALUES(#{type} , #{filename} , #{url} , now() , now() ,  #{board_idx} , #{board_data_idx})
 	</insert>
 	
-	<update id="setMenuUpdateData" parameterType="MenuVo">
-		UPDATE TBL_MENU SET 
-		TYPE = #{type},
-		SEQ = #{seq},
-		NAME = #{name},
-		LINK = #{link},
-		UPDATE_TM = now()
-		WHERE IDX = #{idx}
-	</update>
-	
-	<delete id="setMenuDeleteData" parameterType="MenuVo">
-		DELETE FROM TBL_MENU WHERE IDX = #{idx}
-	</delete>
-	
-	<delete id="setMenuDeleteList" parameterType="MenuVo">
-		DELETE FROM TBL_MENU WHERE UPPER_MENU_IDX = #{idx}
-	</delete>
-	
-	<update id="setMenuTitleReOrder" parameterType="MenuVo">
-		<if test="DEPTH == '0'">
-			SELECT @seq:=0;
-		UPDATE TBL_MENU SET TITLE = @seq:=@seq+1 WHERE UPPER_MENU_IDX = #{upper_menu_idx};
-		</if>
-		<if test="DEPTH == '1'">
-			SELECT @seq:=0;
-			UPDATE TBL_MENU SET TITLE = CONCAT(#{upper_title},@seq:=@seq+1) WHERE UPPER_MENU_IDX = #{upper_menu_idx};
-		</if>
-	</update>
-	
-	<update id="setMenuSeqReOrder" parameterType="MenuVo">
-		SELECT @seq:=0;
-		UPDATE TBL_MENU SET SEQ = @seq:=@seq+1 WHERE UPPER_MENU_IDX = #{upper_menu_idx} ORDER BY SEQ;
+	<update id="setFileUpdate" parameterType="FileVo">
+		UPDATE TBL_FILE SET TYPE = #{type} 
+		WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx} AND IDX = #{idx}
 	</update>
 	
 	

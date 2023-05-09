@@ -41,7 +41,7 @@ public class CkeditorController {
 	        
 	        String drv = request.getRealPath("");
 			
-			drv = drv.substring(0, drv.length()) + "./resources"+request.getContextPath()+"/upload/notices/";
+			drv = drv.substring(0, drv.length()) + "./resources"+request.getContextPath()+"/upload/ckeditor/";
 			
 			 File desti = new File(drv);
 		  	 if(!desti.exists())
@@ -68,7 +68,8 @@ public class CkeditorController {
 
 	    } finally {
 	    }
-	    return "{\"uploaded\":1, \"url\":\"" + "http://localhost:8080/base/resources"+request.getContextPath()+"/upload/notices/"+fileName + "\"}";
+	    return "/resources"+request.getContextPath()+"/upload/ckeditor/"+fileName + "";
+	    //return "{\"uploaded\":1, \"url\":\"" + "http://localhost:8080/base/resources"+request.getContextPath()+"/upload/notices/"+fileName + "\"}";
 	}
 	
 }
