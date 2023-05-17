@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sample.admin.subpage.service.impl.AdminSubPageMapper">
+
+	<select id="getAllList" parameterType="AdminSubPageVo" resultType="hashMap">
+		SELECT * FROM TBL_SUB_PAGE
+		ORDER BY IDX DESC
+	</select>
+	
+	<select id="getViewData" parameterType="AdminSubPageVo" resultType="AdminSubPageVo">
+		SELECT * FROM TBL_SUB_PAGE
+		WHERE IDX = #{idx}
+	</select>
+	
+	<update id="setAdminSubPageUpdateData" parameterType="AdminSubPageVo">
+		UPDATE TBL_SUB_PAGE SET
+		NAME = #{name},
+		CONTENT = #{content},
+		UPDATE_TM = now()
+		WHERE IDX = #{idx}
+	</update>
+	
+	<insert id="setAdminSubPageInsertData" parameterType="AdminSubPageVo">
+		INSERT INTO TBL_SUB_PAGE (NAME , CONTENT , CREATE_TM , UPDATE_TM) 
+		VALUES(#{name} , #{content} , now() , now() )
+	</insert>
+	
+	<delete id="setAdminSubPageDeleteData" parameterType="AdminSubPageVo">
+		DELETE FROM TBL_SUB_PAGE
+		WHERE IDX = #{idx}
+	</delete>
+
+</mapper>

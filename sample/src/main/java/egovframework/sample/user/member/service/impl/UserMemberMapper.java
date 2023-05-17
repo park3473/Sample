@@ -22,5 +22,11 @@ public interface UserMemberMapper {
 
 	public int getIdCheck(UserMemberVo userMemberVo);
 
+	public String getIdSearch(UserMemberVo userMemberVo);
+
+	public int getMemberCheck(UserMemberVo userMemberVo);
+
+	public void setMemberPwChange(UserMemberVo userMemberVo);
+
 
 }

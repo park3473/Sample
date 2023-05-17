@@ -33,8 +33,8 @@
 	    </if>
 	</select>
 	
-	<insert id="setBoardDataInsert" parameterType="AdminBoardDataVo">
-		INSERT INTO TBL_BOARD_DATA (board_idx , level , type , title , content , member_id , name , create_tm , update_tm)
+	<insert id="setBoardDataInsert" parameterType="AdminBoardDataVo" useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO TBL_BOARD_DATA (BOARD_IDX , LEVEL , TYPE , TITLE , CONTENT , MEMBER_ID , NAME , CREATE_TM , UPDATE_TM)
 		VALUES(#{board_idx} , #{level} , #{type} , #{title} , #{content} , #{member_id} , #{name} , now() , now())
 	</insert>
 
@@ -44,14 +44,15 @@
 	</select>
 	
 	<update id="setBoardDataUpdate" parameterType="AdminBoardDataVo">
-		UPDATE TBL_BOARD_DATA SET (
+		UPDATE TBL_BOARD_DATA SET
 		level = #{level},
 		type = #{type},
 		title = #{title},
 		content = #{content},
 		name = #{name},
+		file = #{file},
 		update_tm = now()
-		) WHERE IDX = #{idx} AND member_id = #{member_id} AND board_idx = #{board_idx} 
+		WHERE IDX = #{idx} AND member_id = #{member_id} AND board_idx = #{board_idx} 
 	</update>
 	
 	<delete id="setBoardDataDelete" parameterType="AdminBoardDataVo">
@@ -71,14 +72,14 @@
 	</insert>
 	
 	<update id="setBoardReplyUpdate" parameterType="AdminBoardReplyVo">
-		UPDATE TBL_BOARD_REPLY SET (
+		UPDATE TBL_BOARD_REPLY SET
 			CONTENT = #{content},
 			UPDATE_TM = now(),
-		)WHERE IDX = #{idx}
+		WHERE IDX = #{idx}
 	</update>
 	
-	<delete id="setBoardReplyListDelete" parameterType="AdminBoardReplyVo">
-		DELETE FROM TBL_BOARD_REPLY WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{board_data_idx} 
+	<delete id="setBoardReplyListDelete" parameterType="AdminBoardDataVo">
+		DELETE FROM TBL_BOARD_REPLY WHERE BOARD_IDX = #{board_idx} AND BOARD_DATA_IDX = #{idx} 
 	</delete>
 	
 	<delete id="setBoardReplyDelete" parameterType="AdminBoardReplyVo">

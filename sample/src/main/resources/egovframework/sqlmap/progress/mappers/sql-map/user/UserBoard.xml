@@ -49,7 +49,7 @@
 	</select>
 	
 	<update id="setBoardUpdate" parameterType="UserBoardVo">
-		UPDATE TBL_BOARD SET (
+		UPDATE TBL_BOARD SET
 		
 		level = #{level},
 		reply = #{reply},
@@ -57,7 +57,7 @@
 		name = #{name},
 		update_tm = now()
 		
-		) WHERE IDX = #{idx}
+		WHERE IDX = #{idx}
 	</update>
 	
 	<delete id="delBoard" parameterType="UserBoardVo">

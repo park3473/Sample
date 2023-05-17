@@ -16,6 +16,7 @@ public class AdminBoardDataVo extends SearchVo{
 	String file = "";			//게시글 파일 여부
 	String create_tm = "";		//게시글 생성 시간
 	String update_tm = "";		//게시글 수정 시간
+	String rdcnt = "";			//게시글 조회수
 	
 	public String getIdx() {
 		return idx;
@@ -88,6 +89,12 @@ public class AdminBoardDataVo extends SearchVo{
 	}
 	public void setUpdate_tm(String update_tm) {
 		this.update_tm = update_tm;
+	}
+	public String getRdcnt() {
+		return rdcnt;
+	}
+	public void setRdcnt(String rdcnt) {
+		this.rdcnt = rdcnt;
 	}
 	
 	

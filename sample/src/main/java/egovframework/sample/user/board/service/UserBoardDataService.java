@@ -26,5 +26,9 @@ public interface UserBoardDataService {
 
 	public void setBoardReplyDataInsert(UserBoardReplyVo userBoardReplyVo);
 
+	public ModelMap getIndexBoardData();
+
+	public void setBoardDataRdCntUp(UserBoardDataVo userBoardDataVo);
+
 
 }

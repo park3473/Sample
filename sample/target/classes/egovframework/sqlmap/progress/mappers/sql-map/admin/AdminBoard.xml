@@ -39,20 +39,22 @@
 	</select>
 	
 	<insert id="setBoardInsert" parameterType="AdminBoardVo">
-		INSERT INTO TBL_BOARD (level , reply , type , name , create_tm , update_tm)
-		VALUES (#{level} , #{reply} , #{type} , #{name} , now() , now())
+		INSERT INTO TBL_BOARD (level , reply , type , name , file , file_cnt , create_tm , update_tm)
+		VALUES (#{level} , #{reply} , #{type} , #{name} , #{file} , #{file_cnt} , now() , now())
 	</insert>
 	
 	<update id="setBoardUpdate" parameterType="AdminBoardVo">
-		UPDATE TBL_BOARD SET (
+		UPDATE TBL_BOARD SET
 		
 		level = #{level},
 		reply = #{reply},
 		type = #{type},
 		name = #{name},
+		file = #{file},
+		file_cnt = #{file_cnt},
 		update_tm = now()
 		
-		) WHERE IDX = #{idx}
+		WHERE IDX = #{idx}
 	</update>
 	
 	<delete id="setBoardDelete" parameterType="AdminBoardVo">

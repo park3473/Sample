@@ -8,7 +8,7 @@
 <html>
 <body>
 	<div>
-		<h1>파킹</h1>
+		<h1>홈페이지 업데이트 중입니다.</h1>
 	</div>
 </body>
 </html>

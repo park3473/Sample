@@ -23,8 +23,6 @@ public class AdminBoardDataServiceImpl implements AdminBoardDataService {
 	@Resource(name="adminBoardDataMapper")
 	AdminBoardDataMapper adminBoardDataMapper;
 	
-	@Resource(name="admin")
-	
 	@Override
 	public ModelMap getAllList(AdminBoardDataVo adminBoardDataVo) {
 		
@@ -61,11 +59,16 @@ public class AdminBoardDataServiceImpl implements AdminBoardDataService {
 	}
 
 	@Override
-	public void setBoardData(AdminBoardDataVo adminBoardDataVo, String type) {
+	public String setBoardData(AdminBoardDataVo adminBoardDataVo, String type) {
+		
+		String result ="result";
 		
 		switch (type) {
 		case "insert":
 			adminBoardDataMapper.setBoardDataInsert(adminBoardDataVo);
+			System.out.println(adminBoardDataVo.getIdx());
+			result = adminBoardDataVo.getIdx();
+			
 			break;
 		case "update":
 			adminBoardDataMapper.setBoardDataUpdate(adminBoardDataVo);
@@ -78,6 +81,7 @@ public class AdminBoardDataServiceImpl implements AdminBoardDataService {
 			break;
 		}
 		
+		return result;
 		
 	}
 

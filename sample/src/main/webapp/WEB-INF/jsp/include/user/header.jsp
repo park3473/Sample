@@ -25,7 +25,14 @@
 
 <script src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert2.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert2.min.css">
+<script src="${pageContext.request.contextPath}/resources/sweetalert/jquery-1.12.4.js"></script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/ckcontent.css">
+
+
 </head>
+
 <body>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -38,6 +45,4 @@
 
   gtag('config', 'UA-163568943-1');
 </script>
-<script>
 
-</script>

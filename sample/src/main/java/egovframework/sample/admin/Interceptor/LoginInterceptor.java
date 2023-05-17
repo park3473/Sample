@@ -30,12 +30,16 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		
 		HttpSession session = request.getSession();
-		String level = session.getAttribute("ssion_user_level") + "";
-		if(level.equals("1"))
+		String level = session.getAttribute("UserLevel") + "";
+		if(level.equals("73"))
 		{
+			
+			System.out.println("AdminInterCeptor" + level);
 			return true;
 		}else 
 		{
+			
+			System.out.println("AdminInterCeptor" + level);
 			response.sendRedirect(request.getContextPath()+"/index.do");
 			return false;
 		}

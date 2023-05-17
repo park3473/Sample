@@ -9,6 +9,8 @@ public class AdminBoardVo extends SearchVo {
 	String reply = "";			//댓글 여부
 	String type = "";			//타입
 	String name = "";			//게시판 이름
+	String file = "";			//게시판 파일 여부
+	String file_cnt = "";		//게시판 파일 갯수
 	String create_tm = "";		//게시판 생성 시간
 	String update_tm = "";		//게시판 수정 시간
 	
@@ -53,6 +55,18 @@ public class AdminBoardVo extends SearchVo {
 	}
 	public void setUpdate_tm(String update_tm) {
 		this.update_tm = update_tm;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
+	public String getFile_cnt() {
+		return file_cnt;
+	}
+	public void setFile_cnt(String file_cnt) {
+		this.file_cnt = file_cnt;
 	}
 	
 	
