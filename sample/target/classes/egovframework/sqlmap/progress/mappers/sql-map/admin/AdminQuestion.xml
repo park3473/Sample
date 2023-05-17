@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sample.admin.question.service.impl.AdminQuestionMapper">
+	<select id="getAllList" parameterType="AdminQuestionVo" resultType="hashMap">
+		SELECT	* FROM TBL_QUESTION
+		WHERE EXAM_IDX = #{exam_idx}
+	</select>
+	
+	<insert id="setQuestionDataInsert" parameterType="AdminQuestionVo">
+		INSERT INTO TBL_QUESTION(EXAM_IDX , NAME , TYPE , CONTENT , SELECT_TYPE , SELECT_VAL , SOLUTION , CREATE-TM , UPDATE_TM)
+		VALUES(#{exam_idx} , #{name} , #{type} , #{content} , #{select_type} , #{select_val} , #{solution} , now() , now())
+	</insert>
+	
+	<update id="setQuestionDataUpdate" parameterType="AdminQuestionVo">
+		UPDATE TBL_QUESTION SET
+		<if test="NAME != ''">
+			NAME = #{name},
+		</if>
+		<if test="TYPE != ''">
+			TYPE = #{type},
+		</if>
+		<if test="CONTENT != ''">
+			CONTENT = #{content},
+		</if>
+		<if test="SELECT_TYPE != ''">
+			SELECT_TYPE = #{select_type},
+		</if>
+		<if test="SELECT_VAL != ''">
+			SELECT_VAL = #{select_val},
+		</if>
+		<if test="SOLUTION != ''">
+			SOLUTION = #{solution},
+		</if>
+		UPDATE_TM = now()
+		WHERE EXAM_IDX = #{exam_idx}
+	</update>
+	
+	<delete id="setQuestionDataDeleteAll" parameterType="AdminQuestionVo">
+		DELETE FROM TBL_QUESTION WHERE EXAM_IDX = #{exam_idx}
+	</delete>
+	
+	<delete id="setQuestionDataDeleteOne" parameterType="AdminQuestionVo">
+		DELETE FROM TBL_QUESTION WHERE IDX = #{idx}
+	</delete>
+
+</mapper>
