@@ -22,4 +22,6 @@ public interface MenuMapper {
 
 	void setMenuSeqReOrder(MenuVo menuVo);
 
+	void setMenuReSeq(int seq);
+
 }

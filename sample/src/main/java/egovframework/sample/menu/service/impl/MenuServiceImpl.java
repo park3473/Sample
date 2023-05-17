@@ -26,9 +26,14 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public void setMenuData(MenuVo menuVo, String type) {
 		
-		
+		//재정렬 부분 Seq = 들어갈 번호 해당 번호보다 아래 것들 번호 하나씩 늘림 - 해당  seq가 0보다 높을때는 번호 늘리기 없을때는 전체 재정렬
+		int Seq = 0;
 		switch (type) {
 		case "insert":
+			 
+			Seq = Integer.parseInt(menuVo.getSeq());
+			menuMapper.setMenuReSeq(Seq);
+			
 			menuMapper.setMenuInsertData(menuVo);
 			break;
 		case "update":
@@ -44,10 +49,9 @@ public class MenuServiceImpl implements MenuService {
 			}else {
 				menuMapper.setMenuDeleteData(menuVo);
 			}
-			
-			//메뉴 순서 재정렬 (title , seq)
-			menuMapper.setMenuTitleReOrder(menuVo);
-			menuMapper.setMenuSeqReOrder(menuVo);
+			//재정렬
+			Seq = 0;
+			menuMapper.setMenuReSeq(Seq);
 			
 			break;
 		}

@@ -24,6 +24,8 @@
 		<typeAlias type="egovframework.sample.admin.member.model.AdminMemberVo" alias="AdminMemberVo"/>
 		<typeAlias type="egovframework.sample.admin.subpage.model.AdminSubPageVo" alias="AdminSubPageVo"/>
 		<typeAlias type="egovframework.sample.admin.banner.model.AdminBannerVo" alias="AdminBannerVo"/>
+		<typeAlias type="egovframework.sample.admin.exam.model.AdminExamVo" alias="AdminExamVo"/>
+		<typeAlias type="egovframework.sample.admin.question.model.AdminQuestionVo" alias="AdminQuestionVo"/>
 		
 		<typeAlias type="egovframework.sample.menu.model.MenuVo" alias="MenuVo"/>
 		<typeAlias type="egovframework.sample.file.model.FileVo" alias="FileVo"/>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sample.admin.exam.service.impl.AdminExamMapper">
+	<select id="getAllList" resultType="hashMap"  parameterType="AdminExamVo">
+		SELECT * FROM TBL_EXAM
+		WHERE 1=1
+		<if test="SEARCH_TEXT != ''">
+		    <if test="SEARCH_TYPE != 'ALL'">
+	    		 AND ${SEARCH_TYPE} LIKE '%${SEARCH_TEXT}%'
+	    	</if>
+	    </if>
+	    <if test="UP != ''">
+	    	order by ${UP} asc
+	    </if>
+	    <if test="DOWN != ''">
+	    	order by ${DOWN} desc
+	    </if>
+	    <if test="DOWN == '' and UP == ''">
+	    	order by CREATE_TM desc
+	    </if>
+	    LIMIT ${LIMIT} OFFSET ${OFFSET}
+	</select>
+	
+	<select id="getAllListCnt" resultType="int" parameterType="AdminExamVo">
+		SELECT COUNT(*) FROM TBL_EXAM
+		WHERE 1=1
+		<if test="SEARCH_TEXT != ''">
+		    <if test="SEARCH_TYPE != 'ALL'">
+	    		 AND ${SEARCH_TYPE} LIKE '%${SEARCH_TEXT}%'
+	    	</if>
+	    </if> 
+	</select>
+	
+	<insert id="setAdminExamDataInsert" parameterType="AdminExamVo">
+		INSERT INTO TBL_EXAM (NAME , L_CATEGORY , M_CATEGORY , TYPE , CONTENT , CREATE_TM , UPDATE_TM)
+		VALUES(#{name} , #{l_category} , #{m_category} , #{type} , #{content} , now() , now())
+	</insert>
+	
+	<update id="setAdminExamDataUpdate" parameterType="AdminExamVo">
+		UPDATE TBL_EXAM SET
+		<if test="NAME != ''">
+			NAME = #{name},
+		</if>
+		<if test="L_CATEGORY != ''">
+		L_CATEGROY = #{l_category},
+		</if>
+		<if test="M_CATEGORY != ''">
+		M_CATEGROY = #{m_category},
+		</if>
+		<if test="TYPE != ''">
+		TYPE = #{type},
+		</if>
+		<if test="CONTENT != ''">
+		CONTENT = #{content},
+		</if>
+		UPDATE_TM = now()
+		
+		WHERE IDX = #{idx}
+	</update>
+	
+	<delete id="setAdminExamDataInsert" parameterType="AdminExamVo">
+		DELETE FROM TBL_EXAM WHERE IDX = #{idx}
+	</delete>
+
+
+</mapper>

@@ -31,19 +31,21 @@
 		DELETE FROM TBL_MENU WHERE UPPER_MENU_IDX = #{idx}
 	</delete>
 	
-	<update id="setMenuTitleReOrder" parameterType="MenuVo">
-		<if test="DEPTH == '0'">
-			SELECT @seq:=0;
-		UPDATE TBL_MENU SET TITLE = @seq:=@seq+1 WHERE UPPER_MENU_IDX = #{upper_menu_idx};
+	<update id="setMenuReSeq" parameterType="int">
+		<if test="seq == 0">
+		SELECT @ROW_NUMBER:=0;
+		UPDATE tbl_menu
+		SET seq = @ROW_NUMBER:= @ROW_NUMBER + 1
+		ORDER BY seq;
 		</if>
-		<if test="DEPTH == '1'">
-			SELECT @seq:=0;
-			UPDATE TBL_MENU SET TITLE = CONCAT(#{upper_title},@seq:=@seq+1) WHERE UPPER_MENU_IDX = #{upper_menu_idx};
+		<if test="seq > 0">
+		SELECT @ROW_NUMBER:=${value};
+		UPDATE tbl_menu
+		SET seq = @ROW_NUMBER:= @ROW_NUMBER + 1
+		AND seq >= ${value}
+		ORDER BY seq;
 		</if>
 	</update>
 	
-	<update id="setMenuSeqReOrder" parameterType="MenuVo">
-		SELECT @seq:=0;
-		UPDATE TBL_MENU SET SEQ = @seq:=@seq+1 WHERE UPPER_MENU_IDX = #{upper_menu_idx} ORDER BY SEQ;
-	</update>
+	
 </mapper>
