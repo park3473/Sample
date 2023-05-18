@@ -18,4 +18,6 @@ public interface AdminExamMapper {
 
 	public void setAdminExamDataDelete(AdminExamVo adminExamVo);
 
+	public AdminExamVo getExamView(AdminExamVo adminExamVo);
+
 }

@@ -60,9 +60,14 @@
 		WHERE IDX = #{idx}
 	</update>
 	
-	<delete id="setAdminExamDataInsert" parameterType="AdminExamVo">
+	<delete id="setAdminExamDataDelete" parameterType="AdminExamVo">
 		DELETE FROM TBL_EXAM WHERE IDX = #{idx}
 	</delete>
+	
+	<select id="getExamView" parameterType="AdminExamVo" resultType="AdminExamVo">
+		SELECT * FROM TBL_EXAM
+		WHERE IDX = #{idx}
+	</select>
 
 
 </mapper>

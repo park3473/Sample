@@ -76,5 +76,17 @@ public class AdminExamServiceImpl implements AdminExamService {
 		
 		
 	}
+
+	@Override
+	public ModelMap getExamView(AdminExamVo adminExamVo) {
+		
+		ModelMap model = new ModelMap();
+		
+		AdminExamVo view = adminExamMapper.getExamView(adminExamVo);
+		
+		model.put("view", view);
+		
+		return model;
+	}
 	
 }

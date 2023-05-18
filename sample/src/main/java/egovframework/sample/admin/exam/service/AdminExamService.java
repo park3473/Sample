@@ -10,4 +10,6 @@ public interface AdminExamService {
 
 	public void setAdminExamData(AdminExamVo adminExamVo, String string);
 
+	public ModelMap getExamView(AdminExamVo adminExamVo);
+
 }

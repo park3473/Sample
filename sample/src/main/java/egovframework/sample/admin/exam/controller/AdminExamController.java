@@ -67,10 +67,14 @@ public class AdminExamController {
 	
 	}
 	
-	@RequestMapping(value="/admin/exam/update.do" , method = RequestMethod.POST)
-	public String AdminExamUpdateGet(@ModelAttribute("AdminExamVo")AdminExamVo AdminExamVo , HttpServletRequest request , HttpServletResponse response) {
+	@RequestMapping(value="/admin/exam/update.do" , method = RequestMethod.GET)
+	public ModelAndView AdminExamUpdateGet(@ModelAttribute("AdminExamVo")AdminExamVo AdminExamVo , HttpServletRequest request , HttpServletResponse response) {
 		
-		return "admin/excam/update";
+		ModelMap model = new ModelMap();
+		
+		model = adminExamService.getExamView(AdminExamVo);
+		
+		return new ModelAndView("admin/excam/update" , "model" , model);
 		
 	}
 	

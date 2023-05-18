@@ -5,12 +5,12 @@
 <mapper namespace="egovframework.sample.menu.service.impl.MenuMapper">
 	<select id="getMenuList" resultType="hashMap">
 		SELECT * , (SELECT COUNT(*) FROM TBL_MENU m2 WHERE m2.UPPER_MENU_IDX = m1.IDX  ) AS UNDER_CNT FROM TBL_MENU m1
-		ORDER BY TITLE , SEQ
+		ORDER BY SEQ
 	</select>
 	
 	<insert id="setMenuInsertData" parameterType="MenuVo">
-		INSERT INTO TBL_MENU(TYPE , DEPTH , TITLE , UPPER_MENU_IDX , SEQ , NAME , LINK , CREATE_TM , UPDATE_TM)
-		VALUES (#{type} , #{depth} , #{title} , #{upper_menu_idx} , #{seq} , #{name} , #{link} , now() , now())
+		INSERT INTO TBL_MENU(TYPE , DEPTH , UPPER_MENU_IDX , SEQ , NAME , LINK , CREATE_TM , UPDATE_TM)
+		VALUES (#{type} , #{depth} , #{upper_menu_idx} , #{seq} , #{name} , #{link} , now() , now())
 	</insert>
 	
 	<update id="setMenuUpdateData" parameterType="MenuVo">
