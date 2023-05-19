@@ -154,7 +154,17 @@ function InsertModalOpen(depth , idx , e){
 	if(depth == '1'){
 		$('[name=insert_menu_upper_menu_idx]').val(idx);
 		//해당 같은 하위 메뉴의 제일 마지막의 번호 + 1
-		$('[name=insert_menu_seq]').val(parseInt($('[menu_upper_menu_idx='+idx+']').last().attr('menu_seq')) + 1);
+		var size = $('[menu_upper_menu_idx='+idx+']').size();
+		if(size > 0){
+		
+			$('[name=insert_menu_seq]').val(parseInt($('[menu_upper_menu_idx='+idx+']').last().attr('menu_seq')) + 1);
+			
+		}else if(size == 0){
+			
+			$('[name=insert_menu_seq]').val(parseInt($(e).attr('menu_seq')) + 1);
+			
+		}
+		
 	}else if(depth == '0'){
 		$('[name=insert_menu_upper_menu_idx]').val('0');
 		$('[name=insert_menu_seq]').val(parseInt($('[name=menu_data]').last().attr('menu_seq')) + 1);

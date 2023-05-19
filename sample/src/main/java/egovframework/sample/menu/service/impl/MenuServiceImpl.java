@@ -30,9 +30,17 @@ public class MenuServiceImpl implements MenuService {
 		int Seq = 0;
 		switch (type) {
 		case "insert":
-			 
+			
 			Seq = Integer.parseInt(menuVo.getSeq());
-			menuMapper.setMenuReSeq(Seq);
+			
+			List<?> list = menuMapper.getMenuList();
+			
+			if(list.size() >= Seq) {
+				
+				System.out.println("아래것이 왜 오류가 날까 진짜 난 잘 모르겠어");
+				
+				menuMapper.setMenuReSeq(Seq);
+			}
 			
 			menuMapper.setMenuInsertData(menuVo);
 			break;
