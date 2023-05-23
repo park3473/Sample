@@ -29,7 +29,7 @@ public class MenuContorller {
 		
 		ModelMap model = new ModelMap();
 		
-		List<?> list = menuService.getMenuList();
+		List<?> list = menuService.getMenuList(MenuVo);
 		
 		model.put("list", list);
 		
