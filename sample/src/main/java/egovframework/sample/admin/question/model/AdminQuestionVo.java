@@ -3,10 +3,10 @@ package egovframework.sample.admin.question.model;
 public class AdminQuestionVo {
 
 	String idx = "";
-	String exam_idx = "";
 	String name = "";
 	String type = "";
 	String content = "";
+	String objectives = "";
 	String select_type = "";
 	String select_val = "";
 	String solution = "";
@@ -18,12 +18,6 @@ public class AdminQuestionVo {
 	}
 	public void setIdx(String idx) {
 		this.idx = idx;
-	}
-	public String getExam_idx() {
-		return exam_idx;
-	}
-	public void setExam_idx(String exam_idx) {
-		this.exam_idx = exam_idx;
 	}
 	public String getName() {
 		return name;
@@ -42,6 +36,12 @@ public class AdminQuestionVo {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getObjectives() {
+		return objectives;
+	}
+	public void setObjectives(String objectives) {
+		this.objectives = objectives;
 	}
 	public String getSelect_type() {
 		return select_type;

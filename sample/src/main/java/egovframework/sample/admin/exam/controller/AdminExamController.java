@@ -17,6 +17,7 @@ import com.system.util.SUtil;
 
 import egovframework.sample.admin.exam.model.AdminExamVo;
 import egovframework.sample.admin.exam.service.AdminExamService;
+import egovframework.sample.admin.question.model.AdminQuestionListVo;
 
 @Controller
 public class AdminExamController {
@@ -24,6 +25,8 @@ public class AdminExamController {
 	@Autowired
 	AdminExamService adminExamService;
 
+	
+	//EXAM
 	@RequestMapping(value="/admin/exam/list.do" , method = RequestMethod.GET)
 	public ModelAndView AdminExamListGet(@ModelAttribute("AdminExamVo")AdminExamVo AdminExamVo , HttpServletRequest request , HttpServletResponse response) {
 		
@@ -52,9 +55,13 @@ public class AdminExamController {
 	}
 	
 	@RequestMapping(value="/admin/exam/insert.do" , method = RequestMethod.GET)
-	public String AdminExamInsertGet(@ModelAttribute("AdminExamVo")AdminExamVo AdminExamVo , HttpServletRequest request , HttpServletResponse response) {
+	public ModelAndView AdminExamInsertGet(@ModelAttribute("AdminExamVo")AdminExamVo AdminExamVo , HttpServletRequest request , HttpServletResponse response) {
 		
-		return "admin/exam/insert";
+		ModelMap model = new ModelMap();
+		
+		model = adminExamService.getExamCategoryAllList();
+		
+		return new ModelAndView("admin/exam/insert" , "model" , model);
 		
 	}
 	
@@ -94,8 +101,41 @@ public class AdminExamController {
 		adminExamService.setAdminExamData(AdminExamVo, "delete");
 		
 		//해당 문항 및 답안 삭제
-		
 		SUtil.AlertAndPageMove(response, "해당 자가진단이 삭제 되었습니다.", "/admin/exam/list.do");
+	}
+	
+	
+	//QUESTION_LIST 부분
+	@RequestMapping(value="/admin/exam/question_list.do" , method = RequestMethod.GET)
+	public ModelAndView AdminExamQuestionList(@ModelAttribute("AdminQuestionListVo")AdminQuestionListVo AdminQuestionListVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelMap model = new ModelMap();
+		
+		model = adminExamService.getQuestionList(AdminQuestionListVo);
+		
+		return new ModelAndView("/admin/exam/question_list" , "model" , model);
+		
+	}
+	
+	@RequestMapping(value="/admin/exam/question_list/insert.do" , method = RequestMethod.POST)
+	public void AdminExamQuestionListInsert(@ModelAttribute("AdminQuestionListVo")AdminQuestionListVo AdminQuestionListVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		adminExamService.setAdminExamQuestionList(AdminQuestionListVo , "insert");
+		
+	}
+	
+	@RequestMapping(value="/admin/exam/question_list/update.do" , method = RequestMethod.POST)
+	public void AdminExamQuestionListUpdate(@ModelAttribute("AdminQuestionListVo")AdminQuestionListVo AdminQuestionListVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		adminExamService.setAdminExamQuestionList(AdminQuestionListVo , "update");
+		
+	}
+	
+	@RequestMapping(value="/admin/exam/question_list/delete.do" , method = RequestMethod.POST)
+	public void AdminExamQuestionListDelete(@ModelAttribute("AdminQuestionListVo")AdminQuestionListVo AdminQuestionListVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		adminExamService.setAdminExamQuestionList(AdminQuestionListVo , "delete");
+		
 	}
 	
 }

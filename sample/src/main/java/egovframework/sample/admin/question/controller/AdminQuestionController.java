@@ -40,7 +40,7 @@ public class AdminQuestionController {
 		
 		adminQuestionService.setQuestionData(AdminQuestionVo , "insert");
 		
-		SUtil.AlertAndPageMove(response, "해당 문항이 등록되었습니다.", "/admin/question/list.do?exam_idx="+AdminQuestionVo.getExam_idx());
+		SUtil.AlertAndPageMove(response, "해당 문항이 등록되었습니다.", "/admin/question/list.do");
 		
 	}
 	
@@ -49,7 +49,7 @@ public class AdminQuestionController {
 		
 		adminQuestionService.setQuestionData(AdminQuestionVo , "update");
 		
-		SUtil.AlertAndPageMove(response, "해당 문항이 수정되었습니다.", "/admin/question/list.do?exam_idx="+AdminQuestionVo.getExam_idx());
+		SUtil.AlertAndPageMove(response, "해당 문항이 수정되었습니다.", "/admin/question/list.do");
 		
 	}
 	
@@ -58,7 +58,7 @@ public class AdminQuestionController {
 		
 		adminQuestionService.setQuestionData(AdminQuestionVo , "delete_one");
 		
-		SUtil.AlertAndPageMove(response, "해당 문항이 삭제되었습니다.", "/admin/question/list.do?exam_idx="+AdminQuestionVo.getExam_idx());
+		SUtil.AlertAndPageMove(response, "해당 문항이 삭제되었습니다.", "/admin/question/list.do");
 		
 	}
 	

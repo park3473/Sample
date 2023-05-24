@@ -102,7 +102,7 @@ public class UserController {
 		
 		ModelMap model = new ModelMap();
 		
-		List<?> MenuList = menuService.getMenuList();
+		List<?> MenuList = menuService.getMenuList(MenuVo);
 		
 		model.put("list", MenuList);
 		

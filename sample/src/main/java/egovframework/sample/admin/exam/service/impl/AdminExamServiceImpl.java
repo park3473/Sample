@@ -12,6 +12,7 @@ import com.system.util.PageVO;
 
 import egovframework.sample.admin.exam.model.AdminExamVo;
 import egovframework.sample.admin.exam.service.AdminExamService;
+import egovframework.sample.admin.question.model.AdminQuestionListVo;
 
 @Service
 @Transactional
@@ -87,6 +88,65 @@ public class AdminExamServiceImpl implements AdminExamService {
 		model.put("view", view);
 		
 		return model;
+	}
+
+	@Override
+	public ModelMap getQuestionList(AdminQuestionListVo adminQuestionListVo) {
+		
+		ModelMap model = new ModelMap();
+		
+		List<?> list = adminExamMapper.getQuestionList(adminQuestionListVo);
+		
+		model.put("list", list);
+		
+		return model;
+	}
+
+	@Override
+	public void setAdminExamQuestionList(AdminQuestionListVo adminQuestionListVo, String type) {
+		
+		switch (type) {
+		case "insert":
+			adminExamMapper.setAdminExamQuestionListInsert(adminQuestionListVo);
+			break;
+		case "update":
+			adminExamMapper.setAdminExamQuestionListUpdate(adminQuestionListVo);
+			break;
+		case "delete":
+			adminExamMapper.setAdminExamQuestionListDelete(adminQuestionListVo);
+			break;
+
+		default:
+			break;
+		}
+		
+		
+	}
+
+	@Override
+	public ModelMap getExamCategoryAllList() {
+		
+		ModelMap model = new ModelMap();
+		
+		AdminExamVo vo = new AdminExamVo();
+		
+		vo.setL_category("TRUE");
+		
+		//l category 가져오기 
+		List<?> LCategoryList = adminExamMapper.getExamCategoryList(vo); 
+		
+		model.put("LCategoryList", LCategoryList);
+		
+		vo.setL_category("");
+		vo.setM_category("TRUE");
+		
+		//m category 가져오기
+		List<?> MCategoryList = adminExamMapper.getExamCategoryList(vo); 
+		
+		model.put("MCategoryList", MCategoryList);
+		
+		return model;
+		
 	}
 	
 }

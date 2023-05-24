@@ -5,7 +5,6 @@
 <mapper namespace="egovframework.sample.admin.question.service.impl.AdminQuestionMapper">
 	<select id="getAllList" parameterType="AdminQuestionVo" resultType="hashMap">
 		SELECT	* FROM TBL_QUESTION
-		WHERE EXAM_IDX = #{exam_idx}
 	</select>
 	
 	<insert id="setQuestionDataInsert" parameterType="AdminQuestionVo">
