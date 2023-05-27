@@ -50,6 +50,8 @@ public class AdminExamController {
 		
 		model = adminExamService.getAllList(AdminExamVo);
 		
+		model.put("before", AdminExamVo);
+		
 		return new ModelAndView("admin/exam/list" , "model" , model);
 		
 	}
@@ -81,7 +83,7 @@ public class AdminExamController {
 		
 		model = adminExamService.getExamView(AdminExamVo);
 		
-		return new ModelAndView("admin/excam/update" , "model" , model);
+		return new ModelAndView("admin/exam/update" , "model" , model);
 		
 	}
 	
@@ -113,7 +115,9 @@ public class AdminExamController {
 		
 		model = adminExamService.getQuestionList(AdminQuestionListVo);
 		
-		return new ModelAndView("/admin/exam/question_list" , "model" , model);
+		model.put("exam_idx", AdminQuestionListVo.getExam_idx());
+		
+		return new ModelAndView("admin/exam/question_list" , "model" , model);
 		
 	}
 	

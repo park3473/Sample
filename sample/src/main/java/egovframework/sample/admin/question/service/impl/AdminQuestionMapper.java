@@ -1,4 +1,4 @@
-package egovframework.sample.admin.question.serviceimpl;
+package egovframework.sample.admin.question.service.impl;
 
 import java.util.List;
 
@@ -14,8 +14,10 @@ public interface AdminQuestionMapper {
 
 	public void setQuestionDataUpdate(AdminQuestionVo adminQuestionVo);
 
-	public void setQuestionDataDeleteAll(AdminQuestionVo adminQuestionVo);
+	public void setQuestionDataDelete(AdminQuestionVo adminQuestionVo);
 
-	public void setQuestionDataDeleteOne(AdminQuestionVo adminQuestionVo);
+	public List<?> getTypeAllList();
+
+	public int getAllListCnt(AdminQuestionVo adminQuestionVo);
 
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sample.admin.select.service.impl.AdminSelectMapper">
+	<select id="getSelectAllList" resultType="hashMap" parameterType="AdminSelectVo"> 
+		SELECT * FROM TBL_SELECT
+		WHERE QUESTION_IDX = #{question_idx}
+		ORDER BY SEQ
+	</select>
+	
+	<select id="getSelectView" parameterType="AdminSelectVo" resultType="AdminSelectVo">
+		SELECT * FROM TBL_SELECT
+		WHERE IDX = #{idx}
+	</select>
+	
+	<insert id="setSelectInsert" parameterType="AdminSelectVo">
+		INSERT INTO TBL_SELECT (SEQ , QUESTION_IDX , CONTENT , IMAGE , CREATE_TM , UPDATE_TM)
+		VALUES (#{seq} , #{question_idx} , #{content} , #{image} , now() , now())
+	</insert>
+	
+	<update id="setSelectUpdate" parameterType="AdminSelectVo">
+		UPDATE TBL_SELECT SET
+		<if test="question_idx != ''">
+			QUESTION_IDX = #{question_idx},
+		</if>
+		<if test="content">
+			CONTENT = #{content},
+		</if>
+		<if test="image">
+			IMAGE = #{image},
+		</if>
+		UPDATE_TM = now()
+		WHERE IDX = #{idx}
+	</update>
+
+</mapper>

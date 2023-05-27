@@ -87,6 +87,23 @@ public class AdminExamServiceImpl implements AdminExamService {
 		
 		model.put("view", view);
 		
+		AdminExamVo vo = new AdminExamVo();
+		
+		vo.setL_category("TRUE");
+		
+		//l category 가져오기 
+		List<?> LCategoryList = adminExamMapper.getExamCategoryList(vo); 
+		
+		model.put("LCategoryList", LCategoryList);
+		
+		vo.setL_category("");
+		vo.setM_category("TRUE");
+		
+		//m category 가져오기
+		List<?> MCategoryList = adminExamMapper.getExamCategoryList(vo); 
+		
+		model.put("MCategoryList", MCategoryList);
+		
 		return model;
 	}
 

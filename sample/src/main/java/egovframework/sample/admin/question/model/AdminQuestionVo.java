@@ -1,6 +1,8 @@
 package egovframework.sample.admin.question.model;
 
-public class AdminQuestionVo {
+import com.system.util.SearchVo;
+
+public class AdminQuestionVo extends SearchVo {
 
 	String idx = "";
 	String name = "";

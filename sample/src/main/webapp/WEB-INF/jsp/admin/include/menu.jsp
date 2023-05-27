@@ -121,6 +121,38 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li <c:if test="${fn:indexOf(fullURL , '/exam/') > -1}">
+                                    class="adm_menu_active"
+                                    </c:if>>
+                                    <a href="${pageContext.request.contextPath}/admin/exam/list.do">
+                                        <img src="${pageContext.request.contextPath}/resources/img/admin/exam_icon.png" alt="파일관리" />
+                                    </a>
+                                    <ul class="sub_menu_con">
+                                        <div class="title notosans">
+                                        	<span></span>
+                                            <span>자가진단 관리</span>
+                                        </div>
+                                        <li <c:if test="${fn:indexOf(fullURL, '/exam/list') > -1}">class="nav_active"</c:if>>
+                                            <a href="${pageContext.request.contextPath}/admin/exam/list.do">자가진단 리스트</a>
+                                            <c:if test="${fn:indexOf(fullURL , '/exam/question_list') > -1}">
+	                                        <ul class="sub_menu_ob">
+		                                        <li <c:if test="${fn:indexOf(fullURL, '/exam/question_list') > -1}">class="nav_active"</c:if>>
+		                                            <a href="#">자가진단 문제 리스트</a>
+		                                        </li>
+	                                        </ul>
+                                        	</c:if>
+                                        </li>
+                                        <li <c:if test="${fn:indexOf(fullURL, 'exam/insert') > -1}">class="nav_active"</c:if>>
+                                            <a href="${pageContext.request.contextPath}/admin/exam/insert.do">자가진단 생성</a>
+                                        </li>
+                                        <li <c:if test="${fn:indexOf(fullURL, 'question/list') > -1}">class="nav_active"</c:if>>
+                                            <a href="${pageContext.request.contextPath}/admin/question/list.do">문제 리스트</a>
+                                        </li>
+                                        <li <c:if test="${fn:indexOf(fullURL, 'question/insert') > -1}">class="nav_active"</c:if>>
+                                            <a href="${pageContext.request.contextPath}/admin/question/insert.do">문제 생성</a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li <c:if test="${fn:indexOf(fullURL , '/file/') > -1}">
                                     class="adm_menu_active"
                                     </c:if>>
