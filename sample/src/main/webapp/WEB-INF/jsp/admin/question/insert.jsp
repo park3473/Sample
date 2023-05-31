@@ -140,13 +140,19 @@
 </body>
 </html>
 <script type="module" >
-	import editor from '/resources/ckeditor/editor.js'
-    $(document).ready(function () {
-        editor("#editor").then(editor => {
-        	// some code..
-            // then 이후에 받은 editor를 다른 변수로 받아주시는 편이 좋습니다!
-        })
+import editor from '/resources/ckeditor/editor.js'
+
+// CKEditor 인스턴스를 저장할 변수를 정의합니다.
+window.ckeditorInstance;
+
+$(document).ready(function () {
+    editor("#editor").then(editor => {
+        // CKEditor 인스턴스를 저장합니다.
+        window.ckeditorInstance = editor;
+
+        // some code..
     })
+})
 
 
 
@@ -210,7 +216,8 @@ function question_select(){
 	
 	//window.open('/admin/question/select_list.do?type='+$('[name=type]').val()+'' , '_blank' ,'width=1200,heigth=1600');
 	var typeValue = $('[name=type]').val();
-	var url = '/admin/question/select_list.do?type=' + typeValue;
+	var exam_idx = $('[name=exam_idx]').val();
+	var url = '/admin/question/select_list.do?type=' + typeValue+'&exam_idx='+exam_idx;
 
 	window.open(url, '문제 연결', 'width=1600, height=800');
 	

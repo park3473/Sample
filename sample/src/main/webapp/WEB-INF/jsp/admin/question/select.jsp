@@ -65,7 +65,9 @@
                                         </td>
                                         <td>
                                         	<button type="button" onclick="question_view('${item.idx}' )" >보기</button>
+                                        	<c:if test="${model.before.exam_idx != 'false' }">
                                         	<button type="button" onclick="question_connect('connect' , this)" data-idx="${item.idx }" data-name="${item.name }" data-type="${item.type }" data-content="${item.content }" data-objectives="${item.objectives }" data-select_type="${item.select_type }" data-select_val="${item.select_val }" data-solution="${item.solution }" >연결</button>
+                                        	</c:if>
                                         	<button type="button" onclick="question_connect('update' , this)" data-idx="${item.idx }" data-name="${item.name }" data-type="${item.type }" data-content="${item.content }" data-objectives="${item.objectives }" data-select_type="${item.select_type }" data-select_val="${item.select_val }" data-solution="${item.solution }" >가져와서 수정하기</button>
                                         </td>
                                     </tr>
@@ -140,7 +142,7 @@ function question_view(idx){
 	
 }
 
-function question_connect(type , e){
+function question_connect(connect_type , e){
 	
 	console.log($(e));
 	
@@ -163,20 +165,26 @@ function question_connect(type , e){
 	console.log("solution : " + solution);
 	
 	opener.document.getElementsByName('name')[0].value = name;
-	opener.document.getElementsByName('content')[0].value = content;
+	opener.ckeditorInstance.setData(content);
 	opener.document.getElementsByName('objectives')[0].value = objectives;
 	opener.document.getElementsByName('select_type')[0].value = select_type;
 	opener.document.getElementsByName('select_val')[0].value = select_val;
 	opener.document.getElementsByName('solution')[0].value = solution;
 	
-	switch (type) {
+	console.log(type);
+	
+	switch (connect_type) {
 	case 'connect':
 		console.log('connect');
-		
+		//연결에 대한 저장 버튼쪽 변경하기
+		alert('해당 문제를 연결합니다.');
+		window.close();
 		break;
 	case 'update':
 		console.log('update');
-		
+		//가져와서 수정하기 대한 저장 버튼쪽 변경하기
+		alert('해당 문제를 수정할수 있도록 합니다.');
+		window.close();
 		break;
 	}
 	

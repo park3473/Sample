@@ -14,6 +14,7 @@ public class AdminQuestionVo extends SearchVo {
 	String solution = "";
 	String create_tm = "";
 	String update_tm = "";
+	String exam_idx = "";	//다른 exam_idx 필요할때
 	
 	public String getIdx() {
 		return idx;
@@ -74,6 +75,14 @@ public class AdminQuestionVo extends SearchVo {
 	}
 	public void setUpdate_tm(String update_tm) {
 		this.update_tm = update_tm;
+	}
+	
+
+	public String getExam_idx() {
+		return exam_idx;
+	}
+	public void setExam_idx(String exam_idx) {
+		this.exam_idx = exam_idx;
 	}
 	
 	
