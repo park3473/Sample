@@ -8,7 +8,7 @@ import egovframework.sample.menu.model.MenuVo;
 @Mapper("MenuMapper")
 public interface MenuMapper {
 
-	List<?> getMenuList();
+	List<?> getMenuList(MenuVo menuVo);
 
 	void setMenuInsertData(MenuVo menuVo);
 
@@ -23,5 +23,7 @@ public interface MenuMapper {
 	void setMenuSeqReOrder(MenuVo menuVo);
 
 	void setMenuReSeq(int seq);
+
+	int getMenuListCnt(MenuVo menuVo);
 
 }

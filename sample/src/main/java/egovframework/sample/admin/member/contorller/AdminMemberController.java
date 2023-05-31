@@ -49,7 +49,7 @@ public class AdminMemberController {
 		
 		model = adminMemberService.getAllList(AdminMemberVo);
 		
-		model.put("beforeDomain", AdminMemberVo);
+		model.put("before", AdminMemberVo);
 		
 		return new ModelAndView("admin/member/list" , "model" , model);
 		

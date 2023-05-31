@@ -30,6 +30,8 @@ public class AdminSubPageController {
 		ModelMap model = new ModelMap();
 		
 		model = adminSubPageService.getAllList(AdminSubpageVo);
+
+		model.put("before", AdminSubpageVo);
 		
 		return new ModelAndView("/admin/subpage/list" , "model" , model);
 		

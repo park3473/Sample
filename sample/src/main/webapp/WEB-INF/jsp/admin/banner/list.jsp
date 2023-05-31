@@ -80,10 +80,10 @@
                                 <div>
                                     <select id="SEARCH_TYPE" name="SEARCH_TYPE">
                                         <option value="ALL">전체</option>
-                                        <option value="NAME"  <c:if test="${model.SEARCH_TYPE == 'NAME'}">selected</c:if>>제목</option>
-                                        <option value="TYPE"  <c:if test="${model.SEARCH_TYPE == 'TYPE'}">selected</c:if>>타입</option>
+                                        <option value="NAME"  <c:if test="${model.before.SEARCH_TYPE == 'NAME'}">selected</c:if>>제목</option>
+                                        <option value="TYPE"  <c:if test="${model.before.SEARCH_TYPE == 'TYPE'}">selected</c:if>>타입</option>
                                     </select>
-                                    <input style="width: 191px;" type="text" value="${model.SEARCH_TEXT }" name="SEARCH_TEXT" id="SEARCH_TEXT" >
+                                    <input style="width: 191px;" type="text" value="${model.before.SEARCH_TEXT }" name="SEARCH_TEXT" id="SEARCH_TEXT" >
                                     <button type="button" value="검색" onClick="searchBtnClick()">검색</button>
                                 </div>
                                 <div class="adm_btn_wrap stats_btn_area">

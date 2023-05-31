@@ -35,27 +35,32 @@
                         <div class="sc_con">
                             <div class="title">
                                 <span></span>
-                                <span>게시글 관리</span>
+                                <span>자가진단 관리</span>
                             </div>
                             <div class="table_wrap">
                                 <table id="bootstrap-data-table">
                                     <tr>
-                                        <th class="check"><input type="checkbox" class="" name="chk_calc_all" id="chk_calc_all" value=""></th>
                                         <th class="number">번호</th>
-                                        <th class="title">게시판 제목</th>
-                                        <th class="name">작성자 이름</th>
-                                        <th class="member_id">작성자 아이디</th>
-                                        <th class="create">게시글 생성 일자</th>
-                                        <th class="update">게시글 수정 일자</th>
-                                        <th class="setting">관리</th>
+                                        <th class="name">제목</th>
+                                        <th class="l_category">대분류</th>
+                                        <th class="m_category">소분류</th>
+                                        <th class="type">사용여부</th>
+                                        <th class="create_tm">생성일시</th>
+                                        <th class="update_tm">수정일시</th>
+                                        <th class="setting">비고</th>
                                     </tr>
                                     <c:forEach var="item" items="${model.list}" varStatus="status">
                                     <tr data-role="button" data-id="${item.idx}"  >
-                                        <td><input type="checkbox" value="${item.idx}" name="chk_calc" data-id="${item.idx}"></td>
                                         <td>${model.itemtotalcount - (status.index + model.page *  model.itemcount)}</td>
-                                        <td>${item.title}</td>
                                         <td>${item.name }</td>
-                                        <td>${item.member_id }</td>
+                                        <td>${item.l_category }</td>
+                                        <td>${item.m_category }</td>
+                                        <td>
+                                        	<c:choose>
+                                        		<c:when test="${item.type == '1' }">ON</c:when>
+                                        		<c:when test="${item.type == '0' }">OFF</c:when>
+                                        	</c:choose>
+                                        </td>
                                         <td>
                                             ${fn:substring(item.create_tm,0,11)}
                                         </td>
@@ -63,8 +68,8 @@
                                             ${fn:substring(item.update_tm,0,11)}
                                         </td>
                                         <td>
-                                        	<button type="button" onclick="location.href='/admin/board_data/view.do?idx=${item.idx}&board_idx=${item.board_idx }'">관리</button>
-                                        	<button type="button" onclick="location.href='/user/board_data/view.do?idx=${item.idx}&board_idx=${item.board_idx }'">미리보기</button>
+                                        	<button type="button" onclick="location.href='/admin/exam/question_list.do?exam_idx=${item.idx}'">문제 확인</button>
+                                        	<button type="button" onclick="location.href='/admin/exam/update.do?idx=${item.idx}'">수정</button>
                                         </td>
                                     </tr>
                                     </c:forEach>
@@ -76,9 +81,10 @@
                                 <div>
                                     <select id="SEARCH_TYPE" name="SEARCH_TYPE">
                                         <option value="ALL">전체</option>
-                                        <option value="MEMBER_NAME" <c:if test="${model.before.SEARCH_TYPE == 'MEMBER_NAME'}">selected</c:if>>작성자</option>
-                                        <option value="TITLE"  <c:if test="${model.before.SEARCH_TYPE == 'TITLE'}">selected</c:if>>제목</option>
-                                        <option value="CONTENT" <c:if test="${model.before.SEARCH_TYPE == 'CONTENT'}">selected</c:if>>내용</option>
+                                        <option value="type" <c:if test="${model.before.SEARCH_TYPE == 'type'}">selected</c:if>>상태</option>
+                                        <option value="l_category"  <c:if test="${model.before.SEARCH_TYPE == 'l_category'}">selected</c:if>>대분류</option>
+                                        <option value="m_category" <c:if test="${model.before.SEARCH_TYPE == 'm_category'}">selected</c:if>>중분류</option>
+                                        <option value="name" <c:if test="${model.before.SEARCH_TYPE == 'name'}">selected</c:if>>이름</option>
                                     </select>
                                     <input style="width: 191px;" type="text" value="${model.before.SEARCH_TEXT }" name="SEARCH_TEXT" id="SEARCH_TEXT" >
                                     <button type="button" value="검색" onClick="searchBtnClick()">검색</button>
@@ -86,10 +92,7 @@
                                 <div class="adm_btn_wrap stats_btn_area">
                                     <ul>
                                     <li class="delete">
-                                        <a href="javascript:deleteArrClick()">선택삭제</a>
-                                    </li>
-                                    <li class="delete">
-                                        <a href="./insert.do?board_idx=${model.board_idx }">글쓰기</a>
+                                        <a href="./insert.do">자가진단 등록</a>
                                     </li>
                                 </ul>
                                 </div>
@@ -123,10 +126,23 @@
 </body>
 <script>
 
+function searchBtnClick(){
+	
+	 URL = './list.do';
+     URL = URL + "?PAGE=0";
+     URL = URL + "&ITEM_COUNT=" + '10';
+
+     URL = URL + "&SEARCH_TEXT=" + encodeURI($('#SEARCH_TEXT').val());
+     URL = URL + "&SEARCH_TYPE=" + $('#SEARCH_TYPE').val();
+
+	location.href = URL;
+	
+}
+
 $(document).ready(function () {
 	
-	$(".adm_menu_con > li").eq(1).find(".sub_menu_con").show();
-	$(".adm_menu_con > li").eq(1).css({
+	$(".adm_menu_con > li").eq(3).find(".sub_menu_con").show();
+	$(".adm_menu_con > li").eq(3).css({
 	    backgroundColor: "#fff"
 	});
 });
@@ -134,3 +150,4 @@ $(document).ready(function () {
 </script>
 
 </html>
+

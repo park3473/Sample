@@ -48,7 +48,7 @@ public class AdminBannerController {
 		
 		model = adminBannerService.getAllList(AdminBannerVo);
 		
-		model.put("beforeDomain", AdminBannerVo);
+		model.put("before", AdminBannerVo);
 		
 		
 		return new ModelAndView("admin/banner/list","model" , model);

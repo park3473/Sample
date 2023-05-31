@@ -5,44 +5,78 @@
 <mapper namespace="egovframework.sample.admin.question.service.impl.AdminQuestionMapper">
 	<select id="getAllList" parameterType="AdminQuestionVo" resultType="hashMap">
 		SELECT	* FROM TBL_QUESTION
-		WHERE EXAM_IDX = #{exam_idx}
+		WHERE 1=1
+		<if test="type != ''">
+			AND TYPE = #{type}
+		</if>
+		<if test="SEARCH_TEXT != ''">
+		    <if test="SEARCH_TYPE != 'ALL'">
+	    		 AND ${SEARCH_TYPE} LIKE '%${SEARCH_TEXT}%'
+	    	</if>
+	    </if>
+	    <if test="UP != ''">
+	    	order by ${UP} asc
+	    </if>
+	    <if test="DOWN != ''">
+	    	order by ${DOWN} desc
+	    </if>
+	    <if test="DOWN == '' and UP == ''">
+	    	order by CREATE_TM desc
+	    </if>
+	    LIMIT ${LIMIT} OFFSET ${OFFSET}
+	</select>
+	
+	<select id="getAllListCnt" parameterType="AdminQuestionVo" resultType="int" >
+		SELECT	COUNT(*) FROM TBL_QUESTION
+		WHERE 1=1
+		<if test="type != ''">
+			AND TYPE = #{type}
+		</if>
 	</select>
 	
 	<insert id="setQuestionDataInsert" parameterType="AdminQuestionVo">
-		INSERT INTO TBL_QUESTION(EXAM_IDX , NAME , TYPE , CONTENT , SELECT_TYPE , SELECT_VAL , SOLUTION , CREATE-TM , UPDATE_TM)
-		VALUES(#{exam_idx} , #{name} , #{type} , #{content} , #{select_type} , #{select_val} , #{solution} , now() , now())
+		INSERT INTO TBL_QUESTION( NAME , TYPE , CONTENT , OBJECTIVES , SELECT_TYPE , SELECT_VAL , SOLUTION , CREATE_TM , UPDATE_TM)
+		VALUES(#{name} , #{type} , #{content} , #{objectives} , #{select_type} , #{select_val} , #{solution} , now() , now())
 	</insert>
+	
+	<select id="getQuestionData" parameterType="AdminQuestionVo" resultType="AdminQuestionVo">
+		SELECT * FROM TBL_QUESTION
+		WHERE IDX = #{idx}
+	</select>
 	
 	<update id="setQuestionDataUpdate" parameterType="AdminQuestionVo">
 		UPDATE TBL_QUESTION SET
-		<if test="NAME != ''">
+		<if test="name != ''">
 			NAME = #{name},
 		</if>
-		<if test="TYPE != ''">
+		<if test="type != ''">
 			TYPE = #{type},
 		</if>
-		<if test="CONTENT != ''">
+		<if test="content != ''">
 			CONTENT = #{content},
 		</if>
-		<if test="SELECT_TYPE != ''">
+		<if test="objectives != ''">
+			OBJECTIVES = #{objectives},
+		</if>
+		<if test="select_type != ''">
 			SELECT_TYPE = #{select_type},
 		</if>
-		<if test="SELECT_VAL != ''">
+		<if test="select_val != ''">
 			SELECT_VAL = #{select_val},
 		</if>
-		<if test="SOLUTION != ''">
+		<if test="solution != ''">
 			SOLUTION = #{solution},
 		</if>
 		UPDATE_TM = now()
 		WHERE EXAM_IDX = #{exam_idx}
 	</update>
 	
-	<delete id="setQuestionDataDeleteAll" parameterType="AdminQuestionVo">
-		DELETE FROM TBL_QUESTION WHERE EXAM_IDX = #{exam_idx}
-	</delete>
-	
-	<delete id="setQuestionDataDeleteOne" parameterType="AdminQuestionVo">
+	<delete id="setQuestionDataDelete" parameterType="AdminQuestionVo">
 		DELETE FROM TBL_QUESTION WHERE IDX = #{idx}
 	</delete>
+	
+	<select id="getTypeAllList" parameterType="AdminQuestionVo" resultType="AdminQuestionVo">
+		SELECT TYPE FROM TBL_QUESTION
+	</select>
 
 </mapper>

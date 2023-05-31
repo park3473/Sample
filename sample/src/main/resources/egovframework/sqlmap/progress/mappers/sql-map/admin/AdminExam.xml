@@ -35,24 +35,24 @@
 	
 	<insert id="setAdminExamDataInsert" parameterType="AdminExamVo">
 		INSERT INTO TBL_EXAM (NAME , L_CATEGORY , M_CATEGORY , TYPE , CONTENT , CREATE_TM , UPDATE_TM)
-		VALUES(#{name} , #{l_category} , #{m_category} , #{type} , #{content} , now() , now())
+		VALUES(#{name} , #{l_category} , #{m_category} , 0 , #{content} , now() , now())
 	</insert>
 	
 	<update id="setAdminExamDataUpdate" parameterType="AdminExamVo">
 		UPDATE TBL_EXAM SET
-		<if test="NAME != ''">
+		<if test="name != ''">
 			NAME = #{name},
 		</if>
-		<if test="L_CATEGORY != ''">
+		<if test="l_category != ''">
 		L_CATEGROY = #{l_category},
 		</if>
-		<if test="M_CATEGORY != ''">
+		<if test="m_category != ''">
 		M_CATEGROY = #{m_category},
 		</if>
-		<if test="TYPE != ''">
+		<if test="type != ''">
 		TYPE = #{type},
 		</if>
-		<if test="CONTENT != ''">
+		<if test="content != ''">
 		CONTENT = #{content},
 		</if>
 		UPDATE_TM = now()
@@ -68,6 +68,43 @@
 		SELECT * FROM TBL_EXAM
 		WHERE IDX = #{idx}
 	</select>
+	
+	<select id="getExamCategoryList" parameterType="AdminExamVo" resultType="hashMap">
+		<if test="l_category != ''">
+			SELECT L_CATEGORY FROM TBL_EXAM
+			ORDER BY L_CATEGORY
+		</if>
+		<if test="m_category != ''">
+			SELECT M_CATEGORY FROM TBL_EXAM
+			ORDER BY M_CATEGORY
+		</if>
+	</select>
+	
+	<!-- question_list 부분 -->
+	<select id="getQuestionList" parameterType="AdminQuestionListVo" resultType="hashMap">
+		SELECT LIST.* , Q.NAME , Q.TYPE , Q.CONTENT , Q.OBJECTIVES , Q.SELECT_TYPE , Q.SELECT_VAL , Q.SOLUTION FROM TBL_QUESTION_LIST LIST JOIN TBL_QUESTION Q ON LIST.QUESTION_IDX = Q.IDX
+		WHERE EXAM_IDX = #{exam_idx}
+		ORDER BY SEQ
+	</select>
+	
+	<insert id="setAdminExamQuestionListInsert" parameterType="AdminQuestionListVo">
+		INSERT INTO TBL_QUESTION_LIST (EXAM_IDX , SEQ , QUESTION_IDX , CREATE_TM , UPDATE_TM)
+		VALUES (#{exam_idx} , #{seq} , #{question_idx} , now() , now())
+	</insert>
+	
+	<update id="setAdminExamQuestionListUpdate" parameterType="AdminQuestionListVo">
+		UPDATE TBL_QUESTION_LIST SET
+		<if test="question_idx != ''">
+			QUESTION_IDX = #{question_idx},
+		</if>
+		UPDATE_TM = now()
+		WHERE IDX = #{idx}
+	</update>
+	
+	<delete id="setAdminExamQuestionListDelete" parameterType="AdminQuestionListVo">
+		DELETE FROM TBL_QUESTION_LIST
+		WHERE IDX = #{idx}
+	</delete>
 
 
 </mapper>
