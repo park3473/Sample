@@ -42,7 +42,7 @@
                 <!--본문 내용-->
                 <section class="adm_sc_txt">
                 	<div>
-                    <form action="./insert.do" method="post" name="insertForm" id="insertForm" enctype="multipart/form-data">
+                    <form action="./insert.do" method="post" name="question_insertForm" id="question_insertForm" enctype="multipart/form-data">
                         <input type="hidden"  name="csrf" value="${CSRF_TOKEN}" />
                         <input type="hidden" name="exam_idx" value="${model.exam_idx }">
                         <input type="hidden" name="question_type" value="new">
@@ -55,7 +55,7 @@
                             <div class="member_register_wrap">
                                 <div class="member_input_wrap">
                                     <ul class="member_input">
-                                    	<c:if test="${model.exam_idx != '' }">
+                                    	<c:if test="${model.exam_idx != 'false' }">
 	                                        <li id="list_input_seq">
 	                                            <span class="list_t">문항 번호</span>
 	                                            <input class="input_size mr" type="text" id="seq" name="seq">
@@ -83,15 +83,17 @@
                                         </li>
                                         <li>
                                             <span class="list_t">답안 타입</span>
-                                            <select name="select_type" id="select_type">
-                                            	<option value="0">OX 퀴즈</option>
+                                            <select name="select_type" id="select_type" onchange="select_type_change()">
+                                            	<option value="0" selected="selected">OX 퀴즈</option>
                                             	<option value="1">다지선다</option>
                                             </select>
                                         </li>
-                                        <li>
+                                        <li id="select_val_li">
                                             <span class="list_t">답안</span>
-                                            <input class="input_size mr" type="text" id="select_val" name="select_val">
-                                            <span class="relate_c">OX 퀴즈일시 OX , 다지선다일 경우 해당 번호</span>
+                                            <select name="select_val" id="select_val">
+                                            	<option value="O">O</option>
+                                            	<option value="X">X</option>
+                                            </select>
                                         </li>
                                         <li>
                                         	<span class="list_t">문제 내용</span>
@@ -105,17 +107,34 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!--저장하기 버튼-->
+                        </form>
+                    </div>
+                    
+                    
+                    <!-- 답안 부분 -->
+                    <div id="select_box">
+                    	<form action="./insert.do" method="post" name="select_insertForm" id="select_insertForm" enctype="multipart/form-data" style="display:none">
+                    		<input type="hidden" name="select_confrim" value="false">
+                    		<div class="member_register_wrap">
+                    		<div class="title">
+                                <span>답안 등록</span>
+                            </div>
+                                <div class="member_input_wrap">
+                                    <ul class="member_input" id="select_ul">
+                                    </ul>
+                                </div>
+                            </div>
+                    	</form>
+                    	
+                    	                        <!--저장하기 버튼-->
                         <div class="register_btn_area">
                             <div class="register_btn_con" id="admin_button">
-                                <a class="storage" href="javascript:insertClick()">문제 저장</a>
-                                <a class="cancel" onclick="">답안 설정</a>
-                                <a class="storage" href="javascript:history.back()">뒤로 가기</a>
+                                <a class="storage" onclick="insertClick()">문제 저장</a>
+    							<a class="storage" href="javascript:history.back()">뒤로 가기</a>
                             </div>
                         </div>
                         <!--저장하기 버튼 end-->
-                        </form>
+                    	
                     </div>
                 </section>
                 <!--본문 내용 end-->
@@ -171,58 +190,118 @@ $(document).ready(function () {
 	
 });
 
+const admin_select_val_0 = `<span class="list_t">답안</span>
+    <select name="select_val" id="select_val">
+	<option value="O">O</option>
+	<option value="X">X</option>
+</select>`;
+
+const admin_select_val_1 = `<span class="list_t">답안</span>
+    <select name="select_val" id="select_val">
+	<option value="1">1</option>
+	<option value="2">2</option>
+ <option value="3">3</option>
+ <option value="4">4</option>
+ <option value="5">5</option>
+</select>`;
+
+function select_type_change(){
+	
+	var change_val = $('#question_insertForm [name=select_type]').val();
+
+	switch (change_val) {
+	case '0':
+		$('#select_val_li').html(admin_select_val_0);
+		break;
+	case '1':
+		$('#select_val_li').html(admin_select_val_1);
+		break;
+	}
+}
+
+
 function insertClick()
 {
 
-	if($('[name=seq]').val() == '')
+	if($('#question_insertForm [name=exam_idx]').val() != 'false' && $('#question_insertForm [name=seq]').val() == '')
 	{
 		alert('문항을 입력 하여 주세요.');
 		return;
-	}else if($('[name=type]').val() == ''){
+	}else if($('#question_insertForm [name=type]').val() == ''){
 		
 		alert('타입을 입력 하여 주세요.');
-	}else if($('[name=name]').val() == ''){
+	}else if($('#question_insertForm [name=name]').val() == ''){
 		
 		alert('제목을 입력 하여 주세요.');
-	}else if($('[name=objectives]').val() == ''){
+	}else if($('#question_insertForm [name=objectives]').val() == ''){
 		
 		alert('진단 목표를 입력 하여 주세요.');
-	}else if($('[name=select_type]').val() == ''){
+	}else if($('#question_insertForm [name=select_type]').val() == ''){
 		
 		alert('답안 타입을 설정 하여 주세요.');
-	}else if($('[name=select_val]').val() == ''){
+	}else if($('#question_insertForm [name=select_val]').val() == ''){
 		
 		alert('답안 정답을 입력 하여 주세요.');
-	}else if($('[name=solution]').val() == ''){
+	}else if($('#question_insertForm [name=solution]').val() == ''){
 		
 		alert('해설을 입력 하여 주세요.');
 	}
-	
 
-	$('#insertForm').submit();
+	
+	$('#question_insertForm').submit();
 }
 
-const admin_button_1 = `<a class="storage" href="javascript:insertClick()">문제 저장</a>
-    <a class="cancel" onclick="">답안 설정</a>
+function button_change(type){
+	
+	switch (type) {
+	case '1':
+		$('#admin_button').html(admin_button_1);
+		break;
+	case '2':
+		$('#admin_button').html(admin_button_2);
+		break;
+	}
+}
+
+
+
+const admin_button_1 = `<a class="storage" href="javascript:insertClick()">문제 저장 및 연결</a>
     <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;   
-        
+
+const admin_button_2 = `<a class="storage" href="javascript:ConnectClick()">문제 연결</a>
+    <a class="cancel" onclick="">답안 보기</a>
+    <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;
     
 function question_select(){
 	
-	if($('[name=type]').val() == ''){
+	if($('#question_insertForm [name=type]').val() == ''){
 		alert('해당 타입을 값을 채운뒤 연결을 눌러주세요.');
 		return;
 	}
 	
 	//window.open('/admin/question/select_list.do?type='+$('[name=type]').val()+'' , '_blank' ,'width=1200,heigth=1600');
-	var typeValue = $('[name=type]').val();
-	var exam_idx = $('[name=exam_idx]').val();
+	var typeValue = $('#question_insertForm [name=type]').val();
+	var exam_idx = $('#question_insertForm [name=exam_idx]').val();
 	var url = '/admin/question/select_list.do?type=' + typeValue+'&exam_idx='+exam_idx;
 
 	window.open(url, '문제 연결', 'width=1600, height=800');
 	
 }
+</script>
+<script type="text/javascript">
+window.addEventListener('DOMContentLoaded', (event) => {
+    var links = document.getElementsByTagName('a'); // 모든 링크를 가져옵니다.
 
+    for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function(e) {
+        	
+            var confirmed = confirm('정말 해당 페이지를 이동하시겠습니까?\n해당 작성하던 문제는 사라집니다.');
 
-
+            if (!confirmed) {
+                // 사용자가 확인을 선택하지 않은 경우, 페이지 이동을 취소합니다.
+                e.preventDefault();
+            }
+        });
+    }
+});
 </script>
