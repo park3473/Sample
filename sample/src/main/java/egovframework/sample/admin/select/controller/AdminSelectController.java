@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.system.util.SUtil;
+
 import egovframework.sample.admin.question.model.AdminQuestionVo;
 import egovframework.sample.admin.select.model.AdminSelectVo;
 import egovframework.sample.admin.select.service.AdminSelectService;
@@ -53,6 +55,14 @@ public class AdminSelectController {
 	@RequestMapping(value="/admin/select/insert.do" , method = RequestMethod.POST)
 	public void AdminSelectInsert(@ModelAttribute("AdminSelectVo")AdminSelectVo AdminSelectVo , MultipartHttpServletRequest request , HttpServletResponse response) {
 		
+		//이미지 파일 등록
+		String drv = request.getRealPath("");
+		drv = drv.substring(0 , drv.length()) + "./resources/" + ((HttpServletRequest) request).getContextPath() + "/upload/select/image";
+		
+		String filename = SUtil.setFileUpload(request, drv);
+		
+		AdminSelectVo.setImage(filename);
+		
 		adminSelectService.setSelectData(AdminSelectVo , "insert");
 		
 	}
@@ -71,6 +81,19 @@ public class AdminSelectController {
 	
 	@RequestMapping(value="/admin/select/update.do" , method = RequestMethod.POST)
 	public void AdminSelectUpdate(@ModelAttribute("AdminSelectVo")AdminSelectVo AdminSelectVo , MultipartHttpServletRequest request , HttpServletResponse response) {
+		
+		String file_change_type = request.getParameter("file_change_type");
+		
+		if(file_change_type.equals("true")) {
+		////이미지 파일 등록
+		String drv = request.getRealPath("");
+		drv = drv.substring(0 , drv.length()) + "./resources/" + ((HttpServletRequest) request).getContextPath() + "/upload/select/image";
+			
+		String filename = SUtil.setFileUpload(request, drv);
+			
+		AdminSelectVo.setImage(filename);
+			
+		}
 		
 		adminSelectService.setSelectData(AdminSelectVo , "update");
 		

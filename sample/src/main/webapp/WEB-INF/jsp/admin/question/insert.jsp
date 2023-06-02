@@ -129,7 +129,7 @@
                     	                        <!--저장하기 버튼-->
                         <div class="register_btn_area">
                             <div class="register_btn_con" id="admin_button">
-                                <a class="storage" onclick="insertClick()">문제 저장</a>
+                                <a class="storage" href="javascript:void()" onclick="SelectInsertModal()">답안 작성</a>
     							<a class="storage" href="javascript:history.back()">뒤로 가기</a>
                             </div>
                         </div>
@@ -285,6 +285,23 @@ function question_select(){
 	var url = '/admin/question/select_list.do?type=' + typeValue+'&exam_idx='+exam_idx;
 
 	window.open(url, '문제 연결', 'width=1600, height=800');
+	
+}
+
+
+function SelectInsertModal(){
+	
+	//답안 모달창
+	var question_idx = $('#question_insertForm [name=idx]').val();
+	var select_type = $('#question_insertForm [name=select_type]').val();
+	var select_val = $('#question_insertForm [name=select_val]').val();
+	
+	if(select_type == '' || select_val == ''){
+		alert('답안 타입 및 답안을 작성하여 주세요');
+	}
+	
+	var url = '/admin/select/list.do?question_idx='+question_idx+'&select_type='+select_type+'&select_val='+select_val+'';
+	window.open(url , '답안 설정' , 'width=1600,height=800');
 	
 }
 </script>
