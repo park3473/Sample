@@ -119,9 +119,7 @@
                     		<div class="title">
                                 <span>답안 등록</span>
                             </div>
-                                <div class="member_input_wrap">
-                                    <ul class="member_input" id="select_ul">
-                                    </ul>
+                                <div class="member_input_wrap" id="select_input_warp">
                                 </div>
                             </div>
                     	</form>
@@ -265,7 +263,7 @@ function button_change(type){
 
 
 
-const admin_button_1 = `<a class="storage" href="javascript:insertClick()">문제 저장 및 연결</a>
+const admin_button_1 = `<a class="storage" href="javascript:void()" onclick="SelectInsertModal()">답안 작성</a>
     <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;   
 
 const admin_button_2 = `<a class="storage" href="javascript:ConnectClick()">문제 연결</a>

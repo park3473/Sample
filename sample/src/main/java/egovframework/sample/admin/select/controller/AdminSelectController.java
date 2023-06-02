@@ -45,6 +45,7 @@ public class AdminSelectController {
 		
 		question.setSelect_type(select_type);
 		question.setIdx(question_idx);
+		question.setSelect_val(select_val);
 		
 		model.put("question", question);
 		
