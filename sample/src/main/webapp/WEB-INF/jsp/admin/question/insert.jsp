@@ -109,26 +109,35 @@
                         </div>
                         </form>
                     </div>
-                    
-                    
-                    <!-- 답안 부분 -->
+
+						<div id="select_count_check" style="display: none">
+							<select onchange="select_list(this)">
+								<option value="0">갯수를 선택해 주세여</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+						</div>
+						<!-- 답안 부분 -->
                     <div id="select_box">
                     	<form action="./insert.do" method="post" name="select_insertForm" id="select_insertForm" enctype="multipart/form-data" style="display:none">
                     		<input type="hidden" name="select_confrim" value="false">
                     		<div class="member_register_wrap">
-                    		<div class="title">
-                                <span>답안 등록</span>
-                            </div>
-                                <div class="member_input_wrap" id="select_input_warp">
-                                </div>
+	                    		<div class="title">
+	                                <span>답안 등록</span>
+	                            </div>
+	                            <div class="member_input_wrap" id="select_input_warp">
+	                            </div>
                             </div>
                     	</form>
                     	
-                    	                        <!--저장하기 버튼-->
+                    	<!--저장하기 버튼-->
                         <div class="register_btn_area">
                             <div class="register_btn_con" id="admin_button">
-                                <a class="storage" href="javascript:void()" onclick="SelectInsertModal()">답안 작성</a>
-    							<a class="storage" href="javascript:history.back()">뒤로 가기</a>
+                                <button class="storage" onclick="select_form_open()">답안 작성</button>
+    							<button class="storage" onclick="history.back()">뒤로 가기</button>
                             </div>
                         </div>
                         <!--저장하기 버튼 end-->
@@ -286,22 +295,78 @@ function question_select(){
 	
 }
 
-
-function SelectInsertModal(){
+//답안 form 작성
+function select_form_open(){
 	
-	//답안 모달창
-	var question_idx = $('#question_insertForm [name=idx]').val();
-	var select_type = $('#question_insertForm [name=select_type]').val();
-	var select_val = $('#question_insertForm [name=select_val]').val();
 	
-	if(select_type == '' || select_val == ''){
-		alert('답안 타입 및 답안을 작성하여 주세요');
-	}
-	
-	var url = '/admin/select/list.do?question_idx='+question_idx+'&select_type='+select_type+'&select_val='+select_val+'';
-	window.open(url , '답안 설정' , 'width=1600,height=800');
+	$('#select_count_check').show();
 	
 }
+
+function select_list(e){
+	
+	var count = $(e).val();
+	var length = $('#select_input_warp ul').length;
+	
+	console.log('count : ' + count);
+	console.log('length : ' + length);
+	
+	if(length > count){
+		//빼는거
+		count = length - count;
+		console.log(count);
+		
+		select_list_delete(count);
+		
+	}else if(length == count){
+		//아무행동 X
+	}else{
+		count = count - length
+		console.log(count);
+		
+		select_list_append(count , length);
+	}
+	
+}
+
+function select_list_append(count , length){
+	
+	for(var i = 0; i < count; i ++){
+		
+		//넣을 html 생성
+		var html = `<ul class="member_input" id="select_ul_`+(i+length)+`">`;
+		html += `<li>`;
+		html += `<input type="text" name="seq" value="">`;
+		html += `</li>`;
+		
+		html += `<li>`;
+		html += `<input type="text" name="content" value="">`;
+		html += `</li>`;
+		
+		html += `<li>`;
+		html += `<input type="file" name="image" value="">`;
+		html += `</li>`;
+		
+		html += `</ul>`;
+		
+		$('#select_input_warp').append(html);
+		
+		$('#select_insertForm').show();
+		
+	}
+	
+}
+
+function select_list_delete(count){
+	
+	for(i = 0; i < count; i ++){
+		
+		$('#select_input_warp ul:last').remove();
+		
+	}
+	
+}
+
 </script>
 <script type="text/javascript">
 window.addEventListener('DOMContentLoaded', (event) => {
