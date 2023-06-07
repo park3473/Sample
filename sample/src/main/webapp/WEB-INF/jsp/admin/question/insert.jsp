@@ -84,7 +84,8 @@
                                         <li>
                                             <span class="list_t">답안 타입</span>
                                             <select name="select_type" id="select_type" onchange="select_type_change()">
-                                            	<option value="0" selected="selected">OX 퀴즈</option>
+                                            	<option value="false" selected="selected">타입을 선택해 주세요</option>
+                                            	<option value="0" >OX 퀴즈</option>
                                             	<option value="1">다지선다</option>
                                             </select>
                                         </li>
@@ -216,6 +217,13 @@ function select_type_change(){
 	
 	var change_val = $('#question_insertForm [name=select_type]').val();
 
+	if(change_val == 'false'){
+		
+		alert('답안을 선택해주세요.');
+		return;
+		
+	}
+	
 	switch (change_val) {
 	case '0':
 		$('#select_val_li').html(admin_select_val_0);
@@ -272,8 +280,8 @@ function button_change(type){
 
 
 
-const admin_button_1 = `<a class="storage" href="javascript:void()" onclick="SelectInsertModal()">답안 작성</a>
-    <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;   
+const admin_button_1 = `<button class="storage" onclick="select_form_open()">답안 작성</button>
+	<button class="storage" onclick="history.back()">뒤로 가기</button>`;   
 
 const admin_button_2 = `<a class="storage" href="javascript:ConnectClick()">문제 연결</a>
     <a class="cancel" onclick="">답안 보기</a>
@@ -298,8 +306,25 @@ function question_select(){
 //답안 form 작성
 function select_form_open(){
 	
+	var change_val = $('#question_insertForm [name=select_type]').val();
+
+	if(change_val == 'false'){
+		
+		alert('답안을 선택해주세요.');
+		return;
+		
+	}
 	
-	$('#select_count_check').show();
+	if($('#question_insertForm [name=select_type]').val() == '0'){
+		
+		select_list_append('2','0');
+		$('#select_insertForm').show();
+		
+	}else if($('#question_insertForm [name=select_type]').val() == '1'){
+	
+		$('#select_count_check').show();
+		
+	}
 	
 }
 
@@ -307,9 +332,10 @@ function select_list(e){
 	
 	var count = $(e).val();
 	var length = $('#select_input_warp ul').length;
-	
+	var select_type = $('#question_insertForm [name=select_type]').val();
 	console.log('count : ' + count);
 	console.log('length : ' + length);
+	console.log('select_type : ' + select_type)
 	
 	if(length > count){
 		//빼는거
@@ -324,28 +350,33 @@ function select_list(e){
 		count = count - length
 		console.log(count);
 		
-		select_list_append(count , length);
+		select_list_append(count , length , select_type);
 	}
 	
 }
 
-function select_list_append(count , length){
+function select_list_append(count , length , select_type){
 	
 	for(var i = 0; i < count; i ++){
 		
 		//넣을 html 생성
 		var html = `<ul class="member_input" id="select_ul_`+(i+length)+`">`;
 		html += `<li>`;
-		html += `<input type="text" name="seq" value="">`;
+		html += `번호<input type="text" name="seq" value="">`;
 		html += `</li>`;
 		
 		html += `<li>`;
-		html += `<input type="text" name="content" value="">`;
+		html += `내용<input type="text" name="content" value="">`;
 		html += `</li>`;
 		
-		html += `<li>`;
-		html += `<input type="file" name="image" value="">`;
-		html += `</li>`;
+		
+		if(select_type == '1'){
+		
+			html += `<li>`;
+			html += `이미지<input type="file" name="image" value="">`;
+			html += `</li>`;
+			
+		}
 		
 		html += `</ul>`;
 		
