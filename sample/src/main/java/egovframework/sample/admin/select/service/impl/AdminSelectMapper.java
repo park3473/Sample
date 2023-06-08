@@ -18,4 +18,6 @@ public interface AdminSelectMapper {
 
 	public AdminSelectVo getSelectView(AdminSelectVo adminSelectVo);
 
+	public List<?> getSelectList(String value);
+
 }

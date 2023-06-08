@@ -90,16 +90,26 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <!--저장하기 버튼-->
-                        <div class="register_btn_area">
-                            <div class="register_btn_con" id="admin_button">
-                                <a class="storage" href="javascript:insertClick()">답안 보기</a>
-                            </div>
-                        </div>
-                        <!--저장하기 버튼 end-->
-                        
                         </form>
+                    </div>
+                    <div>
+                    	<form action="./insert.do" method="post" name="select_insertForm" id="select_insertForm" enctype="multipart/form-data">
+                    		<input type="hidden" name="select_confrim" value="false">
+                    		<div class="member_register_wrap">
+	                    		<div class="title">
+	                                <span>답안 등록</span>
+	                            </div>
+	                            <div class="member_input_wrap" id="select_input_warp">
+	                            	<c:forEach items="${model.list}" var="item" varStatus="status">
+		                            	<ul class="member_input" id="select_ul_${status.index }">
+		                            		<li>번호 : ${item.seq }</li>
+		                            		<li>내용 : ${item.content }</li>
+		                            	</ul>
+	                            	</c:forEach>
+	                            </div>
+                            </div>
+                    	</form>
+                    	
                     </div>
                 </section>
                 <!--본문 내용 end-->

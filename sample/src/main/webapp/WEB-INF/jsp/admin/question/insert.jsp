@@ -284,6 +284,9 @@ const admin_button_1 = `<button class="storage" onclick="select_form_open()">답
 	<button class="storage" onclick="history.back()">뒤로 가기</button>`;   
 
 const admin_button_2 = `<a class="storage" href="javascript:ConnectClick()">문제 연결</a>
+    <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;
+    
+const admin_button_3 = `<a class="storage" href="javascript:ConnectClick()">문제 연결</a>
     <a class="cancel" onclick="">답안 보기</a>
     <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;
     
@@ -370,7 +373,7 @@ function select_list_append(count , length , select_type){
 		html += `</li>`;
 		
 		
-		if(select_type == '1'){
+		if(select_type == '0'){
 		
 			html += `<li>`;
 			html += `이미지<input type="file" name="image" value="">`;

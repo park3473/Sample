@@ -14,6 +14,11 @@
 		WHERE IDX = #{idx}
 	</select>
 	
+	<select id="getSelectList" parameterType="String" resultType="hashMap">
+		SELECT * FROM TBL_SELECT
+		WHERE QUESTION_IDX = #{value}
+	</select>
+	
 	<insert id="setSelectInsert" parameterType="AdminSelectVo">
 		INSERT INTO TBL_SELECT (SEQ , QUESTION_IDX , CONTENT , IMAGE , CREATE_TM , UPDATE_TM)
 		VALUES (#{seq} , #{question_idx} , #{content} , #{image} , now() , now())

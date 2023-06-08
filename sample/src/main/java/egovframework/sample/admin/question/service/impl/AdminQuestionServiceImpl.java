@@ -12,6 +12,7 @@ import com.system.util.PageVO;
 
 import egovframework.sample.admin.question.model.AdminQuestionVo;
 import egovframework.sample.admin.question.service.AdminQuestionService;
+import egovframework.sample.admin.select.service.impl.AdminSelectMapper;
 
 
 @Service("adminQuestionService")
@@ -20,6 +21,9 @@ public class AdminQuestionServiceImpl implements AdminQuestionService {
 
 	@Resource(name="adminQuestionMapper")
 	AdminQuestionMapper adminQuestionMapper;
+	
+	@Resource(name="adminSelectMapper")
+	AdminSelectMapper adminSelectMapper;
 
 	@Override
 	public ModelMap getAllList(AdminQuestionVo adminQuestionVo) {
@@ -94,7 +98,13 @@ public class AdminQuestionServiceImpl implements AdminQuestionService {
 		
 		view = adminQuestionMapper.getQuestionData(adminQuestionVo);
 		
+		String value = adminQuestionVo.getIdx();
+		
+		List<?> list = adminSelectMapper.getSelectList(value);
+		
 		model.put("view", view);
+		
+		model.put("list", list);
 		
 		return model;
 	}
