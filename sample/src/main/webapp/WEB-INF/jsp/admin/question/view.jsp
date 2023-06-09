@@ -104,6 +104,9 @@
 		                            	<ul class="member_input" id="select_ul_${status.index }">
 		                            		<li>번호 : ${item.seq }</li>
 		                            		<li>내용 : ${item.content }</li>
+		                            		<c:if test="${model.view.select_type == '0' }">
+		                            		<li>이미지 : ${item.image }</li>
+		                            		</c:if>
 		                            	</ul>
 	                            	</c:forEach>
 	                            </div>
