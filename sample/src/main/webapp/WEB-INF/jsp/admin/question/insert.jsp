@@ -298,8 +298,18 @@ function question_select(){
 //답안 form 작성
 function select_form_open(){
 	
+	//OX 일시 바로 답안 작성 폼 ON
+	//다지선다 일시 갯수 먼저 선택후 작성 폼 ON
+	if($('#question_insertForm [name=select_type]').val() == '0'){
+		//OX일시 선택
+		
+		
+	}else if($('#question_insertForm [name=select_type]').val() == '1'){
+		//다지선다 선택
+		$('#select_count_check').show();
+		
+	}
 	
-	$('#select_count_check').show();
 	
 }
 
