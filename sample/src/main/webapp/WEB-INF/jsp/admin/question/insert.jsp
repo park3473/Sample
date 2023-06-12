@@ -373,7 +373,7 @@ function select_list_append(count , length , select_type){
 		html += `</li>`;
 		
 		
-		if(select_type == '0'){
+		if(select_type == '1'){
 		
 			html += `<li>`;
 			html += `이미지<input type="file" name="image" value="">`;
