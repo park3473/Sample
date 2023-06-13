@@ -81,7 +81,7 @@
                                             <span class="list_t">진단 목표</span>
                                             <input class="input_title" type="text" id="objectives" name="objectives">
                                         </li>
-                                        <li>
+                                        <li id="select_type_li">
                                             <span class="list_t">답안 타입</span>
                                             <select name="select_type" id="select_type" onchange="select_type_change()">
                                             	<option value="false" selected="selected">타입을 선택해 주세요</option>
@@ -110,18 +110,6 @@
                         </div>
                         </form>
                     </div>
-
-						<div id="select_count_check" style="display: none">
-							<select onchange="select_list(this)">
-								<option value="0">갯수를 선택해 주세여</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-							</select>
-						</div>
-						<!-- 답안 부분 -->
                     <div id="select_box">
                     	<form action="./insert.do" method="post" name="select_insertForm" id="select_insertForm" enctype="multipart/form-data" style="display:none">
                     		<input type="hidden" name="select_confrim" value="false">
@@ -213,6 +201,15 @@ const admin_select_val_1 = `<span class="list_t">답안</span>
  <option value="5">5</option>
 </select>`;
 
+const admin_select_type_1 = `<div id="select_type_cnt_box"><br><span class="list_t">갯수</span>
+<select name="select_type_cnt" id="select_type_cnt">
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+</select></div>`;
+
 function select_type_change(){
 	
 	var change_val = $('#question_insertForm [name=select_type]').val();
@@ -224,12 +221,22 @@ function select_type_change(){
 		
 	}
 	
+	if($('#select_input_warp ul').length > 0){
+		
+		alert('변경시 작성했던 답안들은 사라집니다.');
+		$('#select_input_warp ul').remove();
+		$('#select_insertForm').hide();
+		
+	}
+	
 	switch (change_val) {
 	case '0':
 		$('#select_val_li').html(admin_select_val_0);
+		$('#select_type_cnt_box').remove();
 		break;
 	case '1':
 		$('#select_val_li').html(admin_select_val_1);
+		$('#select_type_li').append(admin_select_type_1);
 		break;
 	}
 }
@@ -289,6 +296,9 @@ const admin_button_2 = `<a class="storage" href="javascript:ConnectClick()">문�
 const admin_button_3 = `<a class="storage" href="javascript:ConnectClick()">문제 연결</a>
     <a class="cancel" onclick="">답안 보기</a>
     <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;
+
+const admin_button_4 = `<a class="storage" href="javascript:insertClick()">문제 등록</a>
+    <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;
     
 function question_select(){
 	
@@ -320,20 +330,22 @@ function select_form_open(){
 	
 	if($('#question_insertForm [name=select_type]').val() == '0'){
 		
-		select_list_append('2','0');
+		select_list_append('2','0','0');
 		$('#select_insertForm').show();
 		
 	}else if($('#question_insertForm [name=select_type]').val() == '1'){
 	
-		$('#select_count_check').show();
+		select_list($('#question_insertForm [name=select_type_cnt]').val());
+		$('#select_insertForm').show();
 		
 	}
 	
+	$('#admin_button').html(admin_button_4);
+	
 }
 
-function select_list(e){
+function select_list(count){
 	
-	var count = $(e).val();
 	var length = $('#select_input_warp ul').length;
 	var select_type = $('#question_insertForm [name=select_type]').val();
 	console.log('count : ' + count);
