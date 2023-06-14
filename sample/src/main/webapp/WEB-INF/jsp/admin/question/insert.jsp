@@ -186,6 +186,8 @@ $(document).ready(function () {
 	
 });
 
+
+//select box 3개
 const admin_select_val_0 = `<span class="list_t">답안</span>
     <select name="select_val" id="select_val">
 	<option value="O">O</option>
@@ -210,6 +212,8 @@ const admin_select_type_1 = `<div id="select_type_cnt_box"><br><span class="list
 	<option value="5">5</option>
 </select></div>`;
 
+
+//타입 변경시
 function select_type_change(){
 	
 	var change_val = $('#question_insertForm [name=select_type]').val();
@@ -227,6 +231,8 @@ function select_type_change(){
 		$('#select_input_warp ul').remove();
 		$('#select_insertForm').hide();
 		
+		$('#admin_button').html(admin_button_1);
+		
 	}
 	
 	switch (change_val) {
@@ -242,6 +248,7 @@ function select_type_change(){
 }
 
 
+//문제 및 답안 등록
 function insertClick()
 {
 
@@ -252,27 +259,136 @@ function insertClick()
 	}else if($('#question_insertForm [name=type]').val() == ''){
 		
 		alert('타입을 입력 하여 주세요.');
+		return;
 	}else if($('#question_insertForm [name=name]').val() == ''){
 		
 		alert('제목을 입력 하여 주세요.');
+		return;
 	}else if($('#question_insertForm [name=objectives]').val() == ''){
 		
 		alert('진단 목표를 입력 하여 주세요.');
+		return;
 	}else if($('#question_insertForm [name=select_type]').val() == ''){
 		
 		alert('답안 타입을 설정 하여 주세요.');
+		return;
 	}else if($('#question_insertForm [name=select_val]').val() == ''){
 		
 		alert('답안 정답을 입력 하여 주세요.');
 	}else if($('#question_insertForm [name=solution]').val() == ''){
 		
 		alert('해설을 입력 하여 주세요.');
+		return;
+	}
+	
+	if($('#select_insertForm #select_input_warp ul').length <= 0){
+	
+		alert('답안 작성을 해주세요.');
+		return;
+		
+	}
+	
+	var select_cnt = $('#select_insertForm #select_input_warp ul').length;
+	
+	for(i = 0; i < select_cnt; i++){
+		
+		if($('#select_ul_'+i+' [name=seq]').val() == ''){
+			alert('답안을 모두 작성 해주세요.');
+			return;
+			
+		}
+		
+		if($('#select_ul_'+i+' [name=content]').val() == ''){
+			alert('답안을 모두 작성 해주세요.');
+			return;
+			
+		}
+		
 	}
 
+	//방식 변경 => question form submit 으로 보내는것이 아닌
+	//ajax 로 보내는것으로 변경
+	//$('#question_insertForm').submit();
+	$('#question_insertForm [name=content]').val(ckeditorInstance.getData());
 	
-	$('#question_insertForm').submit();
+	var questionForm = $('#question_insertForm').serialize();
+	
+	// /admin/question/AjaxInsert.do
+	$.ajax({
+		url : '/admin/question/AjaxInsert.do',
+		type : 'POST',
+		data : questionForm,
+		success : function(data , status , xhr){
+			
+			console.log('question_insert : success');
+			console.log('question_idx : ' + data);
+			
+			var question_idx = data;
+			var select_cnt = $('#select_insertForm #select_input_warp ul').length;
+			
+			for(i = 0; i < select_cnt; i++){
+				
+				var seq = $('#select_ul_'+i+' [name=seq]').val();
+				var content = $('#select_ul_'+i+' [name=content]').val()
+				var image = '';
+				var image_boolean = 'false';
+				
+				var SelectForm = new FormData();
+				SelectForm.append('seq', seq);
+				SelectForm.append('content', content);
+				
+				if($('#select_ul_'+i+' [name=image]').val() != null && $('#select_ul_'+i+' [name=image]').val() != ''){
+					var image_boolean = 'true';
+					
+					SelectForm.append('image', $('#select_ul_'+i+' [name=image]')[0].files[0]); // 파일 입력 필드에서 파일을 가져와 추가합니다
+				}else{
+					SelectForm.append('image', '');
+				}
+				SelectForm.append('image_boolean', image_boolean);
+				SelectForm.append('question_idx', question_idx);
+				
+				console.log(i+'번째 답안 보내기');
+				
+				$.ajax({
+					url : '/admin/select/insert.do',
+					type : 'POST',
+					processData:false,
+					contentType :false,
+					data : SelectForm,
+					success : function(status , xhr){
+						
+						console.log(i+'번째 답안 보내기 성공');
+						
+						
+					},
+					error : function(error , status , xhr){
+						
+						console.log(i+'번째 답안 보내기 실패');
+						
+						
+					}
+					
+				})
+				
+			}
+			
+			
+			console.log('안쪽 모두 종료');
+			
+			
+		},
+		error : function(error , status , xhr){
+			
+			console.log('error');
+			
+		}
+		
+	})	
+	
+	
 }
 
+//버튼 변경
 function button_change(type){
 	
 	switch (type) {
@@ -286,7 +402,7 @@ function button_change(type){
 }
 
 
-
+//버튼 4개 구성
 const admin_button_1 = `<button class="storage" onclick="select_form_open()">답안 작성</button>
 	<button class="storage" onclick="history.back()">뒤로 가기</button>`;   
 
@@ -299,7 +415,9 @@ const admin_button_3 = `<a class="storage" href="javascript:ConnectClick()">문�
 
 const admin_button_4 = `<a class="storage" href="javascript:insertClick()">문제 등록</a>
     <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;
+
     
+//문제 선택창 열기
 function question_select(){
 	
 	if($('#question_insertForm [name=type]').val() == ''){
@@ -344,6 +462,7 @@ function select_form_open(){
 	
 }
 
+//답안 부분 갯수 정리
 function select_list(count){
 	
 	var length = $('#select_input_warp ul').length;
@@ -370,25 +489,44 @@ function select_list(count){
 	
 }
 
+//답안 부분 생성
 function select_list_append(count , length , select_type){
 	
 	for(var i = 0; i < count; i ++){
-		
+		var ul = Number(i) + Number(length);
 		//넣을 html 생성
-		var html = `<ul class="member_input" id="select_ul_`+(i+length)+`">`;
+		var html = `<ul class="member_input" id="select_ul_`+ul+`">`;
 		html += `<li>`;
-		html += `번호<input type="text" name="seq" value="">`;
+		if(select_type == '0'){
+			if(i == 0){
+				var OX = 'O'
+			}else if(i == 1){
+				var OX = 'X'
+			}
+			html += `번호<input type="text" name="seq" value="`+OX+`">`;	
+		}else if(select_type == '1'){
+			html += `번호<input type="text" name="seq" value="`+(i+1)+`">`;
+		}
 		html += `</li>`;
 		
 		html += `<li>`;
-		html += `내용<input type="text" name="content" value="">`;
+		if(select_type == '0'){
+			if(i == 0){
+				var OX = 'O'
+			}else if(i == 1){
+				var OX = 'X'
+			}
+			html += `내용<input type="text" name="content" value="`+OX+`">`;	
+		}else if(select_type == '1'){
+			html += `내용<input type="text" name="content" value="">`;
+		}
 		html += `</li>`;
 		
 		
 		if(select_type == '1'){
 		
 			html += `<li>`;
-			html += `이미지<input type="file" name="image" value="">`;
+			html += `이미지<input type="file" name="image" value="" >`;
 			html += `</li>`;
 			
 		}
@@ -403,6 +541,7 @@ function select_list_append(count , length , select_type){
 	
 }
 
+//답안 부분 삭제
 function select_list_delete(count){
 	
 	for(i = 0; i < count; i ++){

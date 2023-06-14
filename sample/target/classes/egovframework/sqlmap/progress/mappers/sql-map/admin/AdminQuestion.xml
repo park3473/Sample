@@ -39,6 +39,11 @@
 		VALUES(#{name} , #{type} , #{content} , #{objectives} , #{select_type} , #{select_val} , #{solution} , now() , now())
 	</insert>
 	
+	<insert id="setQuestionDataAjaxInsert" parameterType="AdminQuestionVo" useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO TBL_QUESTION( NAME , TYPE , CONTENT , OBJECTIVES , SELECT_TYPE , SELECT_VAL , SOLUTION , CREATE_TM , UPDATE_TM)
+		VALUES(#{name} , #{type} , #{content} , #{objectives} , #{select_type} , #{select_val} , #{solution} , now() , now())
+	</insert>
+	
 	<select id="getQuestionData" parameterType="AdminQuestionVo" resultType="AdminQuestionVo">
 		SELECT * FROM TBL_QUESTION
 		WHERE IDX = #{idx}

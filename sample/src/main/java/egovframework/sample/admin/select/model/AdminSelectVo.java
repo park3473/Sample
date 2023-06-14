@@ -6,6 +6,7 @@ public class AdminSelectVo {
 	String seq = "";
 	String question_idx = "";
 	String content = "";
+	String image_boolean = "";
 	String image = "";
 	String create_tm = "";
 	String update_tm = "";
@@ -33,6 +34,12 @@ public class AdminSelectVo {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getImage_boolean() {
+		return image_boolean;
+	}
+	public void setImage_boolean(String image_boolean) {
+		this.image_boolean = image_boolean;
 	}
 	public String getImage() {
 		return image;

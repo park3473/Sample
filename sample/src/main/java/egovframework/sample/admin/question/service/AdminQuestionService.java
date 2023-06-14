@@ -12,6 +12,8 @@ public interface AdminQuestionService {
 
 	public void setQuestionData(AdminQuestionVo adminQuestionVo, String string);
 
+	public String setQuestionAjaxData(AdminQuestionVo adminQuestionVo);
+	
 	public List<?> getTypeAllList();
 
 	public ModelMap getQuestionData(AdminQuestionVo adminQuestionVo);

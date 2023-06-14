@@ -111,6 +111,19 @@ public class AdminQuestionController {
 		
 	}
 	
+	/*
+	 * ajax 활용 insert
+	 */
+	@RequestMapping(value="/admin/question/AjaxInsert.do" , method = RequestMethod.POST , produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String AdminQuestionAjaxInsertPost(@ModelAttribute("AdminQuestionVo")AdminQuestionVo AdminQuestionVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
+		
+		String Question_idx = adminQuestionService.setQuestionAjaxData(AdminQuestionVo);
+		
+		return Question_idx;
+		
+	}
+	
 	@RequestMapping(value="/admin/question/view.do" , method = RequestMethod.GET)
 	public ModelAndView AdminQuestionViewGet(@ModelAttribute("AdminQuestionVo")AdminQuestionVo AdminQuestionVo , HttpServletRequest request , HttpServletResponse response) {
 		

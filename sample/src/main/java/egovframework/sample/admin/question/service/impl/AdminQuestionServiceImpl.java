@@ -108,5 +108,17 @@ public class AdminQuestionServiceImpl implements AdminQuestionService {
 		
 		return model;
 	}
+
+	@Override
+	public String setQuestionAjaxData(AdminQuestionVo adminQuestionVo) {
+		
+		adminQuestionMapper.setQuestionDataAjaxInsert(adminQuestionVo);
+		
+		System.out.println("Question_idx : " + adminQuestionVo.getIdx());
+		
+		String Question_idx = adminQuestionVo.getIdx();
+		
+		return Question_idx;
+	}
 	
 }
