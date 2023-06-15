@@ -104,8 +104,11 @@
 		                            	<ul class="member_input" id="select_ul_${status.index }">
 		                            		<li>번호 : ${item.seq }</li>
 		                            		<li>내용 : ${item.content }</li>
-		                            		<c:if test="${model.view.select_type == '0' }">
-		                            		<li>이미지 : ${item.image }</li>
+		                            		<c:if test="${item.image != '' }">
+		                            			<li>이미지 : <span onclick="img_modal('${item.image}')">이미지 보기</span></li>
+		                            		</c:if>
+		                            		<c:if test="${item.image == '' }">
+		                            			<li>이미지 : X</li>
 		                            		</c:if>
 		                            	</ul>
 	                            	</c:forEach>
@@ -156,6 +159,12 @@ $(document).ready(function () {
 	
 	
 });
+
+function img_modal(image){
+	
+	window.open('/resources/upload/ckeditor/'+image , '이미지 확인', 'width=500, height=500');
+	
+}
 
 
 </script>

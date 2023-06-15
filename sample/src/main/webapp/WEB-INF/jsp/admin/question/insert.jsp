@@ -499,9 +499,9 @@ function select_list_append(count , length , select_type){
 		html += `<li>`;
 		if(select_type == '0'){
 			if(i == 0){
-				var OX = 'O'
+				var OX = '1'
 			}else if(i == 1){
-				var OX = 'X'
+				var OX = '2'
 			}
 			html += `번호<input type="text" name="seq" value="`+OX+`">`;	
 		}else if(select_type == '1'){
