@@ -104,10 +104,10 @@
 		                            	<ul class="member_input" id="select_ul_${status.index }">
 		                            		<li>번호 : ${item.seq }</li>
 		                            		<li>내용 : ${item.content }</li>
-		                            		<c:if test="${item.image != '' }">
+		                            		<c:if test="${item.image != ''}">
 		                            			<li>이미지 : <span onclick="img_modal('${item.image}')">이미지 보기</span></li>
 		                            		</c:if>
-		                            		<c:if test="${item.image == '' }">
+		                            		<c:if test="${item.image == ''}">
 		                            			<li>이미지 : X</li>
 		                            		</c:if>
 		                            	</ul>
