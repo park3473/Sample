@@ -174,6 +174,14 @@ function question_connect(connect_type , e){
 	
 	console.log(type);
 	
+	$.ajax({
+		url : '/admin/question/select/list.do',
+		type : 'POST',
+		data : 
+		
+		
+	})
+	
 	switch (connect_type) {
 	case 'connect':
 		console.log('connect');

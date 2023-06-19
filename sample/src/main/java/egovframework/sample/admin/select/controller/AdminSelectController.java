@@ -53,6 +53,16 @@ public class AdminSelectController {
 		
 	}
 	
+	//select list AJAX 가져오기
+	@RequestMapping(value="/admin/select/list.do" , method = RequestMethod.POST)
+	public ModelMap AdminSelectAjaxList(@ModelAttribute("AdminSelectVo")AdminSelectVo AdminSelectVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelMap model = new ModelMap();
+		
+		return model;
+		
+	}
+	
 	@RequestMapping(value="/admin/select/insert.do" , method = RequestMethod.POST)
 	public void AdminSelectInsert(@ModelAttribute("AdminSelectVo")AdminSelectVo AdminSelectVo , MultipartHttpServletRequest request , HttpServletResponse response) {
 		
