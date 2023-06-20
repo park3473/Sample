@@ -175,12 +175,35 @@ function question_connect(connect_type , e){
 	console.log(type);
 	
 	$.ajax({
-		url : '/admin/question/select/list.do',
+		url : '/admin/select/listAPI.do',
 		type : 'POST',
-		data : 
-		
-		
+		data : ({
+            question_idx : idx
+        }),
+        success : function(data , status , xhr){
+            console.log('success');
+            console.log(data);
+            console.log(data.list);
+            console.log(data.list.length);
+            opener.document.getElementsByName('select_type_cnt')[0].value = data.list.length;
+            opener.select_list_append(data.list.length,'0', select_type);
+            
+            
+            
+            for(var i = 0; i < data.list.length; i ++){
+            	
+            	$('#select_ul_'+i+' [name=seq]' , opener.document).val(data.list[i].seq);
+				$('#select_ul_'+i+' [name=content]' , opener.document).val(data.list[i].content);
+				
+            }
+            
+            
+        },
+        error : function(error , status , xhr){
+             console.log('error');   
+        }
 	})
+	
 	
 	switch (connect_type) {
 	case 'connect':
@@ -188,14 +211,14 @@ function question_connect(connect_type , e){
 		//연결에 대한 저장 버튼쪽 변경하기
 		opener.button_change('2');
 		alert('해당 문제를 연결합니다.');
-		window.close();
+		//window.close();
 		break;
 	case 'update':
 		console.log('update');
 		//가져와서 수정하기 대한 저장 버튼쪽 변경하기
 		opener.button_change('1');
 		alert('해당 문제를 수정할수 있도록 합니다.');
-		window.close();
+		//window.close();
 		break;
 	}
 	

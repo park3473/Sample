@@ -337,12 +337,22 @@ function insertClick()
 				SelectForm.append('seq', seq);
 				SelectForm.append('content', content);
 				
-				if($('#select_ul_'+i+' [name=image]').val() != null && $('#select_ul_'+i+' [name=image]').val() != ''){
+				if($('#select_ul_'+i+' [name=image][type=file]').val() != null && $('#select_ul_'+i+' [name=image][type=file]').val() != ''){
 					var image_boolean = 'true';
 					
 					SelectForm.append('image', $('#select_ul_'+i+' [name=image]')[0].files[0]); // 파일 입력 필드에서 파일을 가져와 추가합니다
 				}else{
-					SelectForm.append('image', '');
+					
+					if($('#select_ul_'+i+' [name=image][type=text]').val() != null && $('#select_ul_'+i+' [name=image][type=text]').val() != ''){
+						
+						SelectForm.append('image', $('#select_ul_'+i+' [name=image][type=text]').val());
+						
+					}else{
+					
+						SelectForm.append('image', '');
+						
+					}
+					
 				}
 				SelectForm.append('image_boolean', image_boolean);
 				SelectForm.append('question_idx', question_idx);
@@ -504,7 +514,7 @@ function select_list_append(count , length , select_type){
 				var OX = '2'
 			}
 			html += `번호<input type="text" name="seq" value="`+OX+`">`;	
-		}else if(select_type == '1'){
+		}else if(select_type == '1' || select_type == '2' || select_type == '3'){
 			html += `번호<input type="text" name="seq" value="`+(i+1)+`">`;
 		}
 		html += `</li>`;
@@ -523,10 +533,10 @@ function select_list_append(count , length , select_type){
 		html += `</li>`;
 		
 		
-		if(select_type == '1'){
+		if(select_type == '1' || select_type == '2' || select_type == '3'){
 		
 			html += `<li>`;
-			html += `이미지<input type="file" name="image" value="" >`;
+			html += `이미지<input type="text" name="image" value="">`;
 			html += `</li>`;
 			
 		}
@@ -551,7 +561,6 @@ function select_list_delete(count){
 	}
 	
 }
-
 </script>
 <script type="text/javascript">
 window.addEventListener('DOMContentLoaded', (event) => {

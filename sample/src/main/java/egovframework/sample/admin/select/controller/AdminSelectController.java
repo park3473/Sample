@@ -28,7 +28,7 @@ public class AdminSelectController {
 	
 	@RequestMapping(value="/admin/select/list.do" , method = RequestMethod.GET)
 	public ModelAndView AdminSelectList(@ModelAttribute("AdminSelectVo")AdminSelectVo AdminSelectVo , HttpServletRequest request , HttpServletResponse response) {
-	
+		
 		String question_idx = request.getParameter("question_idx") != null ? request.getParameter("question_idx") : "";
 		
 		String select_type = request.getParameter("select_type") != null ? request.getParameter("select_type") : "";
@@ -54,10 +54,13 @@ public class AdminSelectController {
 	}
 	
 	//select list AJAX 가져오기
-	@RequestMapping(value="/admin/select/list.do" , method = RequestMethod.POST)
+	@RequestMapping(value="/admin/select/listAPI.do" , method = RequestMethod.POST , produces = "application/json; charset=utf8")
+	@ResponseBody
 	public ModelMap AdminSelectAjaxList(@ModelAttribute("AdminSelectVo")AdminSelectVo AdminSelectVo , HttpServletRequest request , HttpServletResponse response) {
 		
 		ModelMap model = new ModelMap();
+		
+		model = adminSelectService.getSelectAllList(AdminSelectVo);
 		
 		return model;
 		
