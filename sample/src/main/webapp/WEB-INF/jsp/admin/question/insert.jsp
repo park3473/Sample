@@ -385,6 +385,9 @@ function insertClick()
 			
 			console.log('안쪽 모두 종료');
 			
+			alert('해당 문제가 등록되었습니다.');
+			location.href = '/admin/question.list.do';
+			
 			
 		},
 		error : function(error , status , xhr){
@@ -527,7 +530,7 @@ function select_list_append(count , length , select_type){
 				var OX = 'X'
 			}
 			html += `내용<input type="text" name="content" value="`+OX+`">`;	
-		}else if(select_type == '1'){
+		}else if(select_type == '1' || select_type == '2' || select_type == '3'){
 			html += `내용<input type="text" name="content" value="">`;
 		}
 		html += `</li>`;
@@ -537,9 +540,14 @@ function select_list_append(count , length , select_type){
 		
 			html += `<li>`;
 			
-			if(select_type == '1' || select_type == '2' || select_type == '3')
-			
-			html += `이미지<input type="text" name="image" value="">`;
+			if(select_type == '1'){
+				html += `이미지<input type="file" name="image" value="">`;
+			}else if(select_type == '2' || select_type == '3'){
+				html += `이미지<input type="text" name="image" value="">`;
+				if(select_type == '3'){
+					html += `<button type="button" onclick="image_change(this , '`+i+`')">이미지 변경</button>`;
+				}
+			}
 			html += `</li>`;
 			
 		}
@@ -564,6 +572,14 @@ function select_list_delete(count){
 	}
 	
 }
+
+//이미지 변경
+function image_change(){
+	
+	
+	
+}
+
 </script>
 <script type="text/javascript">
 window.addEventListener('DOMContentLoaded', (event) => {

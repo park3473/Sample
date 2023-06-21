@@ -185,8 +185,16 @@ function question_connect(connect_type , e){
             console.log(data);
             console.log(data.list);
             console.log(data.list.length);
-            opener.document.getElementsByName('select_type_cnt')[0].value = data.list.length;
-            opener.select_list_append(data.list.length,'0', select_type);
+            
+            if(select_type == '1'){
+            	opener.document.getElementsByName('select_type_cnt')[0].value = data.list.length;	
+            }
+            
+            if(connect_type == 'connect'){
+            	opener.select_list_append(data.list.length,'0', '2');	
+            }else if(connect_type == 'update'){
+            	opener.select_list_append(data.list.length,'0', '3');
+            }
             
             
             
@@ -194,6 +202,7 @@ function question_connect(connect_type , e){
             	
             	$('#select_ul_'+i+' [name=seq]' , opener.document).val(data.list[i].seq);
 				$('#select_ul_'+i+' [name=content]' , opener.document).val(data.list[i].content);
+				$('#select_ul_'+i+' [name=image]' , opener.document).val(data.list[i].image);
 				
             }
             
