@@ -536,6 +536,9 @@ function select_list_append(count , length , select_type){
 		if(select_type == '1' || select_type == '2' || select_type == '3'){
 		
 			html += `<li>`;
+			
+			if(select_type == '1' || select_type == '2' || select_type == '3')
+			
 			html += `이미지<input type="text" name="image" value="">`;
 			html += `</li>`;
 			
