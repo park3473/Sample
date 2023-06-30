@@ -206,30 +206,30 @@ function question_connect(connect_type , e){
 				
             }
             
+            switch (connect_type) {
+        	case 'connect':
+        		console.log('connect');
+        		//연결에 대한 저장 버튼쪽 변경하기
+        		opener.button_change('2');
+        		alert('해당 문제를 연결합니다.');
+        		opener.document.getElementsByName('question_idx')[0].value = idx;
+        		window.close();
+        		break;
+        	case 'update':
+        		console.log('update');
+        		//가져와서 수정하기 대한 저장 버튼쪽 변경하기
+        		opener.button_change('3');
+        		alert('해당 문제를 수정할수 있도록 합니다.');
+        		window.close();
+        		break;
+        	}
             
         },
         error : function(error , status , xhr){
              console.log('error');   
         }
 	})
-	
-	
-	switch (connect_type) {
-	case 'connect':
-		console.log('connect');
-		//연결에 대한 저장 버튼쪽 변경하기
-		opener.button_change('2');
-		alert('해당 문제를 연결합니다.');
-		//window.close();
-		break;
-	case 'update':
-		console.log('update');
-		//가져와서 수정하기 대한 저장 버튼쪽 변경하기
-		opener.button_change('1');
-		alert('해당 문제를 수정할수 있도록 합니다.');
-		//window.close();
-		break;
-	}
+
 	
 }
 

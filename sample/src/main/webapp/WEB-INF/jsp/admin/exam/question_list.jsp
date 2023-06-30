@@ -62,9 +62,9 @@
                                     </tr>
                                     <c:forEach var="item" items="${model.list}" varStatus="status">
                                     <tr data-role="button" data-id="${item.idx}"  >
-                                        <td>${model.itemtotalcount - (status.index + model.page *  model.itemcount)}</td>
-                                        <td>${item.name }</td>
-                                        <td>${item.type }</td>
+                                        <td>${item.seq }</td>
+                                        <td>${item.NAME }</td>
+                                        <td>${item.TYPE }</td>
                                         <td>
                                             ${fn:substring(item.create_tm,0,11)}
                                         </td>

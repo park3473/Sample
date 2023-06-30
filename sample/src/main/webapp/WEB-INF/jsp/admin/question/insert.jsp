@@ -45,6 +45,7 @@
                     <form action="./insert.do" method="post" name="question_insertForm" id="question_insertForm" enctype="multipart/form-data">
                         <input type="hidden"  name="csrf" value="${CSRF_TOKEN}" />
                         <input type="hidden" name="exam_idx" value="${model.exam_idx }">
+                        <input type="hidden" name="question_idx" value="">
                         <input type="hidden" name="question_type" value="new">
                         <div class="sc_con" id="div_con">
                             <div class="title">
@@ -174,6 +175,7 @@ $(document).ready(function () {
 </script>
 <script type="text/javascript">
 
+//메뉴창
 $(document).ready(function () {
 	
 	$(".adm_menu_con > li").eq(3).find(".sub_menu_con").show();
@@ -249,7 +251,7 @@ function select_type_change(){
 
 
 //문제 및 답안 등록
-function insertClick()
+function insertClick(InsertToConnectType)
 {
 
 	if($('#question_insertForm [name=exam_idx]').val() != 'false' && $('#question_insertForm [name=seq]').val() == '')
@@ -383,10 +385,47 @@ function insertClick()
 			}
 			
 			
-			console.log('안쪽 모두 종료');
-			
-			alert('해당 문제가 등록되었습니다.');
-			location.href = '/admin/question.list.do';
+			if(InsertToConnectType == 'insert'){
+				
+				console.log('안쪽 모두 종료');
+				
+				alert('해당 문제가 등록되었습니다.');
+				location.href = '/admin/question.list.do';
+				
+			}else if(InsertToConnectType == 'connect'){
+				
+				var exam_idx = $('#question_insertForm [name=exam_idx]').val();
+				var seq = $('#question_insertForm [name=seq]').val();
+				console.log('exam_idx : ' + exam_idx);
+				console.log('seq : ' + seq);
+				console.log('question_idx : ' + question_idx);
+				console.log('안쪽 모두 종료');
+				
+				//문제 등록한거 연결
+				$.ajax({
+					
+					url : '/admin/exam/question_list/insert.do',
+					type : 'POST',
+					data : ({
+						exam_idx : exam_idx,
+						seq : seq,
+						question_idx : question_idx,
+					}),
+					success : function(status , xhr){
+						
+						console.log('연결 완료'),
+						alert('해당 문제가 등록되었습니다.');
+						location.href = '/admin/question.list.do';		
+						
+					},
+					error : function(status, xhr){
+						
+					}
+					
+				})
+				
+				
+			}
 			
 			
 		},
@@ -401,6 +440,43 @@ function insertClick()
 	
 }
 
+
+//ConnectCilck = 문제 연결
+function ConnectClick(){
+	
+	var question_idx = $('#question_insertForm [name=question_idx]').val();
+	var exam_idx = $('#question_insertForm [name=exam_idx]').val();
+	var seq = $('#question_insertForm [name=seq]').val();
+	
+	console.log('question_idx : '+question_idx);
+	console.log('exam_idx : ' + exam_idx);
+	console.log('seq : ' + seq);
+	
+	$.ajax({
+		url : '/admin/exam/question_list/insert.do',
+		type : 'POST',
+		data : ({
+			question_idx : question_idx,
+			exam_idx : exam_idx,
+			seq : seq
+		}),
+		success : function(){
+			
+			console.log('success');
+			alert('연결되었습니다.');
+			location.href='/admin/exam/list.do';
+			
+		},
+		error : function(){
+		
+			console.log('error');
+			
+		}
+	})
+	
+	
+}
+
 //버튼 변경
 function button_change(type){
 	
@@ -411,6 +487,9 @@ function button_change(type){
 	case '2':
 		$('#admin_button').html(admin_button_2);
 		break;
+	case '3':
+		$('#admin_button').html(admin_button_3);
+		break;
 	}
 }
 
@@ -419,14 +498,13 @@ function button_change(type){
 const admin_button_1 = `<button class="storage" onclick="select_form_open()">답안 작성</button>
 	<button class="storage" onclick="history.back()">뒤로 가기</button>`;   
 
-const admin_button_2 = `<a class="storage" href="javascript:ConnectClick()">문제 연결</a>
+const admin_button_2 = `<a class="storage" href="javascript:ConnectClick()">문제 연결</a><input type="hidden" value="" name="question_idx">
     <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;
     
-const admin_button_3 = `<a class="storage" href="javascript:ConnectClick()">문제 연결</a>
-    <a class="cancel" onclick="">답안 보기</a>
+const admin_button_3 = `<a class="storage" href="javascript:insertClick('connect')">문제 등록 후 연결</a>
     <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;
 
-const admin_button_4 = `<a class="storage" href="javascript:insertClick()">문제 등록</a>
+const admin_button_4 = `<a class="storage" href="javascript:insertClick('insert')">문제 등록</a>
     <a class="storage" href="javascript:history.back()">뒤로 가기</a>`;
 
     
@@ -574,12 +652,15 @@ function select_list_delete(count){
 }
 
 //이미지 변경
-function image_change(){
+function image_change(e,list_idx){
 	
-	
+	console.log(e);
+	console.log($('#select_ul_'+list_idx+''));
+	$(e).before('<input type="file" name="image">');
+	$('#select_ul_'+list_idx+' [name=image][type=text]').remove();
+	$(e).remove();
 	
 }
-
 </script>
 <script type="text/javascript">
 window.addEventListener('DOMContentLoaded', (event) => {
