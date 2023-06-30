@@ -72,7 +72,7 @@
                                             ${fn:substring(item.update_tm,0,11)}
                                         </td>
                                         <td>
-                                        	<button type="button" data-idx="${item.idx }" data-exam_idx="${item.exam_idx }" data-seq="${item.seq }" data-question_idx="${item.question_idx }" data-name="${item.name }" data-type="${item.type }" data-objectives="${item.objectives }" data-select_type="${item.select_type}" data-select-val="${item.select_val }">문제 보기</button>
+                                        	<button type="button"  onclick="location.href='/admin/question/view.do?idx=${item.question_idx}'" data-idx="${item.idx }" data-exam_idx="${item.exam_idx }" data-seq="${item.seq }" data-question_idx="${item.question_idx }" data-name="${item.name }" data-type="${item.type }" data-objectives="${item.objectives }" data-select_type="${item.select_type}" data-select-val="${item.select_val }">문제 보기</button>
                                         </td>
                                     </tr>
                                     </c:forEach>

@@ -342,7 +342,7 @@ function insertClick(InsertToConnectType)
 				if($('#select_ul_'+i+' [name=image][type=file]').val() != null && $('#select_ul_'+i+' [name=image][type=file]').val() != ''){
 					var image_boolean = 'true';
 					
-					SelectForm.append('image', $('#select_ul_'+i+' [name=image]')[0].files[0]); // 파일 입력 필드에서 파일을 가져와 추가합니다
+					SelectForm.append('file', $('#select_ul_'+i+' [name=image]')[0].files[0]); // 파일 입력 필드에서 파일을 가져와 추가합니다
 				}else{
 					
 					if($('#select_ul_'+i+' [name=image][type=text]').val() != null && $('#select_ul_'+i+' [name=image][type=text]').val() != ''){
@@ -390,7 +390,7 @@ function insertClick(InsertToConnectType)
 				console.log('안쪽 모두 종료');
 				
 				alert('해당 문제가 등록되었습니다.');
-				location.href = '/admin/question.list.do';
+				location.href = '/admin/exam/list.do';
 				
 			}else if(InsertToConnectType == 'connect'){
 				
@@ -415,7 +415,7 @@ function insertClick(InsertToConnectType)
 						
 						console.log('연결 완료'),
 						alert('해당 문제가 등록되었습니다.');
-						location.href = '/admin/question.list.do';		
+						location.href = '/admin/exam/list.do';		
 						
 					},
 					error : function(status, xhr){

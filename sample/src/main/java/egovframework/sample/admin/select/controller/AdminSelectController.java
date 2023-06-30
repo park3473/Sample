@@ -74,7 +74,7 @@ public class AdminSelectController {
 		if(AdminSelectVo.getImage_boolean().equals("true")) {
 		
 			String drv = request.getRealPath("");
-			drv = drv.substring(0 , drv.length()) + "./resources/" + ((HttpServletRequest) request).getContextPath() + "/upload/select/image";
+			drv = drv.substring(0 , drv.length()) + "./resources/" + ((HttpServletRequest) request).getContextPath() + "/upload/select/image/";
 			
 			String filename = SUtil.setFileUpload(request, drv);
 			
@@ -118,7 +118,7 @@ public class AdminSelectController {
 		if(file_change_type.equals("true")) {
 		////이미지 파일 등록
 		String drv = request.getRealPath("");
-		drv = drv.substring(0 , drv.length()) + "./resources/" + ((HttpServletRequest) request).getContextPath() + "/upload/select/image";
+		drv = drv.substring(0 , drv.length()) + "./resources/" + ((HttpServletRequest) request).getContextPath() + "/upload/select/image/";
 			
 		String filename = SUtil.setFileUpload(request, drv);
 			
