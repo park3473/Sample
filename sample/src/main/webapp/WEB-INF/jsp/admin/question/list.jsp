@@ -60,6 +60,7 @@
                                         </td>
                                         <td>
                                         	<button type="button" onclick="location.href='/admin/question/update.do?idx=${item.idx}'">수정</button>
+                                        	<button type="button" onclick="location.href='/admin/question/view.do?idx=${item.idx}'">보기</button>
                                         </td>
                                     </tr>
                                     </c:forEach>
