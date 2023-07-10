@@ -137,5 +137,12 @@ public class AdminSelectController {
 		
 	}
 	
+	@RequestMapping(value="/admin/select/allDelete.do" , method = RequestMethod.POST)
+	public void AdminSelectAllDelete(@ModelAttribute("AdminSelectVo")AdminSelectVo AdminSelectVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		adminSelectService.setSelectData(AdminSelectVo , "Alldelete");
+		
+	}
+	
 	
 }

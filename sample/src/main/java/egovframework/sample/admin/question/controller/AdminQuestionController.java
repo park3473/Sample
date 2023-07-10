@@ -155,6 +155,17 @@ public class AdminQuestionController {
 		
 	}
 	
+	/*
+	 * ajax 활용 update
+	 */
+	@RequestMapping(value="/admin/question/AjaxUpdate.do" , method = RequestMethod.POST , produces = "application/json; charset=utf8")
+	@ResponseBody
+	public void AdminQuestionAjaxUpdatePost(@ModelAttribute("AdminQuestionVo")AdminQuestionVo AdminQuestionVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
+		
+		adminQuestionService.setQuestionData(AdminQuestionVo , "update");
+		
+	}
+	
 	@RequestMapping(value="/admin/question/update.do" , method = RequestMethod.POST)
 	public void AdminQuestionUpdatePost(@ModelAttribute("AdminQuestionVo")AdminQuestionVo AdminQuestionVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
 		

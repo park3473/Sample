@@ -73,7 +73,7 @@
 			SOLUTION = #{solution},
 		</if>
 		UPDATE_TM = now()
-		WHERE EXAM_IDX = #{exam_idx}
+		WHERE IDX = #{idx}
 	</update>
 	
 	<delete id="setQuestionDataDelete" parameterType="AdminQuestionVo">

@@ -43,6 +43,9 @@ public class AdminSelectServiceImpl implements AdminSelectService {
 		case "delete":
 			adminSelectMapper.setSelectDelete(adminSelectVo);
 			break;
+		case "Alldelete":
+			adminSelectMapper.setSelectAllDelete(adminSelectVo);
+			break;
 		default:
 			break;
 		}

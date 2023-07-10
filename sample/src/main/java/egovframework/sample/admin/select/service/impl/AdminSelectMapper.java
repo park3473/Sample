@@ -20,4 +20,6 @@ public interface AdminSelectMapper {
 
 	public List<?> getSelectList(String value);
 
+	public void setSelectAllDelete(AdminSelectVo adminSelectVo);
+
 }

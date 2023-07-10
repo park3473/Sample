@@ -17,6 +17,7 @@
 	<select id="getSelectList" parameterType="String" resultType="hashMap">
 		SELECT * FROM TBL_SELECT
 		WHERE QUESTION_IDX = #{value}
+		ORDER BY SEQ
 	</select>
 	
 	<insert id="setSelectInsert" parameterType="AdminSelectVo">
@@ -38,5 +39,10 @@
 		UPDATE_TM = now()
 		WHERE IDX = #{idx}
 	</update>
+	
+	<delete id="setSelectAllDelete" parameterType="AdminSelectVo">
+		DELETE FROM TBL_SELECT
+		WHERE QUESTION_IDX = #{question_idx}
+	</delete>
 
 </mapper>
