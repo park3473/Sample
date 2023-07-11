@@ -107,10 +107,10 @@
 	                            <div class="member_input_wrap" id="select_input_warp">
 	                            	<c:forEach items="${model.list}" var="item" varStatus="status">
 		                            	<ul class="member_input" id="select_ul_${status.index }">
-		                            		<li>번호 : <input type="text" value="${item.seq }"/></li>
-		                            		<li>내용 : <input type="text" value="${item.content }"></li>
+		                            		<li>번호 : <input type="text" name="seq" value="${item.seq }" readonly="readonly"/></li>
+		                            		<li>내용 : <input type="text" name="content" value="${item.content }" readonly="readonly" /></li>
 		                            		<c:if test="${item.image != ''}">
-		                            			<li>이미지 : <input type="text" name="image" value="${item.image }"> <button type="button" onclick="image_change(this , '${status.index}')">이미지 변경</button></li>
+		                            			<li>이미지 : <input type="text" name="image" value="${item.image }" readonly="readonly" /> <button type="button" onclick="image_change(this , '${status.index}')">이미지 변경</button></li>
 		                            		</c:if>
 		                            		<c:if test="${item.image == ''}">
 		                            			<li>이미지 : <input type="file" name="image" value=""></li>
@@ -271,6 +271,7 @@ function select_change(){
 	var bool = confirm('해당 답안을 변경하시겠습니까?');
 	
 	if(bool){
+		$('#select_input_warp input[type="text"]').attr('readonly',false);
 		$('[name=select_change_bool]').val('true');	
 		$('[name=select_type]').attr('disabled' , false);
 		$('#select_type_li').append(admin_select_type_1);
@@ -484,7 +485,7 @@ function updateClick(InsertToConnectType)
 			console.log('question_insert : success');
 			console.log('question_idx : ' + $('[name=idx]').val());
 			
-			var question_idx = data;
+			var question_idx = $('[name=idx]').val();
 			var select_cnt = $('#select_insertForm #select_input_warp ul').length;
 			
 			//업데이트 이므로 답안 수정이 안됬을시에는 넘어가기
@@ -564,6 +565,9 @@ function updateClick(InsertToConnectType)
 				
 				
 			}else{
+				
+				//해당 답안 수정
+				
 				
 				console.log('수정 완료');
 				alert('해당 문제가 수정되었습니다.');
